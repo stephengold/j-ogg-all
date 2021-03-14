@@ -87,16 +87,16 @@ publishing {
                     license {
                         distribution = 'repo'
                         name = 'Free and commercial use, modification and redistribution with attribution.'
-                        url = 'http://j-ogg.de/core/main?/download-libraries.html'
+                        url = 'https://github.com/stephengold/j-ogg-all/blob/master/LICENSE'
                     }
                 }
                 name = 'jogg'
                 scm {
-                    connection = 'scm:svn:http://svn.wever.org/svn/public/jradiodj/trunk/lib/j-ogg/'
-                    developerConnection = 'scm:svn:http://svn.wever.org/svn/public/jradiodj/trunk/lib/j-ogg/'
-                    url = 'http://svn.wever.org/svn/public/jradiodj/trunk/lib/j-ogg/'
+                    connection = 'scm:git:git://github.com/stephengold/j-ogg-all.git'
+                    developerConnection = 'scm:git:ssh://github.com:stephengold/j-ogg-all.git'
+                    url = 'https://github.com/stephengold/j-ogg-all/tree/master'
                 }
-                url = 'http://www.j-ogg.de/'
+                url = 'https://github.com/stephengold/j-ogg-all'
             }
             version project.ext.version
         }
