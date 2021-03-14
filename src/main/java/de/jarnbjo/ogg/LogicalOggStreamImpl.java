@@ -85,6 +85,9 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       }
 
       do {
+         if(currentPage==null) {
+            throw new OggFormatException("Missing page in Ogg.");
+         }
          if(currentSegmentIndex>=currentPage.getSegmentOffsets().length) {
             currentSegmentIndex=0;
 
@@ -99,6 +102,9 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                   }
                }
                currentPage=getNextOggPage();
+               if(res.size()==0 && currentPage==null) {
+                  throw new OggFormatException("Missing page in Ogg.");
+               }
 
                if(res.size()==0 && currentPage.isContinued()) {
                   boolean done=false;
