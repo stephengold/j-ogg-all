@@ -74,7 +74,7 @@ publishing {
             artifact sourcesJar
             artifactId artifact
             from components.java
-            groupId 'de.jarnbjo'
+            groupId 'com.github.stephengold'
             pom {
                 description = project.description
                 developers {
@@ -90,7 +90,7 @@ publishing {
                         url = 'https://github.com/stephengold/j-ogg-all/blob/master/LICENSE'
                     }
                 }
-                name = 'jogg'
+                name = 'com.github.stephengold:' + artifact
                 scm {
                     connection = 'scm:git:git://github.com/stephengold/j-ogg-all.git'
                     developerConnection = 'scm:git:ssh://github.com:stephengold/j-ogg-all.git'
