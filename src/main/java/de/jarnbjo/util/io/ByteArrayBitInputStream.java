@@ -244,9 +244,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
 	 *
 	 *  @param order 
 	 *  @param buffer
-	 *  @param offset
+	 *  @param off offset
 	 *  @param len 
-	 *  @return the decoded integer value read from the stream
 	 *
 	 *  @throws IOException if an I/O error occurs
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation

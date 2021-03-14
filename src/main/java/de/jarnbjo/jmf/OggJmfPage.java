@@ -89,7 +89,7 @@ public class OggJmfPage extends OggPage {
       this.data=data;
    }
 
-   /**
+   /*
     * This method is equivalent to <code>create(source, false)</code>
     *
     * @param source the byte channel from which the ogg page is generated
@@ -120,7 +120,7 @@ public class OggJmfPage extends OggPage {
    }
    */
 
-   /**
+   /*
     * This method is called to read data from the current position in the
     * specified channel and create a new OggPage instance based on the data
     * read. If the parameter <code>skipData</code> is set to <code>true</code>,

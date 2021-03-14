@@ -113,8 +113,8 @@ public class OggPage {
     * @param source the source from which the ogg page is generated
     * @param skipData if set to <code>true</code>, the actual page data is not read into memory
     * @return an ogg page created by reading data from the specified source, starting at the current position
-    * @throws FormatException if the data read from the specified source is not matching the specification for an ogg page
-    * @throws EndOfStreamException if it is not possible to read an entire ogg page from the specified source
+    * @throws OggFormatException if the data read from the specified source is not matching the specification for an ogg page
+    * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified source
     * @throws IOException if some other I/O error is detected when reading from the source
     *
     * @see #create(RandomAccessFile)
@@ -145,8 +145,8 @@ public class OggPage {
     * @param source the source from which the ogg page is generated
     * @param skipData if set to <code>true</code>, the actual page data is not read into memory
     * @return an ogg page created by reading data from the specified source, starting at the current position
-    * @throws FormatException if the data read from the specified source is not matching the specification for an ogg page
-    * @throws EndOfStreamException if it is not possible to read an entire ogg page from the specified source
+    * @throws OggFormatException if the data read from the specified source is not matching the specification for an ogg page
+    * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified source
     * @throws IOException if some other I/O error is detected when reading from the source
     *
     * @see #create(InputStream)
@@ -173,8 +173,8 @@ public class OggPage {
     * @param source the source from which the ogg page is generated
     * @param skipData if set to <code>true</code>, the actual page data is not read into memory
     * @return an ogg page created by reading data from the specified source, starting at the current position
-    * @throws FormatException if the data read from the specified source is not matching the specification for an ogg page
-    * @throws EndOfStreamException if it is not possible to read an entire ogg page from the specified source
+    * @throws OggFormatException if the data read from the specified source is not matching the specification for an ogg page
+    * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified source
     * @throws IOException if some other I/O error is detected when reading from the source
     *
     * @see #create(byte[])

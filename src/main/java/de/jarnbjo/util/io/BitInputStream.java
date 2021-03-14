@@ -134,7 +134,6 @@ public interface BitInputStream {
 	 *  @param buffer
 	 *  @param offset
 	 *  @param len 
-	 *  @return the decoded integer value read from the stream
 	 *
 	 *  @throws IOException if an I/O error occurs
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
