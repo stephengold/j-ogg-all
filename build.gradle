@@ -1,0 +1,130 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+ext {
+    artifact = 'j-ogg-all'
+    version = '1.0.0'
+    baseName = "$artifact-$version"
+}
+
+description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.\n\
+        At the moment the support for Vorbis and FLAC is almost complete (the library decodes all files created by the\n\
+        current versions of libvorbis and libflac correctly) and I\'ve started working on Theora support.'
+
+sourceCompatibility = '1.7'
+targetCompatibility = '1.7'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'javax.media:jmf:2.1.1e'
+}
+
+tasks.withType(JavaCompile) { // compile-time options:
+    options.compilerArgs << '-Xdiags:verbose'
+    //options.compilerArgs << '-Xlint:unchecked'
+    //options.deprecation = true
+    options.encoding = 'UTF-8'
+}
+
+// custom tasks for creating source/javadoc JARs
+jar {
+    archiveBaseName = project.ext.baseName
+}
+
+task javadocJar(type: Jar) {
+    archiveBaseName = project.ext.baseName
+    classifier = 'javadoc'
+    dependsOn 'javadoc'
+    description 'Create a JAR of javadoc.'
+    from javadoc.destinationDir
+}
+
+task sourcesJar(type: Jar) {
+    archiveBaseName = project.ext.baseName
+    classifier = 'sources'
+    dependsOn 'classes'
+    description 'Create a JAR of sourcecode.'
+    from sourceSets.main.allJava
+}
+
+build.dependsOn('pom', 'pomAsc')
+task('pom', type: Copy) {
+    dependsOn 'generatePomFileForMavenPublication'
+    from "${buildDir}/publications/maven/pom-default.xml"
+    into "${buildDir}/libs"
+    rename 'pom-default.xml', baseName + '.pom'
+}
+task('pomAsc', type: Copy) {
+    dependsOn 'signMavenPublication'
+    from "${buildDir}/publications/maven/pom-default.xml.asc"
+    into "${buildDir}/libs"
+    rename 'pom-default.xml.asc', baseName + '.pom.asc'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact javadocJar
+            artifact sourcesJar
+            artifactId artifact
+            from components.java
+            groupId 'de.jarnbjo'
+            pom {
+                description = project.description
+                developers {
+                    developer {
+                        name = 'Tor-Einar Jarnbjo'
+                    }
+                }
+                inceptionYear = '2002'
+                licenses {
+                    license {
+                        distribution = 'repo'
+                        name = 'Free and commercial use, modification and redistribution with attribution.'
+                        url = 'http://j-ogg.de/core/main?/download-libraries.html'
+                    }
+                }
+                name = 'jogg'
+                scm {
+                    connection = 'scm:svn:http://svn.wever.org/svn/public/jradiodj/trunk/lib/j-ogg/'
+                    developerConnection = 'scm:svn:http://svn.wever.org/svn/public/jradiodj/trunk/lib/j-ogg/'
+                    url = 'http://svn.wever.org/svn/public/jradiodj/trunk/lib/j-ogg/'
+                }
+                url = 'http://www.j-ogg.de/'
+            }
+            version project.ext.version
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username = project.hasProperty('ossrhUsername') ? ossrhUsername : 'Unknown user'
+                password = project.hasProperty('ossrhPassword') ? ossrhPassword : 'Unknown password'
+            }
+            name = 'OSSRH'
+            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2'
+        }
+    }
+}
+publishToMavenLocal.doLast {
+    println 'published to ' + baseName
+}
+
+signing {
+    sign configurations.archives
+    sign publishing.publications.maven
+}
+tasks.withType(Sign) {
+    onlyIf { gradle.rootProject.hasProperty('signing.keyId') }
+}
+
+// add javadoc/source jar tasks as artifacts
+artifacts {
+    archives jar, sourcesJar, javadocJar
+}
