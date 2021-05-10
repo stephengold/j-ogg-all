@@ -30,7 +30,7 @@ dependencies {
 tasks.withType(JavaCompile) { // compile-time options:
     options.compilerArgs << '-Xdiags:verbose'
     //options.compilerArgs << '-Xlint:unchecked'
-    //options.deprecation = true
+    options.deprecation = true
     options.encoding = 'UTF-8'
 }
 
