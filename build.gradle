@@ -1,3 +1,5 @@
+// Gradle build script for j-ogg-all Maven artifacts
+
 plugins {
     id 'java-library'
     id 'maven-publish'
@@ -30,6 +32,13 @@ tasks.withType(JavaCompile) { // compile-time options:
     //options.compilerArgs << '-Xlint:unchecked'
     //options.deprecation = true
     options.encoding = 'UTF-8'
+}
+
+javadoc {
+    // Disable doclint for JDK8+.
+    if (JavaVersion.current().isJava8Compatible()){
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
 }
 
 // custom tasks for creating source/javadoc JARs
