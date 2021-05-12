@@ -73,7 +73,7 @@ public class OggJmfStream implements PhysicalOggStream {
       try {
          while(true) {
             long startPos=((Seekable)source).tell();
-            po.add(new Long(((Seekable)source).tell()));
+            po.add(((Seekable)source).tell());
 
             // skip data if pageNumber>0
             OggPage op=getNextPage(true);
@@ -82,7 +82,7 @@ public class OggJmfStream implements PhysicalOggStream {
             LogicalOggStreamImpl los=(LogicalOggStreamImpl)getLogicalStream(op.getStreamSerialNumber());
             if(los==null) {
                los=new LogicalOggStreamImpl(this, op.getStreamSerialNumber());
-               logicalStreams.put(new Integer(op.getStreamSerialNumber()), los);
+               logicalStreams.put(op.getStreamSerialNumber(), los);
                ((Seekable)source).seek(startPos);
                op=getNextPage();
                los.checkFormat(op);
@@ -111,7 +111,7 @@ public class OggJmfStream implements PhysicalOggStream {
       int i=0;
       Iterator iter=po.iterator();
       while(iter.hasNext()) {
-         pageOffsets[i++]=((Long)iter.next()).longValue();
+         pageOffsets[i++]=(Long)iter.next();
       }
    }
 
@@ -142,7 +142,7 @@ public class OggJmfStream implements PhysicalOggStream {
    }
 
    public LogicalOggStream getLogicalStream(int serialNumber) {
-      return (LogicalOggStream)logicalStreams.get(new Integer(serialNumber));
+      return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
    public void setTime(long granulePosition) throws IOException {

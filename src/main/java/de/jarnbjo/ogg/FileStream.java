@@ -57,7 +57,7 @@ public class FileStream implements PhysicalOggStream {
       int pageNumber=0;
       try {
          while(true) {
-            po.add(new Long(this.source.getFilePointer()));
+            po.add(this.source.getFilePointer());
 
             // skip data if pageNumber>0
             OggPage op=getNextPage(pageNumber>0);
@@ -68,7 +68,7 @@ public class FileStream implements PhysicalOggStream {
             LogicalOggStreamImpl los=(LogicalOggStreamImpl)getLogicalStream(op.getStreamSerialNumber());
             if(los==null) {
                los=new LogicalOggStreamImpl(this, op.getStreamSerialNumber());
-               logicalStreams.put(new Integer(op.getStreamSerialNumber()), los);
+               logicalStreams.put(op.getStreamSerialNumber(), los);
             }
 
             if(pageNumber==0) {
@@ -97,7 +97,7 @@ public class FileStream implements PhysicalOggStream {
       int i=0;
       Iterator iter=po.iterator();
       while(iter.hasNext()) {
-         pageOffsets[i++]=((Long)iter.next()).longValue();
+         pageOffsets[i++]=(Long)iter.next();
       }
    }
 
@@ -128,7 +128,7 @@ public class FileStream implements PhysicalOggStream {
    }
 
    private LogicalOggStream getLogicalStream(int serialNumber) {
-      return (LogicalOggStream)logicalStreams.get(new Integer(serialNumber));
+      return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
    public void setTime(long granulePosition) throws IOException {

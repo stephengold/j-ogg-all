@@ -55,7 +55,7 @@ final public class HuffmanNode {
 
    protected HuffmanNode(HuffmanNode parent, int value) {
       this(parent);
-      this.value=new Integer(value);
+      this.value=value;
       full=true;
    }
 
@@ -64,7 +64,7 @@ final public class HuffmanNode {
       while(iter.value==null) {
          iter=bis.getBit()?iter.o1:iter.o0;
       }
-      return iter.value.intValue();
+      return iter.value;
    }
 
    protected HuffmanNode get0() {

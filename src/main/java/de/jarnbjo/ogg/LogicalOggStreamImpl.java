@@ -53,11 +53,11 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
    }
 
    public void addPageNumberMapping(int physicalPageNumber) {
-      pageNumberMapping.add(new Integer(physicalPageNumber));
+      pageNumberMapping.add(physicalPageNumber);
    }
 
    public void addGranulePosition(long granulePosition) {
-      granulePositions.add(new Long(granulePosition));
+      granulePositions.add(granulePosition);
    }
 
    public synchronized void reset() throws OggFormatException, IOException {
@@ -68,7 +68,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
 
    public synchronized OggPage getNextOggPage() throws EndOfOggStreamException, OggFormatException, IOException {
       if(source.isSeekable()) {
-         currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)).intValue());
+         currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)));
       }
       else {
          currentPage=source.getOggPage(-1);
@@ -113,7 +113,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                         done=true;
                      }
                      if(currentSegmentIndex>currentPage.getSegmentTable().length) {
-                        currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)).intValue());
+                        currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)));
                      }
                   }
                }
@@ -140,7 +140,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
 
    public long getMaximumGranulePosition() {
       Long mgp=(Long)granulePositions.get(granulePositions.size()-1);
-      return mgp.longValue();
+      return mgp;
    }
 
    public synchronized long getTime() {
@@ -152,13 +152,13 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       int page=0;
       for(page=0; page<granulePositions.size(); page++) {
          Long gp=(Long)granulePositions.get(page);
-         if(gp.longValue()>granulePosition) {
+         if(gp>granulePosition) {
             break;
          }
       }
 
       pageIndex=page;
-      currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)).intValue());
+      currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)));
       currentSegmentIndex=0;
       int segmentLength=0;
       do {
@@ -167,7 +167,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
             if(pageIndex>=pageNumberMapping.size()) {
                throw new EndOfOggStreamException();
             }
-            currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)).intValue());
+            currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)));
          }
          segmentLength=currentPage.getSegmentLengths()[currentSegmentIndex];
          currentSegmentIndex++;

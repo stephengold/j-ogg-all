@@ -25,7 +25,7 @@ package de.jarnbjo.flac;
 class Properties {
 
    protected static boolean analyze() {
-      return new Boolean(System.getProperty("analyze", "false")).booleanValue();
+      return Boolean.valueOf(System.getProperty("analyze", "false"));
    }
 
 }

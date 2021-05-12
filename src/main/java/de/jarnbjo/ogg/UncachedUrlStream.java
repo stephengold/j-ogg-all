@@ -116,7 +116,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
    }
 
    private LogicalOggStream getLogicalStream(int serialNumber) {
-      return (LogicalOggStream)logicalStreams.get(new Integer(serialNumber));
+      return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
    public void setTime(long granulePosition) throws IOException {
@@ -159,7 +159,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
                LogicalOggStreamImpl los=(LogicalOggStreamImpl)getLogicalStream(op.getStreamSerialNumber());
                if(los==null) {
                   los=new LogicalOggStreamImpl(UncachedUrlStream.this, op.getStreamSerialNumber());
-                  logicalStreams.put(new Integer(op.getStreamSerialNumber()), los);
+                  logicalStreams.put(op.getStreamSerialNumber(), los);
                   los.checkFormat(op);
                }
 

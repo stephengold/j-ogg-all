@@ -127,7 +127,7 @@ public class CachedUrlStream implements PhysicalOggStream {
          Long length=(Long)pageLengths.get(index);
          if(offset!=null) {
             if(drain!=null) {
-               drain.seek(offset.longValue());
+               drain.seek(offset);
                return OggPage.create(drain);
             }
             else {
@@ -143,7 +143,7 @@ public class CachedUrlStream implements PhysicalOggStream {
    }
 
    private LogicalOggStream getLogicalStream(int serialNumber) {
-      return (LogicalOggStream)logicalStreams.get(new Integer(serialNumber));
+      return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
    public void setTime(long granulePosition) throws IOException {
@@ -180,8 +180,8 @@ public class CachedUrlStream implements PhysicalOggStream {
 
                   long pos=
                      listSize>0?
-                        ((Long)pageOffsets.get(listSize-1)).longValue()+
-                        ((Long)pageLengths.get(listSize-1)).longValue():
+                        ((Long)pageOffsets.get(listSize-1))+
+                          ((Long)pageLengths.get(listSize-1)):
                         0;
 
                   byte[] arr1=op.getHeader();
@@ -200,8 +200,8 @@ public class CachedUrlStream implements PhysicalOggStream {
                      System.arraycopy(arr3, 0, memoryCache, (int)pos+arr1.length+arr2.length, arr3.length);
                   }
 
-                  pageOffsets.add(new Long(pos));
-                  pageLengths.add(new Long(arr1.length+arr2.length+arr3.length));
+                  pageOffsets.add(pos);
+                  pageLengths.add(arr1.length+arr2.length+arr3.length);
                }
 
                if(!op.isBos()) {
@@ -215,7 +215,7 @@ public class CachedUrlStream implements PhysicalOggStream {
                LogicalOggStreamImpl los=(LogicalOggStreamImpl)getLogicalStream(op.getStreamSerialNumber());
                if(los==null) {
                   los=new LogicalOggStreamImpl(CachedUrlStream.this, op.getStreamSerialNumber());
-                  logicalStreams.put(new Integer(op.getStreamSerialNumber()), los);
+                  logicalStreams.put(op.getStreamSerialNumber(), los);
                   los.checkFormat(op);
                }
 
