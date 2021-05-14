@@ -7,9 +7,10 @@ plugins {
 }
 
 ext {
+    group = 'com.github.stephengold'
     artifact = 'j-ogg-all'
     version = '1.0.1'
-    baseName = "$artifact-$version"
+    baseName = "${artifact}-${version}"
 }
 
 description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.\n\
@@ -41,7 +42,8 @@ javadoc {
     }
 }
 
-// custom tasks for creating source/javadoc JARs
+// publishing tasks
+
 jar {
     archiveBaseName = project.ext.baseName
 }
@@ -83,7 +85,7 @@ publishing {
             artifact sourcesJar
             artifactId artifact
             from components.java
-            groupId 'com.github.stephengold'
+            groupId project.ext.group
             pom {
                 description = project.description
                 developers {
@@ -99,7 +101,7 @@ publishing {
                         url = 'https://github.com/stephengold/j-ogg-all/blob/master/LICENSE'
                     }
                 }
-                name = 'com.github.stephengold:' + artifact
+                name = project.ext.group + ':' + artifact
                 scm {
                     connection = 'scm:git:git://github.com/stephengold/j-ogg-all.git'
                     developerConnection = 'scm:git:ssh://github.com:stephengold/j-ogg-all.git'
@@ -125,6 +127,8 @@ generateMetadataFileForMavenPublication.dependsOn('pom')
 publishToMavenLocal.doLast {
     println 'published to ' + baseName
 }
+
+// signing tasks
 
 signing {
     sign publishing.publications.maven
