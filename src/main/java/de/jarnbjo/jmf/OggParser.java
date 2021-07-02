@@ -87,10 +87,7 @@ public class OggParser implements Demultiplexer {
                tracks[i]=OggTrack.createInstance(los);
             }
          }
-         catch(OggFormatException e) {
-            throw new BadHeaderException(e.getMessage());
-         }
-         catch(VorbisFormatException e) {
+         catch (OggFormatException | VorbisFormatException e) {
             throw new BadHeaderException(e.getMessage());
          }
       }
@@ -209,15 +206,7 @@ public class OggParser implements Demultiplexer {
             throw new IncompatibleSourceException("Stream is not seekable.");
          }
       }
-      catch(IncompatibleSourceException e) {
-         e.printStackTrace();
-         throw e;
-      }
-      catch(IOException e) {
-         e.printStackTrace();
-         throw e;
-      }
-      catch(RuntimeException e) {
+      catch (IncompatibleSourceException | IOException | RuntimeException e) {
          e.printStackTrace();
          throw e;
       }

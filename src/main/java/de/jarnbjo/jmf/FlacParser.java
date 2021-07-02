@@ -187,15 +187,7 @@ public class FlacParser implements Demultiplexer {
             throw new IncompatibleSourceException("Stream is not seekable.");
          }
       }
-      catch(IncompatibleSourceException e) {
-         e.printStackTrace();
-         throw e;
-      }
-      catch(IOException e) {
-         e.printStackTrace();
-         throw e;
-      }
-      catch(RuntimeException e) {
+      catch (IncompatibleSourceException | IOException | RuntimeException e) {
          e.printStackTrace();
          throw e;
       }
