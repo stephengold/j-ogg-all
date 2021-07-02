@@ -35,6 +35,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 	public VorbisAudioFileReader() {
 	}
 	
+        @Override
 	public AudioFileFormat getAudioFileFormat(File file) throws IOException, UnsupportedAudioFileException {
 		try {
 			return getAudioFileFormat(new FileStream(new RandomAccessFile(file, "r")));	
@@ -44,6 +45,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 		}
 	}
 	
+        @Override
 	public AudioFileFormat getAudioFileFormat(InputStream stream) throws IOException, UnsupportedAudioFileException {
 		try {
 			return getAudioFileFormat(new BasicStream(stream));	
@@ -53,6 +55,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 		}		
 	}
 	
+        @Override
 	public AudioFileFormat getAudioFileFormat(URL url) throws IOException, UnsupportedAudioFileException {
 		try {
 			return getAudioFileFormat(new UncachedUrlStream(url));	
@@ -94,6 +97,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 	
 	
 	
+        @Override
 	public AudioInputStream getAudioInputStream(File file) throws IOException, UnsupportedAudioFileException {
 		try {
 			return getAudioInputStream(new FileStream(new RandomAccessFile(file, "r")));	
@@ -103,6 +107,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 		}
 	}
 	
+        @Override
 	public AudioInputStream getAudioInputStream(InputStream stream) throws IOException, UnsupportedAudioFileException {
 		try {
 			return getAudioInputStream(new BasicStream(stream));	
@@ -112,6 +117,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 		}		
 	}
 	
+        @Override
 	public AudioInputStream getAudioInputStream(URL url) throws IOException, UnsupportedAudioFileException {
 		try {
 			return getAudioInputStream(new UncachedUrlStream(url));	
@@ -174,14 +180,17 @@ public class VorbisAudioFileReader extends AudioFileReader {
          	this.source=source;
       	}
 
+        @Override
       	public int read() throws IOException {
          	return 0;
       	}
 
+        @Override
       	public int read(byte[] buffer) throws IOException {
          	return read(buffer, 0, buffer.length);
       	}
 
+        @Override
       	public int read(byte[] buffer, int offset, int length) throws IOException {
          	try {
             	return source.readPcm(buffer, offset, length);

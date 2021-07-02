@@ -53,6 +53,7 @@ public class OggParser implements Demultiplexer {
    public OggParser() {
    }
 
+   @Override
    public Time getDuration() {
       if(tracks==null) {
          return Time.TIME_UNKNOWN;
@@ -66,10 +67,12 @@ public class OggParser implements Demultiplexer {
       return new Time(max);//Time.TIME_UNKNOWN;
    }
 
+   @Override
    public ContentDescriptor[] getSupportedInputContentDescriptors() {
       return supportedContentTypes;
    }
 
+   @Override
    public Track[] getTracks() throws BadHeaderException, IOException {
       if(tracks==null) {
          try {
@@ -94,19 +97,23 @@ public class OggParser implements Demultiplexer {
       return tracks;
    }
 
+   @Override
    public boolean isPositionable() {
       return true;
    }
 
+   @Override
    public boolean isRandomAccess() {
       return true;
    }
 
+   @Override
    public Time getMediaTime() {
       /** @todo implement */
       return Time.TIME_UNKNOWN;
    }
 
+   @Override
    public Time setPosition(Time time, int rounding) {
 
       try {
@@ -127,12 +134,14 @@ public class OggParser implements Demultiplexer {
       return Time.TIME_UNKNOWN;
    }
 
+   @Override
    public void start() throws IOException {
       if(source!=null) {
          source.start();
       }
    }
 
+   @Override
    public void stop()  {
       if(source!=null) {
          try {
@@ -144,10 +153,12 @@ public class OggParser implements Demultiplexer {
       }
    }
 
+   @Override
    public void open() {
       // nothing to be done
    }
 
+   @Override
    public void close() {
       if(source!=null) {
          try {
@@ -161,14 +172,17 @@ public class OggParser implements Demultiplexer {
       }
    }
 
+   @Override
    public void reset() {
       setPosition(new Time(0), 0);
    }
 
+   @Override
    public String getName() {
       return DEMULTIPLEXER_NAME;
    }
 
+   @Override
    public void setSource(DataSource source) throws IOException, IncompatibleSourceException {
 
       try {
@@ -209,10 +223,12 @@ public class OggParser implements Demultiplexer {
       }
    }
 
+   @Override
    public Object getControl(String controlType) {
       return null;
    }
 
+   @Override
    public Object[] getControls() {
       return new Object[0];
    }

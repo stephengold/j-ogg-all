@@ -54,10 +54,12 @@ public class TheoraTrack extends OggTrack {
          (float)header.getFrameRate());
    }
 
+   @Override
    public Format getFormat() {
       return format;
    }
 
+   @Override
    public Time getDuration() {
       long frame=oggStream.getMaximumGranulePosition()>>6;
       return frame==-1?

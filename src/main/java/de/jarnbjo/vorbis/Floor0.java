@@ -51,15 +51,18 @@ class Floor0 extends Floor {
       }
    }
 
+   @Override
    protected int getType() {
       return 0;
    }
 
+   @Override
    protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
       /** @todo implement */
       throw new UnsupportedOperationException();
    }
 
+   @Override
    protected void computeFloor(float[] vector) {
       /** @todo implement */
       throw new UnsupportedOperationException();

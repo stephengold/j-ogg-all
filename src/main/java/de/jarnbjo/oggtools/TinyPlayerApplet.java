@@ -48,17 +48,21 @@ public class TinyPlayerApplet extends Applet implements Runnable {
    private VorbisStream vStream;
    private LogicalOggStream loStream;
 
+   @Override
    public void init() {
    }
 
+   @Override
    public void start() {
       new Thread(this).start();
    }
 
+   @Override
    public void stop() {
       running=false;
    }
 
+   @Override
    public void run() {
 
       try {
@@ -133,16 +137,19 @@ public class TinyPlayerApplet extends Applet implements Runnable {
          this.source=source;
       }
 
+      @Override
       public int read() throws IOException {
          return 0;
       }
 
+      @Override
       public int read(byte[] buffer) throws IOException {
          return read(buffer, 0, buffer.length);
       }
 
       private static int cnt=0;
 
+      @Override
       public int read(byte[] buffer, int offset, int length) throws IOException {
          try {
             return source.readPcm(buffer, offset, length);

@@ -95,15 +95,18 @@ public class OggTrack implements Track {
          */
    }
 
+   @Override
    public Format getFormat() {
       return format;
    }
 
+   @Override
    public Time getStartTime() {
       return Time.TIME_UNKNOWN;
       //return new Time(0);
    }
 
+   @Override
    public boolean isEnabled() {
       return enabled;
    }
@@ -112,6 +115,7 @@ public class OggTrack implements Track {
    //   vorbisChannel.setNextPage(nextPage);
    //}
 
+   @Override
    public Time mapFrameToTime(int frameNumber) {
       return Time.TIME_UNKNOWN;
       /*
@@ -127,6 +131,7 @@ public class OggTrack implements Track {
       */
    }
 
+   @Override
    public int mapTimeToFrame(Time t) {
       /*
       long[] agp=oggChannel.getAbsoluteGranulePositions();
@@ -142,6 +147,7 @@ public class OggTrack implements Track {
    }
 
 
+   @Override
    public synchronized void readFrame(javax.media.Buffer buffer) {
 
       try {
@@ -172,14 +178,17 @@ public class OggTrack implements Track {
       }
    }
 
+   @Override
    public void setEnabled(boolean t) {
       enabled=t;
    }
 
+   @Override
    public void setTrackListener(TrackListener listener) {
       this.listener=listener;
    }
 
+   @Override
    public Time getDuration() {
       return Duration.DURATION_UNKNOWN;
       //long nos=oggChannel.getNumberOfSamples();

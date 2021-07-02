@@ -116,14 +116,17 @@ public class Player {
          this.source=source;
       }
 
+      @Override
       public int read() throws IOException {
          return 0;
       }
 
+      @Override
       public int read(byte[] buffer) throws IOException {
          return read(buffer, 0, buffer.length);
       }
 
+      @Override
       public int read(byte[] buffer, int offset, int length) throws IOException {
          try {
             return source.readPcm(buffer, offset, length);

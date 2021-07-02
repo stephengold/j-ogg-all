@@ -80,6 +80,7 @@ public abstract class Subframe {
          Arrays.fill(pcm, c);
       }
 
+      @Override
       public int[] getPcm() {
          return pcm;
       }
@@ -101,6 +102,7 @@ public abstract class Subframe {
          }
       }
 
+      @Override
       public int[] getPcm() {
          return pcm;
       }
@@ -215,6 +217,7 @@ public abstract class Subframe {
          }
       }
 
+      @Override
       public int[] getPcm() {
          return pcm;
       }
@@ -327,6 +330,7 @@ public abstract class Subframe {
          }
       }
 
+      @Override
       public int[] getPcm() {
          return pcm;
       }

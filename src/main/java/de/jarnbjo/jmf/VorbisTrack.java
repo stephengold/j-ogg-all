@@ -43,10 +43,12 @@ public class VorbisTrack extends OggTrack {
          Format.byteArray);
    }
 
+   @Override
    public Format getFormat() {
       return format;
    }
 
+   @Override
    public Time getDuration() {
       long nos=oggStream.getMaximumGranulePosition();
       return nos==-1?

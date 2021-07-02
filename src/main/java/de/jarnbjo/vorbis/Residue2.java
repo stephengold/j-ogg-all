@@ -39,10 +39,12 @@ class Residue2 extends Residue {
       super(source, header);
    }
 
+   @Override
    protected int getType() {
       return 2;
    }
 
+   @Override
    protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException {
 
       Look look=getLook(vorbis, mode);
@@ -103,6 +105,7 @@ class Residue2 extends Residue {
    }
 
 
+   @Override
    public Object clone() {
       Residue2 clone=new Residue2();
       fill(clone);

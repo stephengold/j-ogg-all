@@ -28,6 +28,7 @@ public class FlacParser implements Demultiplexer {
    public FlacParser() {
    }
 
+   @Override
    public Time getDuration() {
       return Time.TIME_UNKNOWN;
       /*
@@ -44,10 +45,12 @@ public class FlacParser implements Demultiplexer {
       */
    }
 
+   @Override
    public ContentDescriptor[] getSupportedInputContentDescriptors() {
       return supportedContentTypes;
    }
 
+   @Override
    public Track[] getTracks() throws BadHeaderException, IOException {
       /*
       if(tracks==null) {
@@ -70,19 +73,23 @@ public class FlacParser implements Demultiplexer {
       return tracks;
    }
 
+   @Override
    public boolean isPositionable() {
       return false;
    }
 
+   @Override
    public boolean isRandomAccess() {
       return false;
    }
 
+   @Override
    public Time getMediaTime() {
       /** @todo implement */
       return Time.TIME_UNKNOWN;
    }
 
+   @Override
    public Time setPosition(Time time, int rounding) {
 
       /*
@@ -105,12 +112,14 @@ public class FlacParser implements Demultiplexer {
       return Time.TIME_UNKNOWN;
    }
 
+   @Override
    public void start() throws IOException {
       if(source!=null) {
          source.start();
       }
    }
 
+   @Override
    public void stop()  {
       if(source!=null) {
          try {
@@ -122,10 +131,12 @@ public class FlacParser implements Demultiplexer {
       }
    }
 
+   @Override
    public void open() {
       // nothing to be done
    }
 
+   @Override
    public void close() {
       if(source!=null) {
          try {
@@ -139,14 +150,17 @@ public class FlacParser implements Demultiplexer {
       }
    }
 
+   @Override
    public void reset() {
       setPosition(new Time(0), 0);
    }
 
+   @Override
    public String getName() {
       return DEMULTIPLEXER_NAME;
    }
 
+   @Override
    public void setSource(DataSource source) throws IOException, IncompatibleSourceException {
 
       try {
@@ -187,10 +201,12 @@ public class FlacParser implements Demultiplexer {
       }
    }
 
+   @Override
    public Object getControl(String controlType) {
       return null;
    }
 
+   @Override
    public Object[] getControls() {
       return new Object[0];
    }

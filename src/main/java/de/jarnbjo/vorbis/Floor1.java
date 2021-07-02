@@ -125,10 +125,12 @@ class Floor1 extends Floor implements Cloneable {
       }
    }
 
+   @Override
    protected int getType() {
       return 1;
    }
 
+   @Override
    protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
 
    //System.out.println("decodeFloor");
@@ -195,6 +197,7 @@ class Floor1 extends Floor implements Cloneable {
       return clone;
    }
 
+   @Override
    protected void computeFloor(final float[] vector) {
 
       int n=vector.length;
@@ -262,6 +265,7 @@ class Floor1 extends Floor implements Cloneable {
       for(; hx<n/2; vector[hx++]=r);
    }
 
+   @Override
    public Object clone() {
       Floor1 clone=new Floor1();
       clone.classDimensions=classDimensions;

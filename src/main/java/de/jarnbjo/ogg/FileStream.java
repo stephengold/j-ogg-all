@@ -101,14 +101,17 @@ public class FileStream implements PhysicalOggStream {
       }
    }
 
+   @Override
    public Collection getLogicalStreams() {
       return logicalStreams.values();
    }
 
+   @Override
    public boolean isOpen() {
       return !closed;
    }
 
+   @Override
    public void close() throws IOException {
       closed=true;
       source.close();
@@ -122,6 +125,7 @@ public class FileStream implements PhysicalOggStream {
       return OggPage.create(source, skipData);
    }
 
+   @Override
    public OggPage getOggPage(int index) throws IOException {
       source.seek(pageOffsets[index]);
       return OggPage.create(source);
@@ -131,6 +135,7 @@ public class FileStream implements PhysicalOggStream {
       return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
+   @Override
    public void setTime(long granulePosition) throws IOException {
       for(Iterator iter=logicalStreams.values().iterator(); iter.hasNext(); ) {
          LogicalOggStream los=(LogicalOggStream)iter.next();
@@ -142,6 +147,7 @@ public class FileStream implements PhysicalOggStream {
 	 *  @return always <code>true</code>
 	 */
 
+   @Override
    public boolean isSeekable() {
       return true;
    }

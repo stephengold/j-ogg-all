@@ -52,14 +52,17 @@ public class BasicStream implements PhysicalOggStream {
       los.checkFormat(firstPage);
    }
 
+   @Override
    public Collection getLogicalStreams() {
       return logicalStreams.values();
    }
 
+   @Override
    public boolean isOpen() {
       return !closed;
    }
 
+   @Override
    public void close() throws IOException {
       closed=true;
       sourceStream.close();
@@ -75,6 +78,7 @@ public class BasicStream implements PhysicalOggStream {
 
    int pageNumber=2;
 
+   @Override
    public OggPage getOggPage(int index) throws IOException {
       if(firstPage!=null) {
          OggPage tmp=firstPage;
@@ -92,6 +96,7 @@ public class BasicStream implements PhysicalOggStream {
       return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
+   @Override
    public void setTime(long granulePosition) throws IOException {
       throw new UnsupportedOperationException("Method not supported by this class");
    }
@@ -100,6 +105,7 @@ public class BasicStream implements PhysicalOggStream {
 	 *  @return always <code>false</code>
 	 */
 
+   @Override
    public boolean isSeekable() {
       return false;
    }

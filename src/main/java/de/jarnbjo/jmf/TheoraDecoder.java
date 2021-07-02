@@ -50,10 +50,12 @@ public class TheoraDecoder implements Codec {
    public TheoraDecoder() {
    }
 
+   @Override
    public Format[] getSupportedInputFormats() {
       return supportedInputFormats;
    }
 
+   @Override
    public Format[] getSupportedOutputFormats(Format input) {
       System.out.println("input: "+input);
       if(input==null) {
@@ -70,6 +72,7 @@ public class TheoraDecoder implements Codec {
    boolean first=true;
    long sequence=0;
 
+   @Override
    public int process(Buffer in, Buffer out) {
 
       if(1==1) return PlugIn.OUTPUT_BUFFER_NOT_FILLED;
@@ -167,31 +170,39 @@ public class TheoraDecoder implements Codec {
       }
    }
 
+   @Override
    public Format setInputFormat(Format format) {
       return format;
    }
 
+   @Override
    public Format setOutputFormat(Format format) {
       return format;
    }
 
+   @Override
    public void open() {
    }
 
+   @Override
    public void close() {
    }
 
+   @Override
    public void reset() {
    }
 
+   @Override
    public String getName() {
       return CODEC_NAME;
    }
 
+   @Override
    public Object getControl(String controlType) {
       return null;
    }
 
+   @Override
    public Object[] getControls() {
       return null;
    }

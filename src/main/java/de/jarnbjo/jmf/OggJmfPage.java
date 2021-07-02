@@ -344,6 +344,7 @@ public class OggJmfPage extends OggPage {
     */
 
 
+   @Override
    public long getAbsoluteGranulePosition() {
       return absoluteGranulePosition;
    }
@@ -354,6 +355,7 @@ public class OggJmfPage extends OggPage {
     * @return this page's serial number
     */
 
+   @Override
    public int getStreamSerialNumber() {
       return streamSerialNumber;
    }
@@ -364,6 +366,7 @@ public class OggJmfPage extends OggPage {
     * @return this page's sequence number
     */
 
+   @Override
    public int getPageSequenceNumber() {
       return pageSequenceNumber;
    }
@@ -374,6 +377,7 @@ public class OggJmfPage extends OggPage {
     * @return this page's check sum
     */
 
+   @Override
    public int getPageCheckSum() {
       return pageCheckSum;
    }
@@ -383,6 +387,7 @@ public class OggJmfPage extends OggPage {
     */
 
 
+   @Override
    public int getTotalLength() {
       return totalLength;
    }
@@ -392,22 +397,27 @@ public class OggJmfPage extends OggPage {
     */
 
 
+   @Override
    public byte[] getData() {
       return data;
    }
 
+   @Override
    public byte[] getHeader() {
       return header;
    }
 
+   @Override
    public byte[] getSegmentTable() {
       return segmentTable;
    }
 
+   @Override
    public int[] getSegmentOffsets() {
       return segmentOffsets;
    }
 
+   @Override
    public int[] getSegmentLengths() {
       return segmentLengths;
    }
@@ -416,6 +426,7 @@ public class OggJmfPage extends OggPage {
     * @return <code>true</code> if this page begins with a continued packet
     */
 
+   @Override
    public boolean isContinued() {
       return continued;
    }
@@ -424,6 +435,7 @@ public class OggJmfPage extends OggPage {
     * @return <code>true</code> if this page begins with a fresh packet
     */
 
+   @Override
    public boolean isFresh() {
       return !continued;
    }
@@ -432,6 +444,7 @@ public class OggJmfPage extends OggPage {
     * @return <code>true</code> if this page is the beginning of a logical stream
     */
 
+   @Override
    public boolean isBos() {
       return bos;
    }
@@ -440,6 +453,7 @@ public class OggJmfPage extends OggPage {
     * @return <code>true</code> if this page is the end of a logical stream
     */
 
+   @Override
    public boolean isEos() {
       return eos;
    }

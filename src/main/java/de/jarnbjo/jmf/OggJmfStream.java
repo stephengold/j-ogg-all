@@ -115,14 +115,17 @@ public class OggJmfStream implements PhysicalOggStream {
       }
    }
 
+   @Override
    public Collection getLogicalStreams() {
       return logicalStreams.values();
    }
 
+   @Override
    public boolean isOpen() {
       return !closed;
    }
 
+   @Override
    public void close() throws IOException {
       closed=true;
       //source.
@@ -136,6 +139,7 @@ public class OggJmfStream implements PhysicalOggStream {
       return OggJmfPage.create(source, skipData);
    }
 
+   @Override
    public OggPage getOggPage(int index) throws IOException {
       ((Seekable)source).seek(pageOffsets[index]);
       return OggJmfPage.create(source);
@@ -145,6 +149,7 @@ public class OggJmfStream implements PhysicalOggStream {
       return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
+   @Override
    public void setTime(long granulePosition) throws IOException {
       for(Iterator iter=logicalStreams.values().iterator(); iter.hasNext(); ) {
          LogicalOggStream los=(LogicalOggStream)iter.next();
@@ -152,6 +157,7 @@ public class OggJmfStream implements PhysicalOggStream {
       }
    }
 
+   @Override
    public boolean isSeekable() {
       return true;
    }

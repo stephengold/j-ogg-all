@@ -70,14 +70,17 @@ public class UncachedUrlStream implements PhysicalOggStream {
       //System.out.println();
    }
 
+   @Override
    public Collection getLogicalStreams() {
       return logicalStreams.values();
    }
 
+   @Override
    public boolean isOpen() {
       return !closed;
    }
 
+   @Override
    public void close() throws IOException {
       closed=true;
       sourceStream.close();
@@ -99,6 +102,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
    }
    */
 
+   @Override
    public OggPage getOggPage(int index) throws IOException {
       while(pageCache.size()==0) {
          try {
@@ -119,6 +123,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
       return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
+   @Override
    public void setTime(long granulePosition) throws IOException {
       throw new UnsupportedOperationException("Method not supported by this class");
    }
@@ -139,6 +144,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
          this.pageCache=pageCache;
       }
 
+      @Override
       public void run() {
          try {
             boolean eos=false;
@@ -194,6 +200,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
 	 *  @return always <code>false</code>
 	 */
 
+   @Override
    public boolean isSeekable() {
       return false;
    }

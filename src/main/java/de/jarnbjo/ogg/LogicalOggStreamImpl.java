@@ -60,12 +60,14 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       granulePositions.add(granulePosition);
    }
 
+   @Override
    public synchronized void reset() throws OggFormatException, IOException {
       currentPage=null;
       currentSegmentIndex=0;
       pageIndex=0;
    }
 
+   @Override
    public synchronized OggPage getNextOggPage() throws EndOfOggStreamException, OggFormatException, IOException {
       if(source.isSeekable()) {
          currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)));
@@ -76,6 +78,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       return currentPage;
    }
 
+   @Override
    public synchronized byte[] getNextOggPacket() throws EndOfOggStreamException, OggFormatException, IOException {
       ByteArrayOutputStream res=new ByteArrayOutputStream();
       int segmentLength=0;
@@ -130,23 +133,28 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       return res.toByteArray();
    }
 
+   @Override
    public boolean isOpen() {
       return open;
    }
 
+   @Override
    public void close() throws IOException {
       open=false;
    }
 
+   @Override
    public long getMaximumGranulePosition() {
       Long mgp=(Long)granulePositions.get(granulePositions.size()-1);
       return mgp;
    }
 
+   @Override
    public synchronized long getTime() {
       return currentPage!=null?currentPage.getAbsoluteGranulePosition():-1;
    }
 
+   @Override
    public synchronized void setTime(long granulePosition) throws IOException {
 
       int page=0;
@@ -207,6 +215,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
       }
    }
 
+   @Override
    public String getFormat() {
       return format;
    }
