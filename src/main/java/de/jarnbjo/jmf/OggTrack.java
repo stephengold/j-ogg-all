@@ -30,7 +30,7 @@ import de.jarnbjo.ogg.*;
 public class OggTrack implements Track {
 
    private TrackListener listener;
-   private LogicalOggStream source;
+   final private LogicalOggStream source;
    private boolean enabled=true;
    private int channels, sampleRate;
    private long currentBytePos;

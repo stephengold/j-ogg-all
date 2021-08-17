@@ -32,9 +32,9 @@ import de.jarnbjo.util.io.*;
 
 public class FlacTrack extends OggTrack {
 
-   private LogicalOggStream oggStream;
-   private StreamInfo streamInfo;
-   private AudioFormat format;
+   final private LogicalOggStream oggStream;
+   final private StreamInfo streamInfo;
+   final private AudioFormat format;
 
    public FlacTrack(LogicalOggStream source, byte[] siHeaderData) throws FlacFormatException, IOException {
       super(source);

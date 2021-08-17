@@ -69,7 +69,7 @@ public class VorbisDecoder implements Codec {
          Format.byteArray)
    };
 
-   private VorbisStream vorbisStream=new VorbisStream();
+   final private VorbisStream vorbisStream=new VorbisStream();
 
    public VorbisDecoder() {
    }

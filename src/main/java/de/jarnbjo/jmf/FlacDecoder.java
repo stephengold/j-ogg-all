@@ -69,7 +69,7 @@ public class FlacDecoder implements Codec {
          Format.byteArray)
    };
 
-   private FlacStream flacStream=new FlacStream();
+   final private FlacStream flacStream=new FlacStream();
 
    public FlacDecoder() {
    }

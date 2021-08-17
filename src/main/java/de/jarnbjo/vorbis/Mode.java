@@ -29,8 +29,8 @@ import de.jarnbjo.util.io.*;
 
 class Mode {
 
-   private boolean blockFlag;
-   private int windowType, transformType, mapping;
+   final private boolean blockFlag;
+   final private int windowType, transformType, mapping;
 
    protected Mode(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
       blockFlag=source.getBit();

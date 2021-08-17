@@ -29,7 +29,8 @@ import de.jarnbjo.util.io.BitInputStream;
 
 class Mapping0 extends Mapping {
 
-   private int[] magnitudes, angles, mux, submapFloors, submapResidues;
+   final private int[] magnitudes, angles;
+   private int[] mux, submapFloors, submapResidues;
 
    protected Mapping0(VorbisStream vorbis, BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
 

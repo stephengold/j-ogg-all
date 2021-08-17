@@ -33,11 +33,11 @@ import java.util.*;
 
 public class LogicalOggStreamImpl implements LogicalOggStream {
 
-   private PhysicalOggStream source;
-   private int serialNumber;
+   final private PhysicalOggStream source;
+   final private int serialNumber;
 
-   private ArrayList pageNumberMapping=new ArrayList();
-   private ArrayList granulePositions=new ArrayList();
+   final private ArrayList pageNumberMapping=new ArrayList();
+   final private ArrayList granulePositions=new ArrayList();
 
    private int pageIndex=0;
    private OggPage currentPage;

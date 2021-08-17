@@ -36,7 +36,7 @@ public class FlacStream {
 
    private LogicalOggStream oggStream;
 
-   private List metadataBlocks=new ArrayList();
+   final private List metadataBlocks=new ArrayList();
 
    private StreamInfo streamInfo;
    private VorbisComment vorbisComment;

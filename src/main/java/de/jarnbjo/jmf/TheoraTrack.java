@@ -32,10 +32,10 @@ import de.jarnbjo.util.io.*;
 
 public class TheoraTrack extends OggTrack {
 
-   private LogicalOggStream oggStream;
-   private VideoFormat format;
+   final private LogicalOggStream oggStream;
+   final private VideoFormat format;
 
-   private Header header;
+   final private Header header;
 
    public TheoraTrack(LogicalOggStream source, byte[] idHeaderData) throws IOException {
       super(source);

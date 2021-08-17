@@ -35,7 +35,7 @@ public class FileStream implements PhysicalOggStream {
 
    private boolean closed=false;
    private RandomAccessFile source;
-   private long[] pageOffsets;
+   final private long[] pageOffsets;
    private long numberOfSamples=-1;
 
    private HashMap logicalStreams=new HashMap();

@@ -42,7 +42,7 @@ public class TheoraDecoder implements Codec {
       //new YUVFormat(null, -1, VideoFormat.byteArray, -1.0f, YUVFormat.YUV_422, -1, -1, -1, -1, -1)
    };
 
-   private TheoraStream theoraStream=new TheoraStream();
+   final private TheoraStream theoraStream=new TheoraStream();
    private Format currentFormat;
 
    public TheoraDecoder() {

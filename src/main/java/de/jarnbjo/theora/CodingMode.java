@@ -48,7 +48,7 @@ public class CodingMode {
    public static final CodingMode CODE_INTER_FOURMV     =
       new CodingMode(0x7);  /* Inter prediction 4MV per macro block. */
 
-   private int value;
+   final private int value;
 
    public static final CodingMode[] MODES = {
       CODE_INTER_NO_MV,

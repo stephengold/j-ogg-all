@@ -18,9 +18,9 @@ import de.jarnbjo.util.io.*;
 
 public class VorbisTrack extends OggTrack {
 
-   private LogicalOggStream oggStream;
-   private IdentificationHeader identificationHeader;
-   private AudioFormat format;
+   final private LogicalOggStream oggStream;
+   final private IdentificationHeader identificationHeader;
+   final private AudioFormat format;
 
    public VorbisTrack(LogicalOggStream source, byte[] idHeaderData) throws VorbisFormatException, IOException {
       super(source);

@@ -22,8 +22,8 @@ public class VorbisComment extends MetadataBlock {
    public static final String CONTACT = "CONTACT";
    public static final String ISRC = "ISRC";
 
-   private String vendor;
-   private HashMap comments=new HashMap();
+   final private String vendor;
+   final private HashMap comments=new HashMap();
 
    public VorbisComment(BitInputStream source) throws FlacFormatException, IOException {
 

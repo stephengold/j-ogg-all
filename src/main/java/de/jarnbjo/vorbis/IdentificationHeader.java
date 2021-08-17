@@ -36,7 +36,7 @@ public class IdentificationHeader {
 
    private int version, channels, sampleRate, bitrateMaximum, bitrateNominal, bitrateMinimum, blockSize0, blockSize1;
    private boolean framingFlag;
-   private MdctFloat[] mdct=new MdctFloat[2];
+   final private MdctFloat[] mdct=new MdctFloat[2];
    //private MdctLong[] mdctInt=new MdctLong[2];
 
    private static final long HEADER = 0x736962726f76L; // 'vorbis'

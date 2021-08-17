@@ -48,14 +48,14 @@ import de.jarnbjo.ogg.*;
 
 public class OggJmfPage extends OggPage {
 
-   private int version;
-   private boolean continued, bos, eos;
-   private long absoluteGranulePosition;
-   private int streamSerialNumber, pageSequenceNumber, pageCheckSum;
-   private int[] segmentOffsets;
-   private int[] segmentLengths;
-   private int totalLength;
-   private byte[] header, segmentTable, data;
+   final private int version;
+   final private boolean continued, bos, eos;
+   final private long absoluteGranulePosition;
+   final private int streamSerialNumber, pageSequenceNumber, pageCheckSum;
+   final private int[] segmentOffsets;
+   final private int[] segmentLengths;
+   final private int totalLength;
+   final private byte[] header, segmentTable, data;
 
    private OggJmfPage(
       int version,

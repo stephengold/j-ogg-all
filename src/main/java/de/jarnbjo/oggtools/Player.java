@@ -109,8 +109,8 @@ public class Player {
 
    public static class VorbisInputStream extends InputStream {
 
-      private VorbisStream source;
-      private byte[] buffer=new byte[8192];
+      final private VorbisStream source;
+      final private byte[] buffer=new byte[8192];
 
       public VorbisInputStream(VorbisStream source) {
          this.source=source;

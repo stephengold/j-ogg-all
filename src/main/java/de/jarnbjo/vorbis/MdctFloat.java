@@ -31,15 +31,15 @@ class MdctFloat {
   static private final float cPI2_8=0.70710678118654752441f;
   static private final float cPI1_8=0.92387953251128675613f;
 
-  private int n;
-  private int log2n;
+  final private int n;
+  final private int log2n;
 
-  private float[] trig;
-  private int[] bitrev;
+  final private float[] trig;
+  final private int[] bitrev;
 
   private float[] equalizer;
 
-  private float scale;
+  final private float scale;
 
   private int itmp1, itmp2, itmp3, itmp4, itmp5, itmp6, itmp7, itmp8, itmp9;
   private float dtmp1, dtmp2, dtmp3, dtmp4, dtmp5, dtmp6, dtmp7, dtmp8, dtmp9;

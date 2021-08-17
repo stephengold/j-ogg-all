@@ -147,7 +147,7 @@ class CodeBook {
       }
    }
 
-   private static long totalTime=0;
+   final private static long totalTime=0;
 
    private boolean createHuffmanTree(int[] entryLengths) {
       huffmanRoot=new HuffmanNode();

@@ -167,9 +167,9 @@ public class CachedUrlStream implements PhysicalOggStream {
 
    public class LoaderThread implements Runnable {
 
-      private InputStream source;
-      private RandomAccessFile drain;
-      private byte[] memoryCache;
+      final private InputStream source;
+      final private RandomAccessFile drain;
+      final private byte[] memoryCache;
 
       private boolean bosDone=false;
 

@@ -27,9 +27,9 @@ import de.jarnbjo.util.io.*;
 
 public class StreamInfo extends MetadataBlock {
 
-   private int minimumBlockSize, maximumBlockSize, minimumFrameSize, maximumFrameSize;
-   private int sampleRate, channels, bitsPerSample;
-   private long totalSamples;
+   final private int minimumBlockSize, maximumBlockSize, minimumFrameSize, maximumFrameSize;
+   final private int sampleRate, channels, bitsPerSample;
+   final private long totalSamples;
 
    protected StreamInfo(BitInputStream source) throws FlacFormatException, IOException {
 

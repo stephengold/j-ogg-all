@@ -126,7 +126,7 @@ public class TinyPlayerApplet extends Applet implements Runnable {
 
    public static class VorbisInputStream extends InputStream {
 
-      private VorbisStream source;
+      final private VorbisStream source;
 
       public VorbisInputStream(VorbisStream source) {
          this.source=source;
@@ -142,7 +142,7 @@ public class TinyPlayerApplet extends Applet implements Runnable {
          return read(buffer, 0, buffer.length);
       }
 
-      private static int cnt=0;
+      final private static int cnt=0;
 
       @Override
       public int read(byte[] buffer, int offset, int length) throws IOException {

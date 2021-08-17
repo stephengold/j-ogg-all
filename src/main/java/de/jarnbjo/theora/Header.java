@@ -6,11 +6,11 @@ import de.jarnbjo.util.io.*;
 
 public class Header {
 
-   private int[] version=new int[3];
+   final private int[] version=new int[3];
    private int width, height, fpsNumerator, fpsDenominator, aspectNumerator, aspectDenominator;
    private int keyframeFrequencyForce, targetBitrate, quality;
 
-   private String versionString;
+   final private String versionString;
 
    private static final int[] HEADER =
       {0x80, 0x74, 0x68, 0x65, 0x6f, 0x72, 0x61};

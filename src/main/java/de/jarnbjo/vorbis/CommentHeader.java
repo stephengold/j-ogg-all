@@ -51,7 +51,7 @@ public class CommentHeader {
    public static final String ISRC = "ISRC";
 
    private String vendor;
-   private HashMap comments=new HashMap();
+   final private HashMap comments=new HashMap();
    private boolean framingBit;
 
    private static final long HEADER = 0x736962726f76L; // 'vorbis'

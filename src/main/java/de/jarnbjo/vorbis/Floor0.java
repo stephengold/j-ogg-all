@@ -29,8 +29,8 @@ import de.jarnbjo.util.io.BitInputStream;
 
 class Floor0 extends Floor {
 
-   private int order, rate, barkMapSize, amplitudeBits, amplitudeOffset;
-   private int bookList[];
+   final private int order, rate, barkMapSize, amplitudeBits, amplitudeOffset;
+   final private int bookList[];
 
    protected Floor0(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
 

@@ -27,7 +27,7 @@ import de.jarnbjo.util.io.BitInputStream;
 
 public class Application extends MetadataBlock {
 
-   private byte[] data;
+   final private byte[] data;
 
    protected Application(BitInputStream source) throws FlacFormatException, IOException {
 
