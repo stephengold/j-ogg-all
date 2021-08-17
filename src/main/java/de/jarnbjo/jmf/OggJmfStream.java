@@ -27,13 +27,8 @@ package de.jarnbjo.jmf;
 
 import java.io.*;
 import java.util.*;
-
-import javax.media.*;
-import javax.media.format.*;
-
 import javax.media.protocol.PullSourceStream;
 import javax.media.protocol.Seekable;
-
 import de.jarnbjo.ogg.*;
 
 /**

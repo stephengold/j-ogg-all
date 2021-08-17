@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.awt.Dimension;
 import javax.media.*;
 import javax.media.format.*;
-
-import de.jarnbjo.ogg.*;
 import de.jarnbjo.theora.*;
 
 

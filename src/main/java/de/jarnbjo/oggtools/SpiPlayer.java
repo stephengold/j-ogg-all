@@ -20,14 +20,8 @@
 
 package de.jarnbjo.oggtools;
 
-import java.io.*;
 import java.net.*;
 import javax.sound.sampled.*;
-import javax.sound.sampled.spi.*;
-
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.vorbis.*;
-import de.jarnbjo.flac.*;
 
 public class SpiPlayer {
 

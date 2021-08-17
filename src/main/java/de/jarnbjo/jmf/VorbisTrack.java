@@ -1,11 +1,8 @@
 package de.jarnbjo.jmf;
 
 import java.io.*;
-
 import javax.media.*;
 import javax.media.format.*;
-import javax.media.protocol.*;
-
 import de.jarnbjo.ogg.*;
 import de.jarnbjo.vorbis.*;
 import de.jarnbjo.util.io.*;

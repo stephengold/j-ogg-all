@@ -1,8 +1,6 @@
 package de.jarnbjo.oggtools;
 
 import java.io.*;
-import java.util.*;
-
 import de.jarnbjo.ogg.*;
 import de.jarnbjo.vorbis.*;
 

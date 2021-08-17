@@ -23,13 +23,9 @@
 package de.jarnbjo.jmf;
 
 import java.io.*;
-
 import java.awt.Dimension;
-
 import javax.media.*;
 import javax.media.format.*;
-import javax.media.protocol.*;
-
 import de.jarnbjo.ogg.*;
 import de.jarnbjo.theora.*;
 import de.jarnbjo.util.io.*;

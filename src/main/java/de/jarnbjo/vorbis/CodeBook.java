@@ -27,10 +27,7 @@
 package de.jarnbjo.vorbis;
 
 import java.io.*;
-
-import java.text.*;
 import java.util.*;
-
 import de.jarnbjo.util.io.*;
 
 class CodeBook {

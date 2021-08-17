@@ -1,15 +1,8 @@
 package de.jarnbjo.jmf;
 
 import java.io.*;
-import java.util.*;
-
 import javax.media.*;
-import javax.media.format.*;
 import javax.media.protocol.*;
-
-import javax.swing.*;
-
-import de.jarnbjo.flac.*;
 
 public class FlacParser implements Demultiplexer {
 

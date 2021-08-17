@@ -30,14 +30,9 @@ package de.jarnbjo.oggtools;
 
 import java.applet.Applet;
 
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.net.*;
-import java.text.*;
-import java.util.*;
 import javax.sound.sampled.*;
-
 import de.jarnbjo.ogg.*;
 import de.jarnbjo.vorbis.*;
 
