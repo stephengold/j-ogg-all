@@ -96,6 +96,11 @@ public class OggPage {
 	 *  this method equals to create(RandomAccessFile source, false)
 	 *
 	 *  @see #create(RandomAccessFile, boolean)
+         *  @param source
+         *  @throws IOException
+         *  @throws EndOfOggStreamException
+         *  @throws OggFormatException
+         *  @return
 	 */
 
    public static OggPage create(RandomAccessFile source) throws IOException, EndOfOggStreamException, OggFormatException  {
@@ -128,6 +133,11 @@ public class OggPage {
 	 *  this method equals to create(InputStream source, false)
 	 *
 	 *  @see #create(InputStream, boolean)
+         *  @param source
+         *  @throws IOException
+         *  @throws EndOfOggStreamException
+         *  @throws OggFormatException
+         *  @return
 	 */
 
    public static OggPage create(InputStream source) throws IOException, EndOfOggStreamException, OggFormatException  {
@@ -160,6 +170,11 @@ public class OggPage {
 	 *  this method equals to create(byte[] source, false)
 	 *
 	 *  @see #create(byte[], boolean)
+         *  @param source
+         *  @throws IOException
+         *  @throws EndOfOggStreamException
+         *  @throws OggFormatException
+         *  @return
 	 */
 
    public static OggPage create(byte[] source) throws IOException, EndOfOggStreamException, OggFormatException  {

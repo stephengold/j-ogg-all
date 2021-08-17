@@ -58,6 +58,7 @@ public class OggJmfStream implements PhysicalOggStream {
     * @param source the media stream to read from
     *
     * @throws OggFormatException if the stream format is incorrect
+    * @throws FileNotFoundException
     * @throws IOException if some other IO error occurs when reading the stream
     */
 

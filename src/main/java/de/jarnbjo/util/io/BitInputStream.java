@@ -79,6 +79,7 @@ public interface BitInputStream {
 	 *  reads <code>bits</code> number of bits from the input
 	 *  stream
 	 *
+         *  @param bits
 	 *  @return the unsigned integer value read from the stream
 	 *
 	 *  @throws IOException if an I/O error occurs
@@ -91,6 +92,7 @@ public interface BitInputStream {
 	 *  reads <code>bits</code> number of bits from the input
 	 *  stream
 	 *
+         *  @param bits
 	 *  @return the signed integer value read from the stream
 	 *
 	 *  @throws IOException if an I/O error occurs
@@ -145,6 +147,7 @@ public interface BitInputStream {
 	 *  reads <code>bits</code> number of bits from the input
 	 *  stream
 	 *
+         *  @param bits
 	 *  @return the unsigned long value read from the stream
 	 *
 	 *  @throws IOException if an I/O error occurs
@@ -171,6 +174,7 @@ public interface BitInputStream {
 	 *
 	 *  @see #align()
 	 *
+         *  @param endian
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 

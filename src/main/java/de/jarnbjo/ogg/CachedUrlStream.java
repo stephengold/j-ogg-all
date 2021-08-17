@@ -51,19 +51,26 @@ public class CachedUrlStream implements PhysicalOggStream {
 
    private LoaderThread loaderThread;
 
-	/**
-	 *  Creates an instance of this class, using a memory cache.
-	 */ 
-
+    /**
+     * Creates an instance of this class, using a memory cache.
+     *
+     * @param source
+     * @throws OggFormatException
+     * @throws IOException
+     */ 
    public CachedUrlStream(URL source) throws OggFormatException, IOException {
       this(source, null);
    }
 
-	/**
-	 *  Creates an instance of this class, using the specified file as cache. The
-	 *  file is not automatically deleted when this class is disposed.
-	 */ 
-
+    /**
+     * Creates an instance of this class, using the specified file as cache. The
+     * file is not automatically deleted when this class is disposed.
+     *
+     * @param source
+     * @param drain
+     * @throws OggFormatException
+     * @throws IOException
+     */ 
    public CachedUrlStream(URL source, RandomAccessFile drain) throws OggFormatException, IOException {
 
       this.source=source.openConnection();

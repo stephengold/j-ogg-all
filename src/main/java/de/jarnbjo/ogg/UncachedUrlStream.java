@@ -47,10 +47,14 @@ public class UncachedUrlStream implements PhysicalOggStream {
 
    private static final int PAGECACHE_SIZE = 10;
 
-	/** Creates an instance of the <code>PhysicalOggStream</code> interface
-	 *  suitable for reading an Ogg stream from a URL. 
-	 */
-
+    /**
+     * Creates an instance of the <code>PhysicalOggStream</code> interface
+     * suitable for reading an Ogg stream from a URL.
+     * 
+     * @param source
+     * @throws OggFormatException
+     * @throws IOException
+     */
    public UncachedUrlStream(URL source) throws OggFormatException, IOException {
 
       this.source=source.openConnection();
