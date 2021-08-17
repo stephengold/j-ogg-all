@@ -186,7 +186,9 @@ public class Frame {
             int mid=pcm[0][i];
             int side=pcm[1][i];
             mid<<=1;
-            if((side&1)==1) mid++;
+            if((side&1)==1) {
+                mid++;
+            }
             pcm[0][i]=(mid+side)>>1;
             pcm[1][i]=(mid-side)>>1;
          }

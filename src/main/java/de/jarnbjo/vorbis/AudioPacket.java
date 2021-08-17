@@ -242,8 +242,12 @@ class AudioPacket {
 
          for(int j=leftWindowStart; j<leftWindowEnd; j++) {
             val=ppcm[j2++]+tpcm[j];
-            if(val>32767) val=32767;
-            if(val<-32768) val=-32768;
+            if(val>32767) {
+                val=32767;
+            }
+            if(val<-32768) {
+                val=-32768;
+            }
             target[j1++]=val;
          }
       }
@@ -271,8 +275,12 @@ class AudioPacket {
          final int[] tpcm=pcmInt[i];
          for(int j=leftWindowStart; j<leftWindowEnd; j++) {
             val=ppcm[j2++]+tpcm[j];
-            if(val>32767) val=32767;
-            if(val<-32768) val=-32768;
+            if(val>32767) {
+                val=32767;
+            }
+            if(val<-32768) {
+                val=-32768;
+            }
             buffer[ix+(i*2)+1]=(byte)(val&0xff);
             buffer[ix+(i*2)]=(byte)((val>>8)&0xff);
             ix+=channels*2;
@@ -281,8 +289,12 @@ class AudioPacket {
          ix=(leftWindowEnd-leftWindowStart)*channels*2;
          for(int j=leftWindowEnd; j<rightWindowStart; j++) {
             val=tpcm[j];
-            if(val>32767) val=32767;
-            if(val<-32768) val=-32768;
+            if(val>32767) {
+                val=32767;
+            }
+            if(val<-32768) {
+                val=-32768;
+            }
             buffer[ix+(i*2)+1]=(byte)(val&0xff);
             buffer[ix+(i*2)]=(byte)((val>>8)&0xff);
             ix+=channels*2;

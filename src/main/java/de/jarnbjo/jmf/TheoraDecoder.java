@@ -75,7 +75,9 @@ public class TheoraDecoder implements Codec {
    @Override
    public int process(Buffer in, Buffer out) {
 
-      if(1==1) return PlugIn.OUTPUT_BUFFER_NOT_FILLED;
+      if(1==1) {
+          return PlugIn.OUTPUT_BUFFER_NOT_FILLED;
+      }
 
       int[] data=(int[])out.getData();
       if(data==null || data.length<352*208) {
@@ -111,7 +113,9 @@ public class TheoraDecoder implements Codec {
       out.setLength(data.length);
       //out.setFormat(currentFormat);
 
-      if(1==1) return PlugIn.BUFFER_PROCESSED_OK;
+      if(1==1) {
+          return PlugIn.BUFFER_PROCESSED_OK;
+      }
 
       try {
          //OggPage op=(OggPage)in.getData();

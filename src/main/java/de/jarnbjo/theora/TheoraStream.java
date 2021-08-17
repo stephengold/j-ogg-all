@@ -271,7 +271,9 @@ public class TheoraStream {
       int i;
 
       /* Bail out immediately if a decode error has already been reported. */
-      if (pbInstance.decoderErrorCode!=0) return;
+      if (pbInstance.decoderErrorCode!=0) {
+          return;
+      }
 
       /* Clear down the macro block level mode and MV arrays. */
       for ( i = 0; i < pbInstance.unitFragments; i++ ){

@@ -641,8 +641,9 @@ public class PbInstance {
       huffRoot[hIndex].value=0;
       huffRoot[hIndex].frequency=freqList[0];
 
-      if(huffRoot[hIndex].frequency == 0)
+      if(huffRoot[hIndex].frequency == 0) {
          huffRoot[hIndex].frequency = 1;
+      }
 
       /* Now add entries for all the other possible tokens. */
       for(i=1; i<Constants.MAX_ENTROPY_TOKENS; i++) {
@@ -654,8 +655,9 @@ public class PbInstance {
          entryPtr.oneChild=null;
 
          /* Force min value of 1. This prevents the tree getting too deep. */
-         if(entryPtr.frequency==0)
+         if(entryPtr.frequency==0) {
             entryPtr.frequency=1;
+         }
 
          if (entryPtr.frequency <= huffRoot[hIndex].frequency ){
             entryPtr.next = huffRoot[hIndex];
@@ -965,32 +967,36 @@ public class PbInstance {
       /* Intra Y */
       dequantYCoeffs[0] = (short)
          ((dcScaleFactorTable[qIndex] * dequantYCoeffs[0])/100);
-      if (dequantYCoeffs[0]<Constants.MIN_DEQUANT_VAL*2)
+      if (dequantYCoeffs[0]<Constants.MIN_DEQUANT_VAL*2) {
          dequantYCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 2;
+      }
       dequantYCoeffs[0] = (short)
          (dequantYCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
       /* Intra UV */
       dequantUvCoeffs[0] = (short)
          ((uvDcScaleFactorTable[qIndex] * dequantUvCoeffs[0])/100);
-      if (dequantUvCoeffs[0] < Constants.MIN_DEQUANT_VAL * 2 )
+      if (dequantUvCoeffs[0] < Constants.MIN_DEQUANT_VAL * 2 ) {
          dequantUvCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 2;
+      }
       dequantUvCoeffs[0] = (short)
          (dequantUvCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
       /* Inter Y */
       dequantInterCoeffs[0] = (short)
          ((dcScaleFactorTable[qIndex] * dequantInterCoeffs[0])/100);
-      if ( dequantInterCoeffs[0] < Constants.MIN_DEQUANT_VAL * 4 )
+      if ( dequantInterCoeffs[0] < Constants.MIN_DEQUANT_VAL * 4 ) {
          dequantInterCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 4;
+      }
       dequantInterCoeffs[0] = (short)
          (dequantInterCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
       /* Inter UV */
       dequantInterUvCoeffs[0]= (short)
          ((uvDcScaleFactorTable[qIndex] * dequantInterUvCoeffs[0])/100);
-      if (dequantInterUvCoeffs[0] < Constants.MIN_DEQUANT_VAL * 4 )
+      if (dequantInterUvCoeffs[0] < Constants.MIN_DEQUANT_VAL * 4 ) {
          dequantInterUvCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 4;
+      }
       dequantInterUvCoeffs[0] = (short)
          (dequantInterUvCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
@@ -998,29 +1004,33 @@ public class PbInstance {
          /* now scale coefficients by required compression factor */
          dequantYCoeffs[i]= (short)
             (( scaleFactor * dequantYCoeffs[i] ) / 100);
-         if (dequantYCoeffs[i] < Constants.MIN_DEQUANT_VAL )
+         if (dequantYCoeffs[i] < Constants.MIN_DEQUANT_VAL ) {
             dequantYCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL;
+         }
          dequantYCoeffs[i] = (short)
             (dequantYCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
 
          dequantUvCoeffs[i]= (short)
             (( scaleFactor * dequantUvCoeffs[i] ) / 100);
-         if (dequantUvCoeffs[i] < Constants.MIN_DEQUANT_VAL )
+         if (dequantUvCoeffs[i] < Constants.MIN_DEQUANT_VAL ) {
             dequantUvCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL;
+         }
          dequantUvCoeffs[i] = (short)
             (dequantUvCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
 
          dequantInterCoeffs[i]= (short)
             (( scaleFactor * dequantInterCoeffs[i] ) / 100);
-         if (dequantInterCoeffs[i] < (Constants.MIN_DEQUANT_VAL * 2) )
+         if (dequantInterCoeffs[i] < (Constants.MIN_DEQUANT_VAL * 2) ) {
             dequantInterCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL * 2;
+         }
          dequantInterCoeffs[i] = (short)
             (dequantInterCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
 
          dequantInterUvCoeffs[i]= (short)
             (( scaleFactor * dequantInterUvCoeffs[i] ) / 100);
-         if (dequantInterUvCoeffs[i] < (Constants.MIN_DEQUANT_VAL * 2) )
+         if (dequantInterUvCoeffs[i] < (Constants.MIN_DEQUANT_VAL * 2) ) {
             dequantInterUvCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL * 2;
+         }
          dequantInterUvCoeffs[i] = (short)
             (dequantInterUvCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
       }

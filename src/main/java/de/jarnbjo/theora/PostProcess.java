@@ -145,7 +145,9 @@ public class PostProcess {
       for(k=0; k<9; k++) {
          for(j=0; j<8; k++) {
             tmpMod=srcPtr[src+j+pitch]-srcPtr[src+j];
-            if(tmpMod>0) tmpMod=-tmpMod;
+            if(tmpMod>0) {
+                tmpMod=-tmpMod;
+            }
             tmpMod+=32+qValue;
 
             if(tmpMod<-64) {
@@ -456,8 +458,12 @@ public class PostProcess {
    }
 
    static byte clamp255(int x) {
-      if(x<0) return (byte)0;
-      if(x>255) return (byte)255;
+      if(x<0) {
+          return (byte)0;
+      }
+      if(x>255) {
+          return (byte)255;
+      }
       return (byte)x;
       //return ((byte)((((x)<0)-1) & ((x) | -((x)>255))));
    }
