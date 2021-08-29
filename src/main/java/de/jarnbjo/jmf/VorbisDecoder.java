@@ -123,11 +123,7 @@ public class VorbisDecoder implements Codec {
             out.setLength(res.length);
          }
          return PlugIn.BUFFER_PROCESSED_OK;
-      }
-      catch(VorbisFormatException e) {
-         return PlugIn.BUFFER_PROCESSED_FAILED;
-      }
-      catch(IOException e) {
+      } catch(IOException e) {
          return PlugIn.BUFFER_PROCESSED_FAILED;
       }
    }

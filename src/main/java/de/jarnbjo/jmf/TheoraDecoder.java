@@ -161,12 +161,7 @@ public class TheoraDecoder implements Codec {
          //out.setSequenceNumber(op.getPageSequenceNumber());
          //out.setFlags(Buffer.FLAG_KEY_FRAME);
          return PlugIn.BUFFER_PROCESSED_OK;
-      }
-      catch(TheoraFormatException e) {
-         e.printStackTrace();
-         return PlugIn.BUFFER_PROCESSED_FAILED;
-      }
-      catch(IOException e) {
+      } catch(IOException e) {
          e.printStackTrace();
          return PlugIn.BUFFER_PROCESSED_FAILED;
       }
