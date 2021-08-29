@@ -207,7 +207,7 @@ public class Frame {
       return blockSize;
    }
 
-   private long readUtf8Int(BitInputStream source) throws IOException {
+   private static long readUtf8Int(BitInputStream source) throws IOException {
 
       long v=0;
       int x=0, i=0;

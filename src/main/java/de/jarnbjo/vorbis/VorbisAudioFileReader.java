@@ -64,7 +64,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 		}		
 	}
 	
-	private AudioFileFormat getAudioFileFormat(PhysicalOggStream oggStream)  throws IOException, UnsupportedAudioFileException {
+	private static AudioFileFormat getAudioFileFormat(PhysicalOggStream oggStream)  throws IOException, UnsupportedAudioFileException {
 		try {
 			Collection streams=oggStream.getLogicalStreams();
 			if(streams.size()!=1) {
@@ -123,7 +123,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
 		}		
 	}
 	
-	private AudioInputStream getAudioInputStream(PhysicalOggStream oggStream)  throws IOException, UnsupportedAudioFileException {
+	private static AudioInputStream getAudioInputStream(PhysicalOggStream oggStream)  throws IOException, UnsupportedAudioFileException {
 		try {
 			Collection streams=oggStream.getLogicalStreams();
 			if(streams.size()!=1) {

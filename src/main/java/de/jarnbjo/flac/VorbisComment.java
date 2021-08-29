@@ -193,7 +193,7 @@ public class VorbisComment extends MetadataBlock {
    }
 
 
-   private String getString(BitInputStream source) throws IOException {
+   private static String getString(BitInputStream source) throws IOException {
 
       int length=source.getInt(32);
 

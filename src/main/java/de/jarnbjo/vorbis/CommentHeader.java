@@ -221,7 +221,7 @@ public class CommentHeader {
    }
 
 
-   private String getString(BitInputStream source) throws IOException, VorbisFormatException {
+   private static String getString(BitInputStream source) throws IOException, VorbisFormatException {
 
       int length=source.getInt(32);
 
