@@ -25,7 +25,6 @@ import java.net.*;
 import java.util.*;
 
 import de.jarnbjo.ogg.*;
-import de.jarnbjo.vorbis.*;
 
 import javax.sound.sampled.*;
 import javax.sound.sampled.spi.AudioFileReader;
