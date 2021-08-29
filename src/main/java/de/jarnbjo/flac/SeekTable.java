@@ -34,7 +34,7 @@ public class SeekTable extends MetadataBlock {
       int length=source.getInt(24);
 
       if(length%18!=0) {
-         throw new FlacFormatException("SEEKTABLE header length not dividible by 18");
+         throw new FlacFormatException("SEEKTABLE header length not divisible by 18");
       }
 
       int points=length/18;

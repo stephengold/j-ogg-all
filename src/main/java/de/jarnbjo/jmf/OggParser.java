@@ -190,7 +190,7 @@ public class OggParser implements Demultiplexer {
          }
 
          if(this.source.getStreams().length>1) {
-            throw new IOException("This demultiplexer only supports datasources with one stream.");
+            throw new IOException("This demultiplexer only supports data sources with one stream.");
          }
 
          stream=this.source.getStreams()[0];

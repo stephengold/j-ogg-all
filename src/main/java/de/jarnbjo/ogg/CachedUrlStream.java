@@ -78,7 +78,7 @@ public class CachedUrlStream implements PhysicalOggStream {
       if(drain==null) {
          int contentLength=this.source.getContentLength();
          if(contentLength==-1) {
-            throw new IOException("The URLConncetion's content length must be set when operating with a in-memory cache.");
+            throw new IOException("The URLConnection's content length must be set when operating with a in-memory cache.");
          }
          memoryCache=new byte[contentLength];
       }
