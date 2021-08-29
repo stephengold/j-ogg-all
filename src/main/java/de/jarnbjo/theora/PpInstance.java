@@ -108,7 +108,7 @@ public class PpInstance {
    byte[] srfThreshTable=new byte[512];
    byte[] sgcThreshTable=new byte[512];
 
-   /* Variables controlling S.A.D. break outs. */
+   /* Variables controlling S.A.D. breakouts. */
    int grpLowSadThresh;
    int grpHighSadThresh;
    int modifiedGrpLowSadThresh;

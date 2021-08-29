@@ -40,8 +40,8 @@ import java.io.IOException;
  *	An interface with methods allowing bit-wise reading from
  * an input stream. All methods in this interface are optional
  * and an implementation not support a method or a specific state
- * (e.g. endian) will throw an UnspportedOperationException if
- * such a method is being called. This should be speicified in
+ * (e.g. endian) will throw an UnsupportedOperationException if
+ * such a method is being called. This should be specified in
  * the implementation documentation.
  */
 
@@ -170,7 +170,7 @@ public interface BitInputStream {
 	 *  changes the endian mode used when reading bit-wise from
 	 *  the stream, changing the mode mid-stream will cause the
 	 *  read cursor to move to the beginning of the next byte
-	 *  (as if calling the <code>allign</code> method
+	 *  (as if calling the <code>align</code> method
 	 *
 	 *  @see #align()
 	 *

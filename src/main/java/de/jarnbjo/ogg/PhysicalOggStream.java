@@ -32,7 +32,7 @@ import java.io.IOException;
 import java.util.Collection;
 
 /**
- * Interface providing access to a physical Ogg stream. Typically this is
+ * Interface providing access to a physical Ogg stream. Typically, this is
  * a file.
  */
 
@@ -53,7 +53,7 @@ public interface PhysicalOggStream {
 
    /**
     * Return the Ogg page with the absolute index <code>index</code>,
-    * independent from the logical structure of this stream or if the
+    * independent of the logical structure of this stream or if the
     * index parameter is -1, the next Ogg page is returned.
     * This method should only be used by implementations of <code>LogicalOggStream</code>
     * to access the raw pages.
@@ -81,7 +81,7 @@ public interface PhysicalOggStream {
 
    /**
     * Closes this stream. After invoking this method, no further access
-    * to the streams data is possible.
+    * to the stream's data is possible.
     *
     * @throws IOException
     */

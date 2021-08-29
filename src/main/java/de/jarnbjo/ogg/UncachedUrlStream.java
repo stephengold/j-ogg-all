@@ -29,7 +29,7 @@ import java.util.*;
 /**
  *  Implementation of the <code>PhysicalOggStream</code> interface for reading
  *  an Ogg stream from a URL. This class performs only the necessary caching
- *  to provide continous playback. Seeking within the stream is not supported.
+ *  to provide continuous playback. Seeking within the stream is not supported.
  */
 
 public class UncachedUrlStream implements PhysicalOggStream {

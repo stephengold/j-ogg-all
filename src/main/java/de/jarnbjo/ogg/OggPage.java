@@ -39,9 +39,9 @@ import de.jarnbjo.util.io.*;
  * a <code>RandomAccessFile</code>
  * which is positioned at the beginning of an Ogg page.</p>
  *
- * <p>Furtheron, the class provides methods for accessing the raw page data,
+ * <p>Furthermore, the class provides methods for accessing the raw page data,
  * as well as data attributes like segmenting information, sequence number,
- * stream serial number, chechsum and wether this page is the beginning or
+ * stream serial number, checksum and whether this page is the beginning or
  * end of a logical bitstream (BOS, EOS) and if the page data starts with a
  * continued packet or a fresh data packet.</p>
  */
@@ -146,7 +146,7 @@ public class OggPage {
 
    /**
     * This method is called to read data from the current position in the
-    * specified InpuStream and create a new OggPage instance based on the data
+    * specified InputStream and create a new OggPage instance based on the data
     * read. If the parameter <code>skipData</code> is set to <code>true</code>,
     * the actual page segments (page data) is skipped and not read into
     * memory. This mode is useful when scanning through an ogg file to build
@@ -347,7 +347,7 @@ public class OggPage {
    }
 
    /**
-    * Return the sequnce number of this ogg page.
+    * Return the sequence number of this ogg page.
     *
     * @return this page's sequence number
     */

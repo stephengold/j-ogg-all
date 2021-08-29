@@ -66,7 +66,7 @@ public class Constants {
    public static final int AC_HUFF_CHOICES                  = 16;
    public static final int AC_HUFF_CHOICE_BITS              = 4;
 
-/* Constants assosciated with entropy tokenisation. */
+/* Constants associated with entropy tokenisation. */
    public static final int MAX_SINGLE_TOKEN_VALUE           = 6;
    public static final int DCT_VAL_CAT2_MIN                 = 3;
    public static final int DCT_VAL_CAT3_MIN                 = 7;

@@ -234,9 +234,9 @@ public class PostProcess {
 
       /* In the case that this function called with same buffer for
          source and destination, To keep the c and the mmx version to have
-         consistant results, intermediate buffer is used to store the
+         consistent results, intermediate buffer is used to store the
          eight pixel value before writing them to destination
-         (i.e. Overwriting souce for the speical case) */
+         (i.e. Overwriting source for the special case) */
 
       for(k=0; k<8; k++) {
          for(l=0; l<8; l++) {
@@ -523,7 +523,7 @@ public class PostProcess {
          lineFragments = pbi.hFragments / 2;
       }
 
-      /* Setup the source and destination pointers for the top and bottom
+      /* Set up the source and destination pointers for the top and bottom
          borders */
       pixelIndex = pbi.reconPixelIndexTable[planeFragOffset];
       sOff1=pixelIndex-planeBorderWidth;
@@ -569,7 +569,7 @@ public class PostProcess {
          planeHeight = pbi.info.getHeight() / 2;
       }
 
-      /* Setup the source data values and destination pointers for the
+      /* Set up the source data values and destination pointers for the
          left and right edge borders */
       pixelIndex = pbi.reconPixelIndexTable[planeFragOffset];
       sOff1=pixelIndex;

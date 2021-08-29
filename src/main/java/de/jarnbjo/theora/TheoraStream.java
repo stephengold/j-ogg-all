@@ -286,7 +286,7 @@ public class TheoraStream {
       /* Zero Decoder EOB run count */
       pbInstance.eobRun = 0;
 
-      /* Make a not of the number of coded blocks this frame */
+      /* Make a note of the number of coded blocks this frame */
       pbInstance.codedBlocksThisFrame = pbInstance.codedBlockIndex;
 
       /* Decode the modes data */
@@ -343,7 +343,7 @@ public class TheoraStream {
                   if (quadMapToMBTopLeft(pbInstance.blockMap, sb, mb) >= 0){
 	                  /* Is the Macro-Block coded: */
 	                  if (pbInstance.mbCodedFlags[mbListIndex++]!=0) {
-	                     /* Upack the block level modes and motion vectors */
+	                     /* Unpack the block level modes and motion vectors */
 	                     fragIndex = quadMapToMBTopLeft( pbInstance.blockMap, sb, mb);
 
 	                     /* Unpack the mode. */

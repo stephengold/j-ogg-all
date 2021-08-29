@@ -82,7 +82,7 @@ public interface LogicalOggStream {
 
    /**
     * Closes this stream. After invoking this method, no further access
-    * to the streams data is possible.
+    * to the stream's data is possible.
     *
     * @throws IOException if an IO error occurs
     */

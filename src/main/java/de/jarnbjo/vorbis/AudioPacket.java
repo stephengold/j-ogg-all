@@ -182,7 +182,7 @@ class AudioPacket {
          }
       }
 
-      // perform an inverse mdct to all channels
+      // perform an inverse MDCT to all channels
 
       for(int i=0; i<channels; i++) {
          MdctFloat mdct=blockFlag?iHeader.getMdct1():iHeader.getMdct0();

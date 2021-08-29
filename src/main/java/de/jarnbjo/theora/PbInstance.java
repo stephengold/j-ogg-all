@@ -30,7 +30,7 @@ public class PbInstance {
 
    Header    info;
 
-   /* how far do we shift the granulepos to seperate out P frame counts? */
+   /* how far do we shift the granulepos to separate out P frame counts? */
    int keyframeGranuleShift;
 
 
@@ -128,7 +128,7 @@ public class PbInstance {
    short[][] ppCoefBuffer=new short[64][];        /* PostProcess Buffer for
                                               coefficients data */
 
-   byte[] fragCoeffs;                /* # of coeffs decoded so far for
+   byte[] fragCoeffs;                /* # of coefficients decoded so far for
 					       fragment */
    byte[] fragCoefEOB;               /* Position of last non 0 coef
 						within QFragData */
@@ -205,7 +205,7 @@ public class PbInstance {
    int[] quantIndex=new int[64];
    int[] quantYCoeffs=new int[64];
    int[] quantUvCoeffs=new int[64];
-   int[] fpQuantYCoeffs=new int[64]; /* used in reiniting quantizers */
+   int[] fpQuantYCoeffs=new int[64]; /* used in reinitializing quantizers */
 
    HuffEntry[] huffRootVP3x;
    int[][] huffCodeArrayVP3x;
@@ -914,7 +914,7 @@ public class PbInstance {
          qscale = qThreshTable[0];
       }
 
-      /* Set the inter/intra descision control variables. */
+      /* Set the inter/intra decision control variables. */
       frameQIndex = Constants.Q_TABLE_SIZE - 1;
       while ( (int) frameQIndex >= 0 ) {
          if ( (frameQIndex == 0) || ( qThreshTable[frameQIndex] >= newQ) ) {

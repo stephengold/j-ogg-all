@@ -39,9 +39,9 @@ import de.jarnbjo.ogg.*;
  * a <code>RandomAccessFile</code>
  * which is positioned at the beginning of an Ogg page.</p>
  *
- * <p>Furtheron, the class provides methods for accessing the raw page data,
+ * <p>Furthermore, the class provides methods for accessing the raw page data,
  * as well as data attributes like segmenting information, sequence number,
- * stream serial number, chechsum and wether this page is the beginning or
+ * stream serial number, checksum and whether this page is the beginning or
  * end of a logical bitstream (BOS, EOS) and if the page data starts with a
  * continued packet or a fresh data packet.</p>
  */
@@ -361,7 +361,7 @@ public class OggJmfPage extends OggPage {
    }
 
    /**
-    * Return the sequnce number of this ogg page.
+    * Return the sequence number of this ogg page.
     *
     * @return this page's sequence number
     */

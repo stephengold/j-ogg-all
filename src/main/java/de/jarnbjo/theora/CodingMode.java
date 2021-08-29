@@ -31,7 +31,7 @@ public class CodingMode {
       new CodingMode(0x1); /* INTRA i.e. no prediction. */
 
    public static final CodingMode CODE_INTER_PLUS_MV =
-      new CodingMode(0x2); /* INTER prediction, non zero motion vector. */
+      new CodingMode(0x2); /* INTER prediction, non-zero motion vector. */
 
    public static final CodingMode CODE_INTER_LAST_MV =
       new CodingMode(0x3); /* Use Last Motion vector */
