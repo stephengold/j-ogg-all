@@ -64,7 +64,7 @@ public class OggJmfStream implements PhysicalOggStream {
          throw new OggFormatException("The source stream must be seekable.");
       }
 
-      ArrayList po=new ArrayList();
+      List po=new ArrayList();
       int pageNumber=0;
       try {
          while(true) {

@@ -135,7 +135,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
    public class LoaderThread implements Runnable {
 
       final private InputStream source;
-      final private LinkedList pageCache;
+      final private Deque pageCache;
       private RandomAccessFile drain;
       private byte[] memoryCache;
 

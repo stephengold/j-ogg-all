@@ -53,7 +53,7 @@ public class FileStream implements PhysicalOggStream {
    public FileStream(RandomAccessFile source) throws OggFormatException, IOException {
       this.source=source;
 
-      ArrayList po=new ArrayList();
+      List po=new ArrayList();
       int pageNumber=0;
       try {
          while(true) {
