@@ -49,7 +49,7 @@ public interface PhysicalOggStream {
     * @see LogicalOggStream
     */
 
-   public Collection getLogicalStreams();
+   Collection getLogicalStreams();
 
    /**
     * Return the Ogg page with the absolute index <code>index</code>,
@@ -68,7 +68,7 @@ public interface PhysicalOggStream {
     * @throws IOException if some other IO error occurs
     */
 
-   public OggPage getOggPage(int index) throws OggFormatException, IOException;
+   OggPage getOggPage(int index) throws OggFormatException, IOException;
 
    /**
     * Checks if this stream is open for reading.
@@ -77,7 +77,7 @@ public interface PhysicalOggStream {
     *         <code>false</code> otherwise
     */
 
-   public boolean isOpen();
+   boolean isOpen();
 
    /**
     * Closes this stream. After invoking this method, no further access
@@ -86,7 +86,7 @@ public interface PhysicalOggStream {
     * @throws IOException
     */
 
-   public void close() throws IOException;
+   void close() throws IOException;
 
    /**
     * Sets this stream's (and its logical stream's) position to the granule
@@ -107,12 +107,12 @@ public interface PhysicalOggStream {
     * @throws IOException if some other IO error occurs
     */
 
-   public void setTime(long granulePosition) throws OggFormatException, IOException;
+   void setTime(long granulePosition) throws OggFormatException, IOException;
 
 	/**
 	 *  @return <code>true</code> if the stream is seekable, <code>false</code>
 	 *          otherwise
 	 */
 
-   public boolean isSeekable();
+    boolean isSeekable();
 }

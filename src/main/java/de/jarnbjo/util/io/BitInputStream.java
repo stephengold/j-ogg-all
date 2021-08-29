@@ -52,8 +52,8 @@ public interface BitInputStream {
 	 *
 	 *  @see #setEndian(int)
 	 */
-	 
-   public static final int LITTLE_ENDIAN = 0;
+
+	int LITTLE_ENDIAN = 0;
 
 	/**
 	 *  constant for setting this stream's mode to big endian
@@ -61,7 +61,7 @@ public interface BitInputStream {
 	 *  @see #setEndian(int)
 	 */
 
-   public static final int BIG_ENDIAN = 1;
+	int BIG_ENDIAN = 1;
 
 	/**
 	 *  reads one bit (as a boolean) from the input stream
@@ -72,8 +72,8 @@ public interface BitInputStream {
 	 *  @throws IOException if an I/O error occurs
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
-	 
-   public boolean getBit() throws IOException;
+
+	boolean getBit() throws IOException;
 
 	/**
 	 *  reads <code>bits</code> number of bits from the input
@@ -85,8 +85,8 @@ public interface BitInputStream {
 	 *  @throws IOException if an I/O error occurs
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
-	 
-   public int getInt(int bits) throws IOException;
+
+	int getInt(int bits) throws IOException;
 
 	/**
 	 *  reads <code>bits</code> number of bits from the input
@@ -99,7 +99,7 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public int getSignedInt(int bits) throws IOException;
+	int getSignedInt(int bits) throws IOException;
 
 	/**
 	 *  reads a huffman codeword based on the <code>root</code> 
@@ -112,7 +112,7 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public int getInt(HuffmanNode root) throws IOException;
+	int getInt(HuffmanNode root) throws IOException;
 
 	/**
 	 *  reads an integer encoded as "signed rice" as described in
@@ -125,7 +125,7 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public int readSignedRice(int order) throws IOException;
+	int readSignedRice(int order) throws IOException;
 
 	/**
 	 *  fills the array from <code>offset</code> with <code>len</code> 
@@ -141,7 +141,7 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public void readSignedRice(int order, int[] buffer, int offset, int len) throws IOException;
+	void readSignedRice(int order, int[] buffer, int offset, int len) throws IOException;
 
 	/**
 	 *  reads <code>bits</code> number of bits from the input
@@ -154,7 +154,7 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public long getLong(int bits) throws IOException;
+	long getLong(int bits) throws IOException;
 
 	/**
 	 *  causes the read pointer to be moved to the beginning
@@ -164,7 +164,7 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public void align();
+	void align();
 
 	/**
 	 *  changes the endian mode used when reading bit-wise from
@@ -178,5 +178,5 @@ public interface BitInputStream {
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
 	 */
 
-   public void setEndian(int endian);
+	void setEndian(int endian);
 }

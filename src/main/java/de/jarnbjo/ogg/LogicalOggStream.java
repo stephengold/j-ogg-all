@@ -35,11 +35,11 @@ import java.io.IOException;
 
 public interface LogicalOggStream {
 
-   public static final String FORMAT_UNKNOWN = "application/octet-stream";
+   String FORMAT_UNKNOWN = "application/octet-stream";
 
-   public static final String FORMAT_VORBIS  = "audio/x-vorbis";
-   public static final String FORMAT_FLAC    = "audio/x-flac";
-   public static final String FORMAT_THEORA  = "video/x-theora";
+   String FORMAT_VORBIS  = "audio/x-vorbis";
+   String FORMAT_FLAC    = "audio/x-flac";
+   String FORMAT_THEORA  = "video/x-theora";
 
    /**
     * <i>Note:</i> To read from the stream, you must use either
@@ -54,7 +54,7 @@ public interface LogicalOggStream {
     * @throws IOException if some other IO error occurs
     */
 
-   public OggPage getNextOggPage() throws OggFormatException, IOException;
+   OggPage getNextOggPage() throws OggFormatException, IOException;
 
    /**
     * <i>Note:</i> To read from the stream, you must use either
@@ -69,7 +69,7 @@ public interface LogicalOggStream {
     * @throws IOException if some other IO error occurs
     */
 
-   public byte[] getNextOggPacket() throws OggFormatException, IOException;
+   byte[] getNextOggPacket() throws OggFormatException, IOException;
 
    /**
     * Checks if this stream is open for reading.
@@ -78,7 +78,7 @@ public interface LogicalOggStream {
     *         <code>false</code> otherwise
     */
 
-   public boolean isOpen();
+   boolean isOpen();
 
    /**
     * Closes this stream. After invoking this method, no further access
@@ -87,7 +87,7 @@ public interface LogicalOggStream {
     * @throws IOException if an IO error occurs
     */
 
-   public void close() throws IOException;
+   void close() throws IOException;
 
    /**
     * Sets the stream's position to the beginning of the stream.
@@ -98,7 +98,7 @@ public interface LogicalOggStream {
     * @throws IOException if some other IO error occurs
     */
 
-   public void reset() throws OggFormatException, IOException;
+   void reset() throws OggFormatException, IOException;
 
    /**
     * This method does not work if the physical Ogg stream is not
@@ -108,7 +108,7 @@ public interface LogicalOggStream {
     *         this stream
     */
 
-   public long getMaximumGranulePosition();
+   long getMaximumGranulePosition();
 
    /**
     * This method is invoked on all logical streams when
@@ -124,13 +124,13 @@ public interface LogicalOggStream {
     * @throws IOException if an IO error occurs
     */
 
-   public void setTime(long granulePosition) throws IOException;
+   void setTime(long granulePosition) throws IOException;
 
    /**
     *  @return the last parsed granule position of this stream
     */
-    
-   public long getTime();
+
+   long getTime();
 
    /**
     *  @return the content type of this stream
@@ -141,5 +141,5 @@ public interface LogicalOggStream {
     *  @see #FORMAT_THEORA
     */
 
-   public String getFormat();
+   String getFormat();
 }
