@@ -95,9 +95,8 @@ public class FileStream implements PhysicalOggStream {
       this.source.seek(0L);
       pageOffsets=new long[po.size()];
       int i=0;
-      Iterator iter=po.iterator();
-      while(iter.hasNext()) {
-         pageOffsets[i++]=(Long)iter.next();
+      for (Object o : po) {
+         pageOffsets[i++] = (Long) o;
       }
    }
 
