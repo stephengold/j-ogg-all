@@ -108,7 +108,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
 
    @Override
    public OggPage getOggPage(int index) throws IOException {
-      while(pageCache.size()==0) {
+      while(pageCache.isEmpty()) {
          try {
             Thread.sleep(100);
          }
