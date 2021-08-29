@@ -50,29 +50,31 @@ jar {
 
 task javadocJar(type: Jar) {
     archiveBaseName = project.ext.baseName
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     dependsOn 'javadoc'
-    description 'Create a JAR of javadoc.'
+    description 'Creates a JAR of javadoc.'
     from javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar) {
     archiveBaseName = project.ext.baseName
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     dependsOn 'classes'
-    description 'Create a JAR of sourcecode.'
+    description 'Creates a JAR of sourcecode.'
     from sourceSets.main.allJava
 }
 
 build.dependsOn('pom', 'pomAsc')
 task('pom', type: Copy) {
     dependsOn 'generatePomFileForMavenPublication'
+    description 'Copies the Maven POM to build/libs.'
     from "${buildDir}/publications/maven/pom-default.xml"
     into "${buildDir}/libs"
     rename 'pom-default.xml', baseName + '.pom'
 }
 task('pomAsc', type: Copy) {
     dependsOn 'signMavenPublication'
+    description 'Copies the signature of the Maven POM to build/libs.'
     from "${buildDir}/publications/maven/pom-default.xml.asc"
     into "${buildDir}/libs"
     rename 'pom-default.xml.asc', baseName + '.pom.asc'
@@ -124,8 +126,8 @@ publishing {
     }
 }
 generateMetadataFileForMavenPublication.dependsOn('pom')
-publishToMavenLocal.doLast {
-    println 'published to ' + baseName
+publishMavenPublicationToMavenLocal.doLast {
+    println 'installed locally as ' + baseName
 }
 
 // signing tasks
@@ -134,5 +136,5 @@ signing {
     sign publishing.publications.maven
 }
 tasks.withType(Sign) {
-    onlyIf { gradle.rootProject.hasProperty('signing.keyId') }
+    onlyIf { rootProject.hasProperty('signing.keyId') }
 }
