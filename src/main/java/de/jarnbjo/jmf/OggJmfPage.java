@@ -214,7 +214,7 @@ public class OggJmfPage extends OggPage {
       try {
          byte[] header=new byte[27];
          if(source instanceof RandomAccessFile) {
-            ((RandomAccessFile)source).readFully(header);
+            ((DataInput) source).readFully(header);
          }
          else if(source instanceof PullSourceStream) {
             readFully((PullSourceStream)source, header);
@@ -272,7 +272,7 @@ public class OggJmfPage extends OggPage {
          for(int i=0; i<pageSegments; i++) {
             int l=0;
             if(source instanceof RandomAccessFile) {
-               l=((int)((RandomAccessFile)source).readByte()&0xff);
+               l=((int)((DataInput) source).readByte()&0xff);
             }
             else if(source instanceof PullSourceStream) {
                ((PullSourceStream)source).read(tmpBuf, 0, 1);
@@ -293,7 +293,7 @@ public class OggJmfPage extends OggPage {
 
             data=new byte[totalLength];
             if(source instanceof RandomAccessFile) {
-               ((RandomAccessFile)source).readFully(data);
+               ((DataInput) source).readFully(data);
             }
             else if(source instanceof PullSourceStream) {
                readFully((PullSourceStream)source, data);

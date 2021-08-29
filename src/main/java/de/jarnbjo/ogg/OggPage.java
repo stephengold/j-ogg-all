@@ -268,7 +268,7 @@ public class OggPage {
          for(int i=0; i<pageSegments; i++) {
             int l=0;
             if(source instanceof RandomAccessFile) {
-               l=((int)((RandomAccessFile)source).readByte()&0xff);
+               l=((int)((DataInput) source).readByte()&0xff);
             }
             else if(source instanceof InputStream) {
                l=(int)((InputStream)source).read();
@@ -292,7 +292,7 @@ public class OggPage {
             data=new byte[totalLength];
             //source.read(data, 0, totalLength);
             if(source instanceof RandomAccessFile) {
-               ((RandomAccessFile)source).readFully(data);
+               ((DataInput) source).readFully(data);
             }
             else if(source instanceof InputStream) {
                readFully((InputStream)source, data);
