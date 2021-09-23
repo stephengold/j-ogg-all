@@ -9,7 +9,7 @@ plugins {
 ext {
     group = 'com.github.stephengold'
     artifact = 'j-ogg-all'
-    version = '1.0.1'
+    version = '1.0.2-SNAPSHOT'
     baseName = "${artifact}-${version}"
     websiteUrl = 'https://github.com/stephengold/j-ogg-all'
 }
