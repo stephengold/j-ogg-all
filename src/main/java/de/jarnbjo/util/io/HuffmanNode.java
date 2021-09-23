@@ -109,7 +109,7 @@ final public class HuffmanNode {
 	 *
 	 *  @param depth the tree depth of the new node (codeword length in bits)
 	 *  @param value the node's new value
-	 *  @return 
+	 *  @return true if successful, otherwise false
     */
     
    public boolean setNewValue(int depth, int value) {

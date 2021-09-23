@@ -100,7 +100,7 @@ public class OggPage {
          *  @throws IOException
          *  @throws EndOfOggStreamException
          *  @throws OggFormatException
-         *  @return
+         *  @return an ogg page created by reading data from the specified source
 	 */
 
    public static OggPage create(RandomAccessFile source) throws IOException, EndOfOggStreamException, OggFormatException  {
@@ -137,7 +137,7 @@ public class OggPage {
          *  @throws IOException
          *  @throws EndOfOggStreamException
          *  @throws OggFormatException
-         *  @return
+         *  @return an ogg page created by reading data from the specified source
 	 */
 
    public static OggPage create(InputStream source) throws IOException, EndOfOggStreamException, OggFormatException  {
@@ -174,7 +174,7 @@ public class OggPage {
          *  @throws IOException
          *  @throws EndOfOggStreamException
          *  @throws OggFormatException
-         *  @return
+         *  @return an ogg page created by reading data from the specified source
 	 */
 
    public static OggPage create(byte[] source) throws IOException, EndOfOggStreamException, OggFormatException  {
