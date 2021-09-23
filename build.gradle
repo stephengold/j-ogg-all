@@ -11,6 +11,7 @@ ext {
     artifact = 'j-ogg-all'
     version = '1.0.1'
     baseName = "${artifact}-${version}"
+    websiteUrl = 'https://github.com/stephengold/j-ogg-all'
 }
 
 description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.\n\
@@ -100,16 +101,16 @@ publishing {
                     license {
                         distribution = 'repo'
                         name = 'Free and commercial use, modification and redistribution with attribution.'
-                        url = 'https://github.com/stephengold/j-ogg-all/blob/master/LICENSE'
+                        url = project.ext.websiteUrl + '/blob/master/LICENSE'
                     }
                 }
                 name = project.ext.group + ':' + artifact
                 scm {
                     connection = 'scm:git:git://github.com/stephengold/j-ogg-all.git'
                     developerConnection = 'scm:git:ssh://github.com:stephengold/j-ogg-all.git'
-                    url = 'https://github.com/stephengold/j-ogg-all/tree/master'
+                    url = project.ext.websiteUrl + '/tree/master'
                 }
-                url = 'https://github.com/stephengold/j-ogg-all'
+                url = project.ext.websiteUrl
             }
             version project.ext.version
         }
