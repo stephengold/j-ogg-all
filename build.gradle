@@ -45,6 +45,15 @@ javadoc {
 
 // publishing tasks
 
+task('install') {
+    dependsOn 'publishMavenPublicationToMavenLocal'
+    description 'Installs Maven artifacts to the local repository.'
+}
+task('release') {
+    dependsOn 'publishMavenPublicationToOSSRHRepository'
+    description 'Stages Maven artifacts to Sonatype OSSRH.'
+}
+
 jar {
     archiveBaseName = project.ext.baseName
 }
