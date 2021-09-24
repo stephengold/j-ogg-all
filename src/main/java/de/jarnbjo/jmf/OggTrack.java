@@ -120,7 +120,7 @@ public class OggTrack implements Track {
          buffer.setLength(0);
       }
       catch(IOException e) {
-         /** @todo find a way to signal an error condition */
+         /* @todo find a way to signal an error condition */
       }
    }
 

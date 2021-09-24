@@ -39,7 +39,7 @@ class Residue1 extends Residue {
 
    @Override
    protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException {
-      /** @todo implement */
+      /* @todo implement */
       throw new UnsupportedOperationException();
    }
 

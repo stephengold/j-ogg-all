@@ -139,7 +139,7 @@ class CodeBook {
          }
          else {
             throw new UnsupportedOperationException();
-            /** @todo implement */
+            /* @todo implement */
          }
          break;
       default:

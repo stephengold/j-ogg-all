@@ -99,7 +99,7 @@ public class OggParser implements Demultiplexer {
 
    @Override
    public Time getMediaTime() {
-      /** @todo implement */
+      /* @todo implement */
       return Time.TIME_UNKNOWN;
    }
 
@@ -120,7 +120,7 @@ public class OggParser implements Demultiplexer {
          e.printStackTrace();
       }
 
-      /** @todo implement */
+      /* @todo implement */
       return Time.TIME_UNKNOWN;
    }
 
@@ -177,7 +177,7 @@ public class OggParser implements Demultiplexer {
 
       try {
          if(!(source instanceof PullDataSource)) {
-            /** @todo better message */
+            /* @todo better message */
             throw new IncompatibleSourceException("DataSource not supported: " + source);
          }
 
@@ -195,7 +195,7 @@ public class OggParser implements Demultiplexer {
          oggStream=new OggJmfStream(stream);
 
          if(!(stream instanceof Seekable)) {
-            /** @todo better message */
+            /* @todo better message */
             throw new IncompatibleSourceException("Stream is not seekable.");
          }
       }

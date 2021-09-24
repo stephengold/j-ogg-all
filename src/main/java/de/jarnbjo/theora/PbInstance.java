@@ -500,7 +500,6 @@ public class PbInstance {
             ((i % (hFragments / 2) ) * Constants.HFRAGPIXELS) + yPlaneSize;
       }
 
-      /************************************************************************/
       /* Now calculate the pixel index table for image reconstruction buffers */
       pixelIndexTablePtr = reconPixelIndexTable;
       for ( i = 0; i < yPlaneFragments; i++ ){

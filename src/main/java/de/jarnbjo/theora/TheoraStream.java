@@ -284,15 +284,15 @@ public class TheoraStream {
       decodeModes(source, pbInstance.ysbRows, pbInstance.ysbCols);
 
       /* Unpack and decode the motion vectors. */
-      /** @todo  */
+      /* @todo  */
       //decodeMVectors (pbInstance.ysbRows, pbInstance.ysbCols);
 
       /* Unpack and decode the actual video data. */
-      /** @todo  */
+      /* @todo  */
       //unPackVideo();
 
       /* Reconstruct and display the frame */
-      /** @todo  */
+      /* @todo  */
       //reconRefFrames();
    }
 

@@ -70,7 +70,7 @@ public class Frame {
       source.getBit();
 
       if(bs==0) {
-         /** @todo how?? */
+         /* @todo how?? */
          blockSize=0;
       }
       else if(bs==1) {
@@ -97,7 +97,7 @@ public class Frame {
 
       switch(bs) {
       case 0:
-         /** @todo read from stream info */
+         /* @todo read from stream info */
          blockSize=streamInfo.getMaximumBlockSize();
          break;
       case 6:

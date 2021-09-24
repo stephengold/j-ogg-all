@@ -48,13 +48,13 @@ public class FlacParser implements Demultiplexer {
 
    @Override
    public Time getMediaTime() {
-      /** @todo implement */
+      /* @todo implement */
       return Time.TIME_UNKNOWN;
    }
 
    @Override
    public Time setPosition(Time time, int rounding) {
-      /** @todo implement */
+      /* @todo implement */
       return Time.TIME_UNKNOWN;
    }
 
@@ -111,7 +111,7 @@ public class FlacParser implements Demultiplexer {
 
       try {
          if(!(source instanceof PullDataSource)) {
-            /** @todo better message */
+            /* @todo better message */
             throw new IncompatibleSourceException("DataSource not supported: " + source);
          }
 
@@ -129,7 +129,7 @@ public class FlacParser implements Demultiplexer {
          //oggStream=new OggJmfStream(stream);
 
          if(!(stream instanceof Seekable)) {
-            /** @todo better message */
+            /* @todo better message */
             throw new IncompatibleSourceException("Stream is not seekable.");
          }
       }

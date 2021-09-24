@@ -95,15 +95,15 @@ public class PostProcess {
       setupLoopFilter(pbi);
 
       /* Y */
-      /** @todo  */
+      /* @todo  */
       //deblockPlane(pbi, sourceBuffer, destinationBuffer, 0);
 
       /* U */
-      /** @todo  */
+      /* @todo  */
       //deblockPlane(pbi, sourceBuffer, destinationBuffer, 1);
 
       /* V */
-      /** @todo  */
+      /* @todo  */
       //deblockPlane(pbi, sourceBuffer, destinationBuffer, 2);
    }
 
@@ -234,7 +234,7 @@ public class PostProcess {
       byte[] srcPtr, int srcOffset, byte[] dstPtr, int dstOffset,
       int pitch, int fragQIndex, int[] quantScale) {
 
-      /** @todo implement */
+      /* @todo implement */
 
       deringBlockStrong(srcPtr, srcOffset, dstPtr, dstOffset, pitch, fragQIndex, quantScale);
    }

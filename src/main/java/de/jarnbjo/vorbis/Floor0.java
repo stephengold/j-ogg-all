@@ -58,13 +58,13 @@ class Floor0 extends Floor {
 
    @Override
    protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
-      /** @todo implement */
+      /* @todo implement */
       throw new UnsupportedOperationException();
    }
 
    @Override
    protected void computeFloor(float[] vector) {
-      /** @todo implement */
+      /* @todo implement */
       throw new UnsupportedOperationException();
    }
 
