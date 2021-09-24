@@ -33,8 +33,8 @@ final public class HuffmanNode {
 
    private HuffmanNode parent;
    private int depth=0;
-   protected HuffmanNode o0, o1;
-   protected Integer value;
+   HuffmanNode o0, o1;
+   Integer value;
    private boolean full=false;
 
 	/**
@@ -45,20 +45,20 @@ final public class HuffmanNode {
       this(null);
    }
 
-   protected HuffmanNode(HuffmanNode parent) {
+   private HuffmanNode(HuffmanNode parent) {
       this.parent=parent;
       if(parent!=null) {
          depth=parent.getDepth()+1;
       }
    }
 
-   protected HuffmanNode(HuffmanNode parent, int value) {
+   private HuffmanNode(HuffmanNode parent, int value) {
       this(parent);
       this.value=value;
       full=true;
    }
 
-   protected int read(BitInputStream bis) throws IOException {
+   private int read(BitInputStream bis) throws IOException {
       HuffmanNode iter=this;
       while(iter.value==null) {
          iter=bis.getBit()?iter.o1:iter.o0;
@@ -66,15 +66,15 @@ final public class HuffmanNode {
       return iter.value;
    }
 
-   protected HuffmanNode get0() {
+   private HuffmanNode get0() {
       return o0==null?set0(new HuffmanNode(this)):o0;
    }
 
-   protected HuffmanNode get1() {
+   private HuffmanNode get1() {
       return o1==null?set1(new HuffmanNode(this)):o1;
    }
 
-   protected Integer getValue() {
+   private Integer getValue() {
       return value;
    }
 
@@ -82,7 +82,7 @@ final public class HuffmanNode {
       return parent;
    }
 
-   protected int getDepth() {
+   private int getDepth() {
       return depth;
    }
 
