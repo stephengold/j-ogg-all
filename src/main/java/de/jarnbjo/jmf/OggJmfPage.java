@@ -94,11 +94,11 @@ public class OggJmfPage extends OggPage {
     *
     * @param source the byte channel from which the ogg page is generated
     * @return an ogg page created by reading data from the specified channel, starting at the current position
-    * @throws FormatException if the data read from the specified channel is not matching the specification for an ogg page
-    * @throws EndOfStreamException if it is not possible to read an entire ogg page from the specified channel
+    * @throws OggFormatException if the data read from the specified channel is not matching the specification for an ogg page
+    * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified channel
     * @throws IOException if some other IO error is detected when reading from the channel
     *
-    * @see create(ReadableByteChannel, boolean)
+    * @see #create(javax.media.protocol.PullSourceStream, boolean)
     */
    public static OggJmfPage create(PullSourceStream source) throws IOException, EndOfOggStreamException, OggFormatException  {
       return create(source, false);
