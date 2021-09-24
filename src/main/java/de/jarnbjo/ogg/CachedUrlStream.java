@@ -120,16 +120,6 @@ public class CachedUrlStream implements PhysicalOggStream {
       return cacheLength;
    }
 
-   /*
-   private OggPage getNextPage() throws EndOfOggStreamException, IOException, OggFormatException  {
-      return getNextPage(false);
-   }
-
-   private OggPage getNextPage(boolean skipData) throws EndOfOggStreamException, IOException, OggFormatException  {
-      return OggPage.create(sourceStream, skipData);
-   }
-   */
-
    @Override
    public OggPage getOggPage(int index) throws IOException {
       synchronized(drainLock) {

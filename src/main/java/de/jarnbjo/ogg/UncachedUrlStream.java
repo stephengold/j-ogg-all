@@ -90,22 +90,6 @@ public class UncachedUrlStream implements PhysicalOggStream {
       sourceStream.close();
    }
 
-   /*
-   public long getCacheLength() {
-      return cacheLength;
-   }
-   */
-
-   /*
-   private OggPage getNextPage() throws EndOfOggStreamException, IOException, OggFormatException  {
-      return getNextPage(false);
-   }
-
-   private OggPage getNextPage(boolean skipData) throws EndOfOggStreamException, IOException, OggFormatException  {
-      return OggPage.create(sourceStream, skipData);
-   }
-   */
-
    @Override
    public OggPage getOggPage(int index) throws IOException {
       while(pageCache.isEmpty()) {
@@ -116,9 +100,6 @@ public class UncachedUrlStream implements PhysicalOggStream {
          }
       }
       synchronized(drainLock) {
-         //OggPage page=(OggPage)pageCache.getFirst();
-         //pageCache.removeFirst();
-         //return page;
          return (OggPage)pageCache.removeFirst();
       }
    }
@@ -172,9 +153,6 @@ public class UncachedUrlStream implements PhysicalOggStream {
                   logicalStreams.put(op.getStreamSerialNumber(), los);
                   los.checkFormat(op);
                }
-
-               //los.addPageNumberMapping(pageNumber);
-               //los.addGranulePosition(op.getAbsoluteGranulePosition());
 
                pageNumber++;
 

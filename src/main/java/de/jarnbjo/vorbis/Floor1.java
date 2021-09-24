@@ -89,20 +89,12 @@ class Floor1 extends Floor implements Cloneable {
       multiplier=source.getInt(2)+1;
       rangeBits=source.getInt(4);
 
-      //System.out.println("multiplier: "+multiplier);
-      //System.out.println("rangeBits: "+rangeBits);
-
-      //System.out.println("xListLength: "+xListLength);
-
       int floorValues=0;
 
       List alXList=new ArrayList();
 
       alXList.add(0);
       alXList.add(1<<rangeBits);
-
-      //System.out.println("partitions: "+partitions);
-      //System.out.println("classDimensions.length: "+classDimensions.length);
 
       for(int i=0; i<partitions; i++) {
          for(int j=0; j<classDimensions[partitionClassList[i]]; j++) {
@@ -168,9 +160,6 @@ class Floor1 extends Floor implements Cloneable {
             cval>>>=cbits;
             if(book>=0) {
                clone.yList[j+offset]=source.getInt(vorbis.getSetupHeader().getCodeBooks()[book].getHuffmanRoot());
-               //clone.yList[j+offset]=vorbis.getSetupHeader().getCodeBooks()[book].readInt(source);
-               //System.out.println("b: "+(j+offset)+" "+book+" "+clone.yList[j+offset]);
-               //System.out.println("");
             }
             else {
                clone.yList[j+offset]=0;
@@ -178,22 +167,6 @@ class Floor1 extends Floor implements Cloneable {
          }
          offset+=cdim;
       }
-
-      //System.out.println("");
-      //for(int i=0; i<clone.xList.length; i++) {
-      //   System.out.println(i+" = "+clone.xList[i]);
-      //}
-
-      //System.out.println("");
-      //for(int i=0; i<clone.yList.length; i++) {
-      //   System.out.println(i+" = "+clone.yList[i]);
-      //}
-
-      //System.out.println("offset: "+offset);
-      //System.out.println("yList.length: "+clone.yList.length);
-
-      //System.exit(0);
-
       return clone;
    }
 
@@ -301,9 +274,6 @@ class Floor1 extends Floor implements Cloneable {
             btmp=b[j];
             b[j]=b[j-1];
             b[j-1]=btmp;
-            //swap(x, j, j-1);
-            //swap(y, j, j-1);
-            //swap(b, j, j-1);
          }
       }
 	}

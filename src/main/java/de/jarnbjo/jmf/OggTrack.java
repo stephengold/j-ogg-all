@@ -41,18 +41,6 @@ public class OggTrack implements Track {
 
    protected OggTrack(LogicalOggStream source) {
       this.source=source;
-      /*
-      format=new AudioFormat(
-         "application/octet-stream",
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.byteArray);
-         */
    }
 
 
@@ -82,12 +70,6 @@ public class OggTrack implements Track {
 
    public Time getMediaTime() {
       return Time.TIME_UNKNOWN;
-      /*
-      long agp=oggChannel.getCurrentGranulePosition();
-      return agp==-1?
-         Time.TIME_UNKNOWN:
-         new Time(agp*1000000000L/((long)vorbisChannel.getSampleRate()));
-         */
    }
 
    @Override
@@ -106,38 +88,13 @@ public class OggTrack implements Track {
       return enabled;
    }
 
-   //public void setNextPage(int nextPage) throws IOException {
-   //   vorbisChannel.setNextPage(nextPage);
-   //}
-
    @Override
    public Time mapFrameToTime(int frameNumber) {
       return Time.TIME_UNKNOWN;
-      /*
-      long[] agp=oggChannel.getAbsoluteGranulePositions();
-      if(agp==null) {
-         return Time.TIME_UNKNOWN;
-      }
-      else {
-         //frameNumber+=3;
-         long six=oggChannel.getAbsoluteGranulePositions()[frameNumber];
-         return new Time(six*1000000000L/((long)vorbisChannel.getSampleRate()));
-      }
-      */
    }
 
    @Override
    public int mapTimeToFrame(Time t) {
-      /*
-      long[] agp=oggChannel.getAbsoluteGranulePositions();
-      if(agp!=null) {
-         long six=t.getNanoseconds()*((long)vorbisChannel.getSampleRate())/1000000000L;
-         for(int i=0; i<agp.length; i++) {
-            if(agp[i]>six) {
-               return i;//-3;
-            }
-         }
-      }*/
       return FRAME_UNKNOWN;
    }
 
@@ -161,12 +118,6 @@ public class OggTrack implements Track {
          buffer.setEOM(true);
          buffer.setOffset(0);
          buffer.setLength(0);
-         /*
-         try {
-            //vorbisChannel.setNextPage(0);
-         }
-         catch(IOException ex) {}
-         */
       }
       catch(IOException e) {
          /** @todo find a way to signal an error condition */
@@ -186,10 +137,6 @@ public class OggTrack implements Track {
    @Override
    public Time getDuration() {
       return Duration.DURATION_UNKNOWN;
-      //long nos=oggChannel.getNumberOfSamples();
-      //return nos==-1?
-      //   Duration.DURATION_UNKNOWN:
-      //   new Time(nos*1000000000L/((long)vorbisChannel.getSampleRate()));
    }
 
 }

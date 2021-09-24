@@ -84,12 +84,6 @@ public class OggJmfStream implements PhysicalOggStream {
                los.checkFormat(op);
             }
 
-            /*
-            if(pageNumber==0) {
-               los.checkFormat(op);
-            }
-            */
-
             los.addPageNumberMapping(pageNumber);
             los.addGranulePosition(op.getAbsoluteGranulePosition());
 

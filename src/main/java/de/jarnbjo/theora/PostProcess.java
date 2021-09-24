@@ -165,27 +165,6 @@ public class PostProcess {
          src+=pitch;
       }
   /* Initialize the Mod Data */
-  /*
-  Src = SrcPtr-Pitch;
-  for(k=0;k<9;k++){
-    for(j=0;j<8;j++){
-
-      TmpMod = 32 + QValue - (abs(Src[j+Pitch]-Src[j]));
-
-      if(TmpMod< -64)
-	TmpMod = Sharpen;
-
-      else if(TmpMod<Low)
-	TmpMod = Low;
-
-      else if(TmpMod>High)
-	TmpMod = High;
-
-      UDMod[k*8+j] = (ogg_int16_t)TmpMod;
-    }
-    Src +=Pitch;
-  }
-   */
 
       src=srcOffset-1;
       for(k=0; k<9; k++) {
@@ -210,28 +189,6 @@ public class PostProcess {
          }
          src+=pitch;
       }
-   /*
-  Src = SrcPtr-1;
-
-  for(k=0;k<8;k++){
-    for(j=0;j<9;j++){
-      TmpMod = 32 + QValue - (abs(Src[j+1]-Src[j]));
-
-      if(TmpMod< -64 )
-	TmpMod = Sharpen;
-
-      else if(TmpMod<0)
-	TmpMod = Low;
-
-      else if(TmpMod>High)
-	TmpMod = High;
-
-      LRMod[k*9+j] = (ogg_int16_t)TmpMod;
-    }
-    Src+=Pitch;
-  }
-   */
-
       /* In the case that this function called with same buffer for
          source and destination, To keep the c and the mmx version to have
          consistent results, intermediate buffer is used to store the
@@ -270,42 +227,6 @@ public class PostProcess {
          }
          rowOffset+=pitch;
       }
-
-   /*
-  for(k=0;k<8;k++){
-    for(l=0;l<8;l++){
-
-      atot = 128;
-      B = round;
-      p = curRow[ rowOffset +l +1];
-
-      pl = curRow[ rowOffset +l];
-      al = LRMod[k*9+l];
-      atot -= al;
-      B += al * pl;
-
-      pu = lastRow[ rowOffset +l];
-      au = UDMod[k*8+l];
-      atot -= au;
-      B += au * pu;
-
-      pd = nextRow[ rowOffset +l];
-      ad = UDMod[(k+1)*8+l];
-      atot -= ad;
-      B += ad * pd;
-
-      pr = curRow[ rowOffset +l+2];
-      ar = LRMod[k*9+l+1];
-      atot -= ar;
-      B += ar * pr;
-
-      newVal = ( atot * p + B) >> 7;
-
-      dstRow[ rowOffset +l]= clamp255( newVal );
-    }
-    rowOffset += Pitch;
-  }
-      */
    }
 
 
@@ -343,8 +264,6 @@ public class PostProcess {
 
       srcOffset=pbi.reconYDataOffset;
       dstOffset=pbi.reconYDataOffset;
-      //SrcPtr = Src + pbi->ReconYDataOffset;
-      //DestPtr = Dst + pbi->ReconYDataOffset;
       lineLength = pbi.yStride;
 
       block = 0;
@@ -388,8 +307,6 @@ public class PostProcess {
 
       srcOffset=pbi.reconUDataOffset;
       dstOffset=pbi.reconUDataOffset;
-      //SrcPtr = Src + pbi->ReconUDataOffset;
-      //DestPtr = Dst + pbi->ReconUDataOffset;
       for ( row = 0 ; row < blocksDown; row ++) {
          for (col = 0; col < blocksAcross; col ++) {
             int quality = pbi.fragQIndex[block];
@@ -416,8 +333,6 @@ public class PostProcess {
       /* Then V */
       srcOffset=pbi.reconVDataOffset;
       dstOffset=pbi.reconVDataOffset;
-      //SrcPtr = Src + pbi->ReconVDataOffset;
-      //DestPtr = Dst + pbi->ReconVDataOffset;
 
       for ( row = 0 ; row < blocksDown; row ++){
          for (col = 0; col < blocksAcross; col ++) {
@@ -542,8 +457,6 @@ public class PostProcess {
       for ( i = 0; i < planeBorderWidth; i++ ) {
          System.arraycopy(destReconPtr, sOff1, destReconPtr, dOff1, planeStride);
          System.arraycopy(destReconPtr, sOff2, destReconPtr, dOff2, planeStride);
-         //memcpy( DestPtr1, SrcPtr1, PlaneStride );
-         //memcpy( DestPtr2, SrcPtr2, PlaneStride );
          dOff1+=planeStride;
          dOff2+=planeStride;
       }

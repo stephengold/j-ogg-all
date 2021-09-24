@@ -53,15 +53,6 @@ public class TheoraStream {
    }
 
    public byte[] decodePacket(byte[] packet) throws TheoraFormatException, IOException {
-
-      /*
-      System.out.println("oggPage.getPageSequenceNumber: "+oggPage.getPageSequenceNumber());
-      int firstByte=oggPage.getData()[0];
-      firstByte&=0xff;
-      System.out.println("byte 0: "+Integer.toHexString(firstByte));
-      System.out.println("");
-      */
-
       if(header==null) {
          header=new Header(new ByteArrayBitInputStream(packet, ByteArrayBitInputStream.BIG_ENDIAN));
 

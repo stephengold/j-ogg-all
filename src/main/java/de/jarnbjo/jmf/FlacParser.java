@@ -24,18 +24,6 @@ public class FlacParser implements Demultiplexer {
    @Override
    public Time getDuration() {
       return Time.TIME_UNKNOWN;
-      /*
-      if(tracks==null) {
-         return Time.TIME_UNKNOWN;
-      }
-      long max=0;
-      for(int i=0; i<tracks.length; i++) {
-         if(tracks[i].getDuration().getNanoseconds()>max) {
-            max=tracks[i].getDuration().getNanoseconds();
-         }
-      }
-      return new Time(max);//Time.TIME_UNKNOWN;
-      */
    }
 
    @Override
@@ -45,24 +33,6 @@ public class FlacParser implements Demultiplexer {
 
    @Override
    public Track[] getTracks() throws BadHeaderException, IOException {
-      /*
-      if(tracks==null) {
-         try {
-            Collection coll=oggStream.getLogicalStreams();
-            tracks=new Track[coll.size()];
-            int i=0;
-            for(Iterator iter=coll.iterator(); iter.hasNext(); i++) {
-               tracks[i]=OggTrack.createInstance((LogicalOggStream)iter.next());
-            }
-         }
-         catch(OggFormatException e) {
-            throw new BadHeaderException(e.getMessage());
-         }
-         catch(VorbisFormatException e) {
-            throw new BadHeaderException(e.getMessage());
-         }
-      }
-      */
       return tracks;
    }
 
@@ -84,23 +54,6 @@ public class FlacParser implements Demultiplexer {
 
    @Override
    public Time setPosition(Time time, int rounding) {
-
-      /*
-      try {
-         if(tracks[0] instanceof VorbisTrack) {
-            long sampleRate=((VorbisTrack)tracks[0]).getSampleRate();
-            oggStream.setTime(time.getNanoseconds()*sampleRate/1000000000L);
-         }
-         else if(tracks[0] instanceof FlacTrack) {
-            long sampleRate=((FlacTrack)tracks[0]).getSampleRate();
-            oggStream.setTime(time.getNanoseconds()*sampleRate/1000000000L);
-         }
-      }
-      catch(IOException e) {
-         e.printStackTrace();
-      }
-      */
-
       /** @todo implement */
       return Time.TIME_UNKNOWN;
    }

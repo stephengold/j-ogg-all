@@ -80,18 +80,11 @@ class MdctFloat {
               acc|=1<<j;
           }
 	bitrev[i*2]=((~acc)&mask);
-//	bitrev[i*2]=((~acc)&mask)-1;
 	bitrev[i*2+1]=acc;
       }
     }
     scale=4.f/n;
   }
-
-  //void clear(){
-  //}
-
-  //void forward(float[] in, float[] out){
-  //}
 
    private float[] _x=new float[1024];
    private float[] _w=new float[1024];
@@ -150,10 +143,6 @@ class MdctFloat {
             dtmp4=trig[--A];
 	         x[xO++]=dtmp2*dtmp3 + dtmp1*dtmp4;
 	         x[xO++]=dtmp2*dtmp4 - dtmp1*dtmp3;
-	         //A-=2;
-	         //x[xO++]=in[inO]*trig[A+1] + in[inO+2]*trig[A];
-	         //x[xO++]=in[inO]*trig[A] - in[inO+2]*trig[A+1];
-	         //inO-=4;
          }
       }
 
@@ -176,16 +165,6 @@ class MdctFloat {
 	         float temp1= (dtmp1* dtmp4 - dtmp2 * dtmp3);
 	         float temp2=-(dtmp1 * dtmp3 + dtmp2 * dtmp4);
 
-            /*
-	         float temp1= (xxx[xx] * trig[B+1] - xxx[xx+1] * trig[B]);//*32767.0f;
-	         float temp2=-(xxx[xx] * trig[B] + xxx[xx+1] * trig[B+1]);//*32767.0f;
-            */
-
-            //if(temp1>32767.0f) temp1=32767.0f;
-            //if(temp1<-32768.0f) temp1=-32768.0f;
-            //if(temp2>32767.0f) temp2=32767.0f;
-            //if(temp2<-32768.0f) temp2=-32768.0f;
-
 	         pcm[o1]=(int)(-temp1*window[o1]);
 	         pcm[o2]=(int)( temp1*window[o2]);
 	         pcm[o3]=(int)( temp2*window[o3]);
@@ -195,8 +174,6 @@ class MdctFloat {
 	         o2--;
 	         o3++;
 	         o4--;
-	         //xx+=2;
-	         //B+=2;
          }
       }
    }
@@ -255,17 +232,6 @@ class MdctFloat {
                   x[w1]=dtmp1+dtmp2;
                   x[w2]  =wA*AEv  - wB*AOv;
                   x[w2-1]=wB*AEv  + wA*AOv;
-
-                  /*
-                  wB     =w[w1]   -w[w2];
-                  x[w1]  =w[w1]   +w[w2];
-
-                  wA     =w[++w1] -w[++w2];
-                  x[w1]  =w[w1]   +w[w2];
-
-                  x[w2]  =wA*AEv  - wB*AOv;
-                  x[w2-1]=wB*AEv  + wA*AOv;
-                  */
 
                   w1-=k0;
                   w2-=k0;

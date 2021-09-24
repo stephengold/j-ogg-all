@@ -42,10 +42,6 @@ public class IdentificationHeader {
    private static final long HEADER = 0x736962726f76L; // 'vorbis'
 
    public IdentificationHeader(BitInputStream source) throws VorbisFormatException, IOException {
-      //equalizer=new Equalizer();
-      //equalizer.pack();
-      //equalizer.show();
-
       long leading=source.getLong(48);
       if(leading!=HEADER) {
          throw new VorbisFormatException("The identification header has an illegal leading.");
@@ -62,8 +58,6 @@ public class IdentificationHeader {
 
       mdct[0]=new MdctFloat(blockSize0);
       mdct[1]=new MdctFloat(blockSize1);
-      //mdctInt[0]=new MdctLong(blockSize0);
-      //mdctInt[1]=new MdctLong(blockSize1);
 
       framingFlag=source.getInt(8)!=0;
    }

@@ -72,8 +72,6 @@ public class OggParser implements Demultiplexer {
       if(tracks==null) {
          try {
             Collection coll=oggStream.getLogicalStreams();
-            //tracks=new Track[1];
-            //tracks[0]=OggTrack.createInstance((LogicalOggStream)coll.iterator().next());
             tracks=new Track[coll.size()];
             int i=0;
             for(Iterator iter=coll.iterator(); iter.hasNext(); i++) {

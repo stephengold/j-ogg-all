@@ -172,17 +172,8 @@ class CodeBook {
       return huffmanRoot;
    }
 
-   //public float[] readVQ(ReadableBitChannel source) throws IOException {
-   //   return valueVector[readInt(source)];
-   //}
-
    protected int readInt(final BitInputStream source) throws IOException {
       return source.getInt(huffmanRoot);
-      /*
-      HuffmanNode node;
-      for(node=huffmanRoot; node.value==null; node=source.getBit()?node.o1:node.o0);
-      return node.value.intValue();
-      */
    }
 
    protected void readVvAdd(float[][] a, BitInputStream source, int offset, int length)
@@ -209,54 +200,4 @@ class CodeBook {
          }
       }
    }
-
-   /*
-   public void readVAdd(double[] a, ReadableBitChannel source, int offset, int length)
-      throws FormatException, IOException {
-
-      int i,j,entry;
-      int t;
-
-      if(dimensions>8){
-         for(i=0;i<length;){
-            entry = readInt(source);
-            //if(entry==-1)return(-1);
-	         //t=entry*dimensions;
-	         for(j=0;j<dimensions;){
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         }
-         }
-      }
-      else{
-         for(i=0;i<length;){
-	         entry=readInt(source);
-	         //if(entry==-1)return(-1);
-	         //t=entry*dim;
-	         j=0;
-	         switch(dimensions){
-	         case 8:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 7:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 6:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 5:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 4:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 3:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 2:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 1:
-	            a[offset+(i++)]+=valueVector[entry][j++];//valuelist[t+(j++)];
-	         case 0:
-	            break;
-	         }
-         }
-      }
-   }
-   */
-
-
 }

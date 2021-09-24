@@ -85,23 +85,7 @@ public class TheoraDecoder implements Codec {
       }
 
 
-      //for(int i=0; i<data.length; i++) {
-      //   data[i]=(byte)(Math.random()*256.0);
-      //}
-
-      /*
-      currentFormat=new RGBFormat(
-         new Dimension(352, 208),
-         Format.NOT_SPECIFIED,
-         //data.length,
-         Format.byteArray,
-         24.0f, 24, 1, 2, 3);
-      */
-
-      //out.setData(data);
-      //out.setFormat(currentFormat);
       out.setSequenceNumber(sequence);
-      //out.setDuration(1000000000L/24L);
       long time=1000000000L*sequence/24L;
       System.out.println("v: "+time);
       out.setTimeStamp(time);
@@ -109,15 +93,12 @@ public class TheoraDecoder implements Codec {
       sequence++;
       out.setOffset(0);
       out.setLength(data.length);
-      //out.setFormat(currentFormat);
 
       if(1==1) {
           return PlugIn.BUFFER_PROCESSED_OK;
       }
 
       try {
-         //OggPage op=(OggPage)in.getData();
-
          if(first) {
             first=false;
             byte[] res=theoraStream.decodePacket((byte[])in.getData());
@@ -158,8 +139,6 @@ public class TheoraDecoder implements Codec {
          out.setOffset(0);
          out.setLength(res.length);
          out.setFormat(currentFormat);
-         //out.setSequenceNumber(op.getPageSequenceNumber());
-         //out.setFlags(Buffer.FLAG_KEY_FRAME);
          return PlugIn.BUFFER_PROCESSED_OK;
       } catch(IOException e) {
          e.printStackTrace();
