@@ -89,7 +89,7 @@ public class OggJmfPage extends OggPage {
       this.data=data;
    }
 
-   /*
+   /**
     * This method is equivalent to <code>create(source, false)</code>
     *
     * @param source the byte channel from which the ogg page is generated
