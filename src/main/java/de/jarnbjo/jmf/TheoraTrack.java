@@ -60,7 +60,7 @@ public class TheoraTrack extends OggTrack {
       long frame=oggStream.getMaximumGranulePosition()>>6;
       return frame==-1?
          Duration.DURATION_UNKNOWN:
-         new Time(((double)frame)/header.getFrameRate());
+         new Time(frame/header.getFrameRate());
    }
 
    /*

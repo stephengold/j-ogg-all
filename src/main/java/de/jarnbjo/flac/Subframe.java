@@ -313,7 +313,7 @@ public abstract class Subframe {
             long sum = 0;
             int history = i+order;
             for(int j = 0; j < order; j++) {
-               sum += ((long)coeffs[j]) * ((long)pcm[--history]);
+               sum += coeffs[j] * ((long)pcm[--history]);
             }
             if(quantizationLevel>=0) {
                pcm[i+order]=residue[i] + (int)(sum >> quantizationLevel);

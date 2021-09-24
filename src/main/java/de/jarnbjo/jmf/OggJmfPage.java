@@ -178,7 +178,7 @@ public class OggJmfPage extends OggPage {
                l=(int)tmpBuf[0]&0xff;
             }
             else if(source instanceof InputStream) {
-               l=(int)((InputStream)source).read();
+               l=((InputStream)source).read();
             }
             segmentTable[i]=(byte)l;
             segmentLengths[i]=l;

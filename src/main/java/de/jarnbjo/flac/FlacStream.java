@@ -107,7 +107,7 @@ public class FlacStream {
 
       for(int i=0; i<pcm[0].length; i++) {
          for(int j=0; j<channels; j++) {
-            int sample=(int)pcm[j][i];
+            int sample=pcm[j][i];
             buffer[offset+written++]=(byte)(sample>>8);
             buffer[offset+written++]=(byte)(sample&255);
          }

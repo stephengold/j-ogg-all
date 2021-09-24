@@ -64,7 +64,7 @@ public class FlacTrack extends OggTrack {
       long nos=oggStream.getMaximumGranulePosition();
       return nos==-1?
          Duration.DURATION_UNKNOWN:
-         new Time(nos*1000000000L/((long)streamInfo.getSampleRate()));
+         new Time(nos*1000000000L/(streamInfo.getSampleRate()));
    }
 
    protected int getSampleRate() {

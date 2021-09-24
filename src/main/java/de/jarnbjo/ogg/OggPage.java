@@ -271,10 +271,10 @@ public class OggPage {
                l=((int)((DataInput) source).readByte()&0xff);
             }
             else if(source instanceof InputStream) {
-               l=(int)((InputStream)source).read();
+               l=((InputStream)source).read();
             }
             else if(source instanceof byte[]) {
-               l=(int)((byte[])source)[sourceOffset++];
+               l=((byte[])source)[sourceOffset++];
                l&=255;
             }
             segmentTable[i]=(byte)l;

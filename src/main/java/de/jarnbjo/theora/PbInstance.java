@@ -915,7 +915,7 @@ public class PbInstance {
 
       /* Set the inter/intra decision control variables. */
       frameQIndex = Constants.Q_TABLE_SIZE - 1;
-      while ( (int) frameQIndex >= 0 ) {
+      while ( frameQIndex >= 0 ) {
          if ( (frameQIndex == 0) || ( qThreshTable[frameQIndex] >= newQ) ) {
             break;
          }

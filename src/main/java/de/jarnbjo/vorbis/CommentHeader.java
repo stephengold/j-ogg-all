@@ -92,7 +92,7 @@ public class CommentHeader {
 
    public String getComment(String key) {
       ArrayList al=(ArrayList)comments.get(key);
-      return al==null?(String)null:(String)al.get(0);
+      return al==null?null:(String)al.get(0);
    }
 
    public String[] getComments(String key) {

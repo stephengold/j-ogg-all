@@ -71,7 +71,7 @@ public class Header {
    }
 
    public double getFrameRate() {
-      return (double)fpsNumerator/(double)fpsDenominator;
+      return fpsNumerator/(double)fpsDenominator;
    }
 
    public int getKeyframeFrequencyForce() {
