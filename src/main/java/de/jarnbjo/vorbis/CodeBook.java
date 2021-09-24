@@ -33,9 +33,9 @@ import de.jarnbjo.util.io.*;
 class CodeBook {
 
    private HuffmanNode huffmanRoot;
-   private int dimensions, entries;
+   final private int dimensions, entries;
 
-   private int[] entryLengths;
+   final private int[] entryLengths;
    private float[][] valueVector;
 
    protected CodeBook(BitInputStream source) throws VorbisFormatException, IOException {

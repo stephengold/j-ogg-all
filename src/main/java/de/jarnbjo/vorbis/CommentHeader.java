@@ -50,7 +50,7 @@ public class CommentHeader {
    public static final String CONTACT = "CONTACT";
    public static final String ISRC = "ISRC";
 
-   private String vendor;
+   final private String vendor;
    final private HashMap comments=new HashMap();
    private boolean framingBit;
 

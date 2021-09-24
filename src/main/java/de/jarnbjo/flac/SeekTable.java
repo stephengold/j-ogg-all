@@ -27,7 +27,7 @@ import de.jarnbjo.util.io.*;
 
 public class SeekTable extends MetadataBlock {
 
-   private SeekPoint[] seekPoints;
+   final private SeekPoint[] seekPoints;
 
    protected SeekTable(BitInputStream source) throws FlacFormatException, IOException {
 

@@ -7,8 +7,8 @@ import de.jarnbjo.util.io.*;
 public class Header {
 
    final private int[] version=new int[3];
-   private int width, height, fpsNumerator, fpsDenominator, aspectNumerator, aspectDenominator;
-   private int keyframeFrequencyForce, targetBitrate, quality;
+   final private int width, height, fpsNumerator, fpsDenominator, aspectNumerator, aspectDenominator;
+   final private int keyframeFrequencyForce, targetBitrate, quality;
 
    final private String versionString;
 

@@ -46,7 +46,7 @@ public class VorbisStream {
    private SetupHeader setupHeader;
 
    private AudioPacket lastAudioPacket, nextAudioPacket;
-   private LinkedList audioPackets=new LinkedList();
+   final private LinkedList audioPackets=new LinkedList();
    private byte[] currentPcm;
    private int currentPcmIndex;
    private int currentPcmLimit;
@@ -55,11 +55,11 @@ public class VorbisStream {
    private static final int COMMENT_HEADER = 3;
    private static final int SETUP_HEADER = 5;
 
-   private int bitIndex=0;
-   private byte lastByte=(byte)0;
-   private boolean initialized=false;
+   final private int bitIndex=0;
+   final private byte lastByte=(byte)0;
+   final private boolean initialized=false;
 
-   private Object streamLock=new Object();
+   final private Object streamLock=new Object();
    private int pageCounter=0;
 
    private int currentBitRate=0;

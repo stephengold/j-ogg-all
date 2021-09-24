@@ -28,19 +28,20 @@ import de.jarnbjo.util.io.*;
 
 class AudioPacket {
 
-   private int modeNumber;
-   private Mode mode;
-   private Mapping mapping;
-   private int n; // block size
-   private boolean blockFlag, previousWindowFlag, nextWindowFlag;
+   final private int modeNumber;
+   final private Mode mode;
+   final private Mapping mapping;
+   final private int n; // block size
+   final private boolean blockFlag;
+   private boolean previousWindowFlag, nextWindowFlag;
 
-   private int windowCenter, leftWindowStart, leftWindowEnd, leftN, rightWindowStart, rightWindowEnd, rightN;
-   private float[] window;
-   private float[][] pcm;
-   private int[][] pcmInt;
+   final private int windowCenter, leftWindowStart, leftWindowEnd, leftN, rightWindowStart, rightWindowEnd, rightN;
+   final private float[] window;
+   final private float[][] pcm;
+   final private int[][] pcmInt;
 
-   private Floor[] channelFloors;
-   private boolean[] noResidues;
+   final private Floor[] channelFloors;
+   final private boolean[] noResidues;
 
    private final static float[][] windows=new float[8][];
 

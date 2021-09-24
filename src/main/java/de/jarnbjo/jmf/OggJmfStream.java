@@ -39,11 +39,11 @@ import de.jarnbjo.ogg.*;
 public class OggJmfStream implements PhysicalOggStream {
 
    private boolean closed=false;
-   private PullSourceStream source;
-   private long[] pageOffsets;
-   private long numberOfSamples=-1;
+   final private PullSourceStream source;
+   final private long[] pageOffsets;
+   final private long numberOfSamples=-1;
 
-   private HashMap logicalStreams=new HashMap();
+   final private HashMap logicalStreams=new HashMap();
 
    /**
     * Creates access to the specified <code>PullSourceStream</code> through the

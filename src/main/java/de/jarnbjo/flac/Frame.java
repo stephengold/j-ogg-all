@@ -27,8 +27,9 @@ import de.jarnbjo.util.io.*;
 
 public class Frame {
 
-   private int blockSize, sampleRate, channelAssignment, channels, bitsPerSample;
-   private long frameNumber;
+   private int blockSize, sampleRate, bitsPerSample;
+   final private int channelAssignment, channels;
+   final private long frameNumber;
 
    private static final int[] SAMPLE_RATES =
       {0, -1, -1, -1, 8000, 16000, 22050, 24000, 32000, 44100, 48000, 96000, 0, 0, 0, -1};
@@ -49,10 +50,10 @@ public class Frame {
       "RIGHT_SIDE",
       "MID_SIDE"};
 
-   private StreamInfo streamInfo;
+   final private StreamInfo streamInfo;
 
-   private Subframe[] subframes;
-   private int[][] pcm;
+   final private Subframe[] subframes;
+   final private int[][] pcm;
 
    public Frame(BitInputStream source, StreamInfo streamInfo) throws FlacFormatException, IOException {
 

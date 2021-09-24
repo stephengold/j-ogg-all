@@ -37,18 +37,18 @@ import java.util.*;
 public class CachedUrlStream implements PhysicalOggStream {
 
    private boolean closed=false;
-   private URLConnection source;
-   private InputStream sourceStream;
-   private Object drainLock=new Object();
-   private RandomAccessFile drain;
+   final private URLConnection source;
+   final private InputStream sourceStream;
+   final private Object drainLock=new Object();
+   final private RandomAccessFile drain;
    private byte[] memoryCache;
-   private ArrayList pageOffsets=new ArrayList();
-   private ArrayList pageLengths=new ArrayList();
+   final private ArrayList pageOffsets=new ArrayList();
+   final private ArrayList pageLengths=new ArrayList();
    private long cacheLength;
 
-   private HashMap logicalStreams=new HashMap();
+   final private HashMap logicalStreams=new HashMap();
 
-   private LoaderThread loaderThread;
+   final private LoaderThread loaderThread;
 
     /**
      * Creates an instance of this class, using a memory cache.

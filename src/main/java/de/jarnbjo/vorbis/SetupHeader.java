@@ -31,11 +31,11 @@ class SetupHeader {
 
    private static final long HEADER = 0x736962726f76L; // 'vorbis'
 
-   private CodeBook[] codeBooks;
-   private Floor[] floors;
-   private Residue[] residues;
-   private Mapping[] mappings;
-   private Mode[] modes;
+   final private CodeBook[] codeBooks;
+   final private Floor[] floors;
+   final private Residue[] residues;
+   final private Mapping[] mappings;
+   final private Mode[] modes;
 
    public SetupHeader(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
 

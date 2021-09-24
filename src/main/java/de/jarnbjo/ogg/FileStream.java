@@ -34,10 +34,10 @@ import java.util.*;
 public class FileStream implements PhysicalOggStream {
 
    private boolean closed=false;
-   private RandomAccessFile source;
+   final private RandomAccessFile source;
    final private long[] pageOffsets;
 
-   private HashMap logicalStreams=new HashMap();
+   final private HashMap logicalStreams=new HashMap();
 
    /**
     * Creates access to the specified file through the <code>PhysicalOggStream</code> interface.

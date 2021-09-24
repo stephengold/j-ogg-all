@@ -31,7 +31,7 @@ import java.io.IOException;
 
 final public class HuffmanNode {
 
-   private HuffmanNode parent;
+   final private HuffmanNode parent;
    private int depth=0;
    HuffmanNode o0, o1;
    Integer value;

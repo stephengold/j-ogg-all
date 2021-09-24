@@ -37,7 +37,7 @@ import java.io.IOException;
 
 public class ByteArrayBitInputStream implements BitInputStream {
 
-   private byte[] source;
+   final private byte[] source;
    private byte currentByte;
 
    private int endian;
