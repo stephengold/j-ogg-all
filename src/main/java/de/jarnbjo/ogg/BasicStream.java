@@ -35,9 +35,6 @@ public class BasicStream implements PhysicalOggStream {
 
    private boolean closed=false;
    private InputStream sourceStream;
-   final private Object drainLock=new Object();
-   final private LinkedList pageCache=new LinkedList();
-   final private long numberOfSamples=-1;
    private int position=0;
 
    final private HashMap logicalStreams=new HashMap();
@@ -89,10 +86,6 @@ public class BasicStream implements PhysicalOggStream {
          position+=page.getTotalLength();
          return page;
       }
-   }
-
-   private LogicalOggStream getLogicalStream(int serialNumber) {
-      return (LogicalOggStream)logicalStreams.get(serialNumber);
    }
 
    @Override

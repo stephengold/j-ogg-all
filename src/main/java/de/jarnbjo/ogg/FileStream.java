@@ -36,7 +36,6 @@ public class FileStream implements PhysicalOggStream {
    private boolean closed=false;
    private RandomAccessFile source;
    final private long[] pageOffsets;
-   private long numberOfSamples=-1;
 
    private HashMap logicalStreams=new HashMap();
 
@@ -114,10 +113,6 @@ public class FileStream implements PhysicalOggStream {
    public void close() throws IOException {
       closed=true;
       source.close();
-   }
-
-   private OggPage getNextPage() throws EndOfOggStreamException, IOException, OggFormatException  {
-      return getNextPage(false);
    }
 
    private OggPage getNextPage(boolean skipData) throws EndOfOggStreamException, IOException, OggFormatException  {

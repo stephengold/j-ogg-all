@@ -44,7 +44,6 @@ public class CachedUrlStream implements PhysicalOggStream {
    private byte[] memoryCache;
    private ArrayList pageOffsets=new ArrayList();
    private ArrayList pageLengths=new ArrayList();
-   private long numberOfSamples=-1;
    private long cacheLength;
 
    private HashMap logicalStreams=new HashMap();
