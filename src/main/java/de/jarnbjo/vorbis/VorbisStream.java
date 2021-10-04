@@ -55,10 +55,6 @@ public class VorbisStream {
    private static final int COMMENT_HEADER = 3;
    private static final int SETUP_HEADER = 5;
 
-   final private int bitIndex=0;
-   final private byte lastByte=(byte)0;
-   final private boolean initialized=false;
-
    final private Object streamLock=new Object();
    private int pageCounter=0;
 

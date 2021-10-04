@@ -39,7 +39,6 @@ public class UncachedUrlStream implements PhysicalOggStream {
    final private InputStream sourceStream;
    final private Object drainLock=new Object();
    final private LinkedList pageCache=new LinkedList();
-   final private long numberOfSamples=-1;
 
    final private HashMap logicalStreams=new HashMap();
 

@@ -41,7 +41,6 @@ public class OggJmfStream implements PhysicalOggStream {
    private boolean closed=false;
    final private PullSourceStream source;
    final private long[] pageOffsets;
-   final private long numberOfSamples=-1;
 
    final private HashMap logicalStreams=new HashMap();
 
