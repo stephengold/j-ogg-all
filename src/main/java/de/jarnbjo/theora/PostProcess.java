@@ -321,7 +321,7 @@ public class PostProcess {
             }else if(variance > thresh1 ){
                deringBlockWeak(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength,quality,quantScale);
             }else{
-	            copyBlock(src, srcOffset+ + 8 * col, dst, dstOffset+ 8 * col, lineLength);
+	            copyBlock(src, srcOffset + 8 * col, dst, dstOffset+ 8 * col, lineLength);
             }
 
             ++block;
