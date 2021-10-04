@@ -32,7 +32,7 @@ class Mode {
    final private boolean blockFlag;
    final private int windowType, transformType, mapping;
 
-   protected Mode(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Mode(BitInputStream source, SetupHeader header) throws IOException {
       blockFlag=source.getBit();
       windowType=source.getInt(16);
       transformType=source.getInt(16);

@@ -35,7 +35,7 @@ public abstract class MetadataBlock {
 
    private boolean lastBlock;
 
-   public static MetadataBlock createInstance(BitInputStream source) throws FlacFormatException, IOException {
+   public static MetadataBlock createInstance(BitInputStream source) throws IOException {
 
       boolean lb=source.getBit();
 

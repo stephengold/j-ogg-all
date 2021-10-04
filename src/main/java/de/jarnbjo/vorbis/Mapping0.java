@@ -32,7 +32,7 @@ class Mapping0 extends Mapping {
    final private int[] magnitudes, angles;
    final private int[] mux, submapFloors, submapResidues;
 
-   protected Mapping0(VorbisStream vorbis, BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Mapping0(VorbisStream vorbis, BitInputStream source, SetupHeader header) throws IOException {
 
       int submaps=1;
 

@@ -115,7 +115,7 @@ public class FileStream implements PhysicalOggStream {
       source.close();
    }
 
-   private OggPage getNextPage(boolean skipData) throws EndOfOggStreamException, IOException, OggFormatException  {
+   private OggPage getNextPage(boolean skipData) throws IOException {
       return OggPage.create(source, skipData);
    }
 

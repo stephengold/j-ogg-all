@@ -45,7 +45,7 @@ class AudioPacket {
 
    private final static float[][] windows=new float[8][];
 
-   protected AudioPacket(final VorbisStream vorbis, final BitInputStream source) throws VorbisFormatException, IOException {
+   protected AudioPacket(final VorbisStream vorbis, final BitInputStream source) throws IOException {
 
       final SetupHeader sHeader=vorbis.getSetupHeader();
       final IdentificationHeader iHeader=vorbis.getIdentificationHeader();

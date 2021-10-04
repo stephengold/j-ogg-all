@@ -61,14 +61,14 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
    }
 
    @Override
-   public synchronized void reset() throws OggFormatException, IOException {
+   public synchronized void reset() throws IOException {
       currentPage=null;
       currentSegmentIndex=0;
       pageIndex=0;
    }
 
    @Override
-   public synchronized OggPage getNextOggPage() throws EndOfOggStreamException, OggFormatException, IOException {
+   public synchronized OggPage getNextOggPage() throws IOException {
       if(source.isSeekable()) {
          currentPage=source.getOggPage(((Integer)pageNumberMapping.get(pageIndex++)));
       }
@@ -79,7 +79,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
    }
 
    @Override
-   public synchronized byte[] getNextOggPacket() throws EndOfOggStreamException, OggFormatException, IOException {
+   public synchronized byte[] getNextOggPacket() throws IOException {
       ByteArrayOutputStream res=new ByteArrayOutputStream();
       int segmentLength=0;
 

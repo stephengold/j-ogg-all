@@ -28,7 +28,7 @@ import de.jarnbjo.util.io.BitInputStream;
 
 class Residue1 extends Residue {
 
-   protected Residue1(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Residue1(BitInputStream source, SetupHeader header) throws IOException {
       super(source, header);
    }
 
@@ -38,7 +38,7 @@ class Residue1 extends Residue {
    }
 
    @Override
-   protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException {
+   protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException {
       /* @todo implement */
       throw new UnsupportedOperationException();
    }

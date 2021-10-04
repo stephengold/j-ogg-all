@@ -51,7 +51,7 @@ public class FlacStream {
    public FlacStream() {
    }
 
-   public FlacStream(LogicalOggStream oggStream) throws FlacFormatException, IOException {
+   public FlacStream(LogicalOggStream oggStream) throws IOException {
       this.oggStream=oggStream;
 
       MetadataBlock mdBlock=null;
@@ -89,7 +89,7 @@ public class FlacStream {
 
    }
 
-   public Frame getNextFrame() throws FlacFormatException, IOException {
+   public Frame getNextFrame() throws IOException {
       return new Frame(new ByteArrayBitInputStream(oggStream.getNextOggPacket(), ByteArrayBitInputStream.BIG_ENDIAN), streamInfo);
    }
 
@@ -125,7 +125,7 @@ public class FlacStream {
    }
 
 
-   public byte[] processPacket(byte[] packet) throws FlacFormatException, IOException {
+   public byte[] processPacket(byte[] packet) throws IOException {
       if(packet.length==0) {
          throw new FlacFormatException("Cannot decode a flac frame with length = 0");
       }

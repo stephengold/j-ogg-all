@@ -199,7 +199,7 @@ public class OggPage {
       return create((Object)source, skipData);
    }
 
-   private static OggPage create(Object source, boolean skipData) throws IOException, EndOfOggStreamException, OggFormatException  {
+   private static OggPage create(Object source, boolean skipData) throws IOException {
 
       try {
          int sourceOffset=27;

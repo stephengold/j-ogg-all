@@ -32,7 +32,7 @@ class Floor0 extends Floor {
    final private int order, rate, barkMapSize, amplitudeBits, amplitudeOffset;
    final private int bookList[];
 
-   protected Floor0(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Floor0(BitInputStream source, SetupHeader header) throws IOException {
 
       order=source.getInt(8);
       rate=source.getInt(16);
@@ -57,7 +57,7 @@ class Floor0 extends Floor {
    }
 
    @Override
-   protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
+   protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws IOException {
       /* @todo implement */
       throw new UnsupportedOperationException();
    }

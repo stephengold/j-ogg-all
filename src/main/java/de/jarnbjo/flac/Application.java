@@ -29,7 +29,7 @@ public class Application extends MetadataBlock {
 
    final private byte[] data;
 
-   protected Application(BitInputStream source) throws FlacFormatException, IOException {
+   protected Application(BitInputStream source) throws IOException {
 
       int length=source.getInt(24);
       data=new byte[length];

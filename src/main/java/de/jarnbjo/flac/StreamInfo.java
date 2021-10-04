@@ -31,7 +31,7 @@ public class StreamInfo extends MetadataBlock {
    final private int sampleRate, channels, bitsPerSample;
    final private long totalSamples;
 
-   protected StreamInfo(BitInputStream source) throws FlacFormatException, IOException {
+   protected StreamInfo(BitInputStream source) throws IOException {
 
       int length=source.getInt(24);
 

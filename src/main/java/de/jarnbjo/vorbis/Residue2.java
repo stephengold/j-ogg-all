@@ -33,7 +33,7 @@ class Residue2 extends Residue {
    private Residue2() {
    }
 
-   protected Residue2(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Residue2(BitInputStream source, SetupHeader header) throws IOException {
       super(source, header);
    }
 
@@ -43,7 +43,7 @@ class Residue2 extends Residue {
    }
 
    @Override
-   protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException {
+   protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException {
 
       Look look=getLook(vorbis, mode);
 

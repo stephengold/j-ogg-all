@@ -56,7 +56,7 @@ public class CommentHeader {
 
    private static final long HEADER = 0x736962726f76L; // 'vorbis'
 
-   public CommentHeader(BitInputStream source) throws VorbisFormatException, IOException {
+   public CommentHeader(BitInputStream source) throws IOException {
       if(source.getLong(48)!=HEADER) {
          throw new VorbisFormatException("The identification header has an illegal leading.");
       }
@@ -221,7 +221,7 @@ public class CommentHeader {
    }
 
 
-   private static String getString(BitInputStream source) throws IOException, VorbisFormatException {
+   private static String getString(BitInputStream source) throws IOException {
 
       int length=source.getInt(32);
 

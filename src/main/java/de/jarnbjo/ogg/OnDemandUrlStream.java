@@ -52,7 +52,7 @@ public class OnDemandUrlStream implements PhysicalOggStream {
 
    private static final int PAGECACHE_SIZE = 20;
 
-   public OnDemandUrlStream(URL source) throws OggFormatException, IOException {
+   public OnDemandUrlStream(URL source) throws IOException {
       this.source=source.openConnection();
       this.sourceStream=this.source.getInputStream();
 

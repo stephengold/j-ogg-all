@@ -55,7 +55,7 @@ public class Frame {
    final private Subframe[] subframes;
    final private int[][] pcm;
 
-   public Frame(BitInputStream source, StreamInfo streamInfo) throws FlacFormatException, IOException {
+   public Frame(BitInputStream source, StreamInfo streamInfo) throws IOException {
 
       if(source.getInt(16)!=0xfff8) {
          throw new FlacFormatException("Audio frame header mismatch");

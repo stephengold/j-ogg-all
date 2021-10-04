@@ -22,7 +22,7 @@ public class TheoraStream {
    public TheoraStream() {
    }
 
-   public TheoraStream(LogicalOggStream oggStream) throws TheoraFormatException, IOException {
+   public TheoraStream(LogicalOggStream oggStream) throws IOException {
       this.oggStream=oggStream;
 
       header=new Header(new ByteArrayBitInputStream(oggStream.getNextOggPacket(), ByteArrayBitInputStream.BIG_ENDIAN));
@@ -52,7 +52,7 @@ public class TheoraStream {
       return pbInstance;
    }
 
-   public byte[] decodePacket(byte[] packet) throws TheoraFormatException, IOException {
+   public byte[] decodePacket(byte[] packet) throws IOException {
       if(header==null) {
          header=new Header(new ByteArrayBitInputStream(packet, ByteArrayBitInputStream.BIG_ENDIAN));
 
@@ -119,7 +119,7 @@ public class TheoraStream {
       return pbInstance.postProcessBuffer;
    }
 
-   void loadAndDecode(BitInputStream source) throws TheoraFormatException, IOException {
+   void loadAndDecode(BitInputStream source) throws IOException {
 
       /* Reset the DC predictors. */
       pbInstance.invLastIntraDC=0;
@@ -139,12 +139,12 @@ public class TheoraStream {
       decodeData(source);
    }
 
-   void loadFrame(BitInputStream source) throws TheoraFormatException, IOException {
+   void loadFrame(BitInputStream source) throws IOException {
       loadFrameHeader(source);
       quadDecodeDisplayFragments(source);
    }
 
-   void loadFrameHeader(BitInputStream source) throws TheoraFormatException, IOException {
+   void loadFrameHeader(BitInputStream source) throws IOException {
       int dctQMask, spareBits;
 
       pbInstance.frameType=(byte)source.getInt(1);

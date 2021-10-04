@@ -15,7 +15,7 @@ public class Header {
    private static final int[] HEADER =
       {0x80, 0x74, 0x68, 0x65, 0x6f, 0x72, 0x61};
 
-   public Header(BitInputStream source) throws TheoraFormatException, IOException {
+   public Header(BitInputStream source) throws IOException {
 
       for(int i=0; i<HEADER.length; i++) {
          if(source.getInt(8)!=HEADER[i]) {

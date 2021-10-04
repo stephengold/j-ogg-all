@@ -29,7 +29,7 @@ import de.jarnbjo.util.io.*;
 
 public abstract class Subframe {
 
-   public static Subframe createInstance(BitInputStream source, Frame frame, StreamInfo streamInfo, boolean sideChannel) throws FlacFormatException, IOException {
+   public static Subframe createInstance(BitInputStream source, Frame frame, StreamInfo streamInfo, boolean sideChannel) throws IOException {
 
       if(source.getBit()) {
          throw new FlacFormatException("Sync error when trying to read subframe");
@@ -74,7 +74,7 @@ public abstract class Subframe {
 
       int[] pcm;
 
-      public Constant(BitInputStream source, Frame frame, StreamInfo streamInfo) throws FlacFormatException, IOException {
+      public Constant(BitInputStream source, Frame frame, StreamInfo streamInfo) throws IOException {
          int c=source.getSignedInt(frame.getBitsPerSample());
          pcm=new int[frame.getBlockSize()];
          Arrays.fill(pcm, c);
@@ -91,7 +91,7 @@ public abstract class Subframe {
 
       int[] pcm;
 
-      public Verbatim(BitInputStream source, Frame frame, StreamInfo streamInfo) throws FlacFormatException, IOException {
+      public Verbatim(BitInputStream source, Frame frame, StreamInfo streamInfo) throws IOException {
          int bps=frame.getBitsPerSample();
          int blockSize=frame.getBlockSize();
 
@@ -116,7 +116,7 @@ public abstract class Subframe {
       int[] warmup;
       int[] residue;
 
-      public Fixed(BitInputStream source, Frame frame, StreamInfo streamInfo, int wastedBits, int order, boolean sideChannel) throws FlacFormatException, IOException {
+      public Fixed(BitInputStream source, Frame frame, StreamInfo streamInfo, int wastedBits, int order, boolean sideChannel) throws IOException {
 
          int bitsPerSample=frame.getBitsPerSample();
          if(sideChannel) {
@@ -233,7 +233,7 @@ public abstract class Subframe {
 
       int[] coeffs;
 
-      public Lpc(BitInputStream source, Frame frame, StreamInfo streamInfo, int wastedBits, int order, boolean sideChannel) throws FlacFormatException, IOException {
+      public Lpc(BitInputStream source, Frame frame, StreamInfo streamInfo, int wastedBits, int order, boolean sideChannel) throws IOException {
 
          int bitsPerSample=frame.getBitsPerSample();
          if(sideChannel) {

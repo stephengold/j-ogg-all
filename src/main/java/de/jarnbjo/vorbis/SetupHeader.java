@@ -37,7 +37,7 @@ class SetupHeader {
    final private Mapping[] mappings;
    final private Mode[] modes;
 
-   SetupHeader(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
+   SetupHeader(VorbisStream vorbis, BitInputStream source) throws IOException {
 
       if(source.getLong(48)!=HEADER) {
          throw new VorbisFormatException("The setup header has an illegal leading.");

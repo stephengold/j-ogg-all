@@ -27,7 +27,7 @@ import de.jarnbjo.util.io.BitInputStream;
 
 public class Padding extends MetadataBlock {
 
-   protected Padding(BitInputStream source) throws FlacFormatException, IOException {
+   protected Padding(BitInputStream source) throws IOException {
       int length=source.getInt(24);
       for(int i=0; i<length; i++) {
          source.getInt(8);

@@ -104,11 +104,11 @@ public class OggJmfPage extends OggPage {
       return create(source, false);
    }
 
-   public static OggJmfPage create(PullSourceStream source, boolean skipData) throws IOException, EndOfOggStreamException, OggFormatException  {
+   public static OggJmfPage create(PullSourceStream source, boolean skipData) throws IOException {
       return create((Object)source, skipData);
    }
 
-   private static OggJmfPage create(Object source, boolean skipData) throws IOException, EndOfOggStreamException, OggFormatException  {
+   private static OggJmfPage create(Object source, boolean skipData) throws IOException {
 
       try {
          byte[] header=new byte[27];

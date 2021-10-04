@@ -29,7 +29,7 @@ public class SeekTable extends MetadataBlock {
 
    final private SeekPoint[] seekPoints;
 
-   protected SeekTable(BitInputStream source) throws FlacFormatException, IOException {
+   protected SeekTable(BitInputStream source) throws IOException {
 
       int length=source.getInt(24);
 

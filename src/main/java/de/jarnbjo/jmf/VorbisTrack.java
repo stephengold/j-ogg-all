@@ -22,7 +22,7 @@ public class VorbisTrack extends OggTrack {
    final private IdentificationHeader identificationHeader;
    final private AudioFormat format;
 
-   public VorbisTrack(LogicalOggStream source, byte[] idHeaderData) throws VorbisFormatException, IOException {
+   public VorbisTrack(LogicalOggStream source, byte[] idHeaderData) throws IOException {
       super(source);
       oggStream=source;
       BitInputStream bd=new ByteArrayBitInputStream(idHeaderData);

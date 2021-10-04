@@ -45,7 +45,7 @@ abstract class Residue {
    protected Residue() {
    }
 
-   protected Residue(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Residue(BitInputStream source, SetupHeader header) throws IOException {
       begin=source.getInt(24);
       end=source.getInt(24);
       partitionSize=source.getInt(24)+1;
@@ -81,7 +81,7 @@ abstract class Residue {
    }
 
 
-   protected static Residue createInstance(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected static Residue createInstance(BitInputStream source, SetupHeader header) throws IOException {
 
       int type=source.getInt(16);
       switch(type) {
@@ -100,7 +100,7 @@ abstract class Residue {
    }
 
    protected abstract int getType();
-   protected abstract void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws VorbisFormatException, IOException;
+   protected abstract void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException;
    //public abstract double[][] getDecodedVectors();
 
    protected int getBegin() {

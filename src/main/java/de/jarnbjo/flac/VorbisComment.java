@@ -25,7 +25,7 @@ public class VorbisComment extends MetadataBlock {
    final private String vendor;
    final private HashMap comments=new HashMap();
 
-   public VorbisComment(BitInputStream source) throws FlacFormatException, IOException {
+   public VorbisComment(BitInputStream source) throws IOException {
 
       int length=source.getInt(24);
 

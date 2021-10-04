@@ -99,7 +99,7 @@ public abstract class Floor {
       0.64356699f, 0.68538959f, 0.72993007f, 0.77736504f,
       0.82788260f, 0.88168307f, 0.9389798f, 1.0f};
 
-   static Floor createInstance(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   static Floor createInstance(BitInputStream source, SetupHeader header) throws IOException {
 
       int type=source.getInt(16);
       switch(type) {
@@ -113,6 +113,6 @@ public abstract class Floor {
    }
 
    abstract int getType();
-   abstract Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException;
+   abstract Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws IOException;
    abstract void computeFloor(float[] vector);
 }

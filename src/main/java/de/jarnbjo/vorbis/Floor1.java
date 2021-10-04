@@ -47,7 +47,7 @@ class Floor1 extends Floor implements Cloneable {
    private Floor1() {
    }
 
-   protected Floor1(BitInputStream source, SetupHeader header) throws VorbisFormatException, IOException {
+   protected Floor1(BitInputStream source, SetupHeader header) throws IOException {
 
       maximumClass=-1;
       int partitions=source.getInt(5);
@@ -123,7 +123,7 @@ class Floor1 extends Floor implements Cloneable {
    }
 
    @Override
-   protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws VorbisFormatException, IOException {
+   protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws IOException {
 
    //System.out.println("decodeFloor");
       if(!source.getBit()) {

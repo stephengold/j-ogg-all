@@ -119,11 +119,11 @@ public class OggJmfStream implements PhysicalOggStream {
       //source.
    }
 
-   private OggPage getNextPage() throws EndOfOggStreamException, IOException, OggFormatException  {
+   private OggPage getNextPage() throws IOException {
       return getNextPage(false);
    }
 
-   private OggPage getNextPage(boolean skipData) throws EndOfOggStreamException, IOException, OggFormatException  {
+   private OggPage getNextPage(boolean skipData) throws IOException {
       return OggJmfPage.create(source, skipData);
    }
 

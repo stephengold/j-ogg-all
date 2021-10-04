@@ -40,7 +40,7 @@ public class BasicStream implements PhysicalOggStream {
    final private HashMap logicalStreams=new HashMap();
    private OggPage firstPage;
 
-   public BasicStream(InputStream sourceStream) throws OggFormatException, IOException {
+   public BasicStream(InputStream sourceStream) throws IOException {
       firstPage=OggPage.create(sourceStream);
       position+=firstPage.getTotalLength();
       LogicalOggStreamImpl los=new LogicalOggStreamImpl(this, firstPage.getStreamSerialNumber());

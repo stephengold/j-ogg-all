@@ -68,7 +68,7 @@ public class VorbisStream {
    public VorbisStream() {
    }
 
-   public VorbisStream(LogicalOggStream oggStream) throws VorbisFormatException, IOException {
+   public VorbisStream(LogicalOggStream oggStream) throws IOException {
       this.oggStream=oggStream;
 
       for(int i=0; i<3; i++) {
@@ -157,7 +157,7 @@ public class VorbisStream {
    }
 
 
-   private AudioPacket getNextAudioPacket() throws VorbisFormatException, IOException {
+   private AudioPacket getNextAudioPacket() throws IOException {
       pageCounter++;
       byte[] data=oggStream.getNextOggPacket();
       AudioPacket res=null;
@@ -182,7 +182,7 @@ public class VorbisStream {
       return currentBitRate;
    }
 
-   public byte[] processPacket(byte[] packet) throws VorbisFormatException, IOException {
+   public byte[] processPacket(byte[] packet) throws IOException {
       if(packet.length==0) {
          throw new VorbisFormatException("Cannot decode a vorbis packet with length = 0");
       }
