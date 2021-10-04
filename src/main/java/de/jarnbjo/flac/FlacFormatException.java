@@ -30,7 +30,7 @@ public class FlacFormatException extends IOException {
                while(val.length()<8) val="0"+val;
                System.err.print(val+" ");
             }
-            System.err.println("");
+            System.err.println();
          }
       }
    }
