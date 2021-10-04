@@ -128,10 +128,6 @@ class MdctFloat {
             dtmp4=trig[--A];
 	         x[xO++]=-dtmp2*dtmp3 - dtmp1*dtmp4;
 	         x[xO++]= dtmp1*dtmp3 - dtmp2*dtmp4;
-	         //A-=2;
-	         //x[xO++]=-in[inO+2]*trig[A+1] - in[inO]*trig[A];
-	         //x[xO++]= in[inO]*trig[A+1] - in[inO+2]*trig[A];
-	         //inO+=4;
          }
 
          inO=n2;//-4;

@@ -150,8 +150,6 @@ class Floor1 extends Floor implements Cloneable {
          int cval=0;
          if(cbits>0) {
             cval=source.getInt(vorbis.getSetupHeader().getCodeBooks()[classMasterbooks[cls]].getHuffmanRoot());
-            //cval=vorbis.getSetupHeader().getCodeBooks()[classMasterbooks[cls]].readInt(source);
-            //System.out.println("cval: "+cval);
          }
          //System.out.println("0: "+cls+" "+cdim+" "+cbits+" "+csub+" "+cval);
          for(int j=0; j<cdim; j++) {
