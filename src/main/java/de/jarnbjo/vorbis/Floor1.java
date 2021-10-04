@@ -142,8 +142,7 @@ class Floor1 extends Floor implements Cloneable {
 
       int offset=2;
 
-      for(int i=0; i<partitionClassList.length; i++) {
-         int cls=partitionClassList[i];
+      for (int cls : partitionClassList) {
          int cdim=classDimensions[cls];
          int cbits=classSubclasses[cls];
          int csub=(1<<cbits)-1;

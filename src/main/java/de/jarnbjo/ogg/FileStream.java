@@ -131,8 +131,8 @@ public class FileStream implements PhysicalOggStream {
 
    @Override
    public void setTime(long granulePosition) throws IOException {
-      for(Iterator iter=logicalStreams.values().iterator(); iter.hasNext(); ) {
-         LogicalOggStream los=(LogicalOggStream)iter.next();
+      for (Object o : logicalStreams.values()) {
+         LogicalOggStream los = (LogicalOggStream) o;
          los.setTime(granulePosition);
       }
    }

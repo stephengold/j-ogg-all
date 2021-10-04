@@ -54,9 +54,9 @@ public class OggParser implements Demultiplexer {
          return Time.TIME_UNKNOWN;
       }
       long max=0;
-      for(int i=0; i<tracks.length; i++) {
-         if(tracks[i].getDuration().getNanoseconds()>max) {
-            max=tracks[i].getDuration().getNanoseconds();
+      for (Track track : tracks) {
+         if (track.getDuration().getNanoseconds() > max) {
+            max = track.getDuration().getNanoseconds();
          }
       }
       return new Time(max);//Time.TIME_UNKNOWN;

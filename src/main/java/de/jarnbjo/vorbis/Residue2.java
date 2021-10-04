@@ -59,11 +59,11 @@ class Residue2 extends Residue {
       int partWords=(partitionsToRead+partitionsPerWord-1)/partitionsPerWord;
 
       int realCh=0;
-      for(int i=0; i<doNotDecodeFlags.length; i++) {
-         if(!doNotDecodeFlags[i]) {
-            realCh++;
-         }
-      }
+       for (boolean doNotDecodeFlag : doNotDecodeFlags) {
+          if (!doNotDecodeFlag) {
+               realCh++;
+           }
+       }
 
       float[][] realVectors=new float[realCh][];
 
