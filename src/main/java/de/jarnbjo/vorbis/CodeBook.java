@@ -113,7 +113,7 @@ class CodeBook {
             codeBookLookupValues=entries*dimensions;
          }
 
-         int codeBookMultiplicands[]=new int[codeBookLookupValues];
+         int[] codeBookMultiplicands =new int[codeBookLookupValues];
 
          for(int i=0; i<codeBookMultiplicands.length; i++) {
             codeBookMultiplicands[i]=source.getInt(codeBookValueBits);
