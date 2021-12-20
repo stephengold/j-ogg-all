@@ -31,7 +31,7 @@ package de.jarnbjo.util.io;
 import java.io.IOException;
 
 /**
- *  Implementation of the <code>BitInputStream</code> interface,
+ *  Implementation of the {@code BitInputStream} interface,
  *  using a byte array as data source.
 */
 
@@ -242,7 +242,7 @@ public class ByteArrayBitInputStream implements BitInputStream {
    }
 
 	/**
-	 *  <p>fills the array from <code>offset</code> with <code>len</code> 
+	 *  <p>fills the array from {@code offset} with {@code len} 
 	 *  integers encoded as "signed rice" as described in
 	 *  the FLAC audio format specification</p>
 	 *	

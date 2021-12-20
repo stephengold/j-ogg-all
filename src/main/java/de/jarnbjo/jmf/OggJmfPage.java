@@ -35,8 +35,8 @@ import de.jarnbjo.ogg.*;
 /**
  * <p>An instance of this class represents an ogg page read from an ogg file
  * or network stream. It has no public constructor, but instances can be
- * created by the <code>create</code> methods, supplying a JMF stream or
- * a <code>RandomAccessFile</code>
+ * created by the {@code create} methods, supplying a JMF stream or
+ * a {@code RandomAccessFile}
  * which is positioned at the beginning of an Ogg page.</p>
  *
  * <p>Furthermore, the class provides methods for accessing the raw page data,
@@ -90,7 +90,7 @@ public class OggJmfPage extends OggPage {
    }
 
    /**
-    * This method is equivalent to <code>create(source, false)</code>
+    * This method is equivalent to {@code create(source, false)}
     *
     * @param source the byte channel from which the ogg page is generated
     * @return an ogg page created by reading data from the specified channel, starting at the current position
@@ -322,7 +322,7 @@ public class OggJmfPage extends OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page begins with a continued packet
+    * @return {@code true} if this page begins with a continued packet
     */
 
    @Override
@@ -331,7 +331,7 @@ public class OggJmfPage extends OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page begins with a fresh packet
+    * @return {@code true} if this page begins with a fresh packet
     */
 
    @Override
@@ -340,7 +340,7 @@ public class OggJmfPage extends OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page is the beginning of a logical stream
+    * @return {@code true} if this page is the beginning of a logical stream
     */
 
    @Override
@@ -349,7 +349,7 @@ public class OggJmfPage extends OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page is the end of a logical stream
+    * @return {@code true} if this page is the end of a logical stream
     */
 
    @Override

@@ -39,10 +39,10 @@ import java.util.Collection;
 public interface PhysicalOggStream {
 
    /**
-    * Returns a collection of objects implementing <code>LogicalOggStream</code>
+    * Returns a collection of objects implementing {@code LogicalOggStream}
     * for accessing the separate logical streams within this physical Ogg stream.
     *
-    * @return a collection of objects implementing <code>LogicalOggStream</code>
+    * @return a collection of objects implementing {@code LogicalOggStream}
     *         which are representing the logical streams contained within this
     *         physical stream
     *
@@ -52,17 +52,17 @@ public interface PhysicalOggStream {
    Collection getLogicalStreams();
 
    /**
-    * Return the Ogg page with the absolute index <code>index</code>,
+    * Return the Ogg page with the absolute index {@code index},
     * independent of the logical structure of this stream or if the
     * index parameter is -1, the next Ogg page is returned.
-    * This method should only be used by implementations of <code>LogicalOggStream</code>
+    * This method should only be used by implementations of {@code LogicalOggStream}
     * to access the raw pages.
     *
     * @param index the absolute index starting from 0 at the beginning of
     *        the file or stream or -1 to get the next page in a non-seekable
     *        stream
     *
-    * @return the Ogg page with the physical absolute index <code>index</code>
+    * @return the Ogg page with the physical absolute index {@code index}
     *
     * @throws OggFormatException if the ogg stream is corrupted
     * @throws IOException if some other IO error occurs
@@ -73,8 +73,8 @@ public interface PhysicalOggStream {
    /**
     * Checks if this stream is open for reading.
     *
-    * @return <code>true</code> if this stream is open for reading,
-    *         <code>false</code> otherwise
+    * @return {@code true} if this stream is open for reading,
+    *         {@code false} otherwise
     */
 
    boolean isOpen();
@@ -110,7 +110,7 @@ public interface PhysicalOggStream {
    void setTime(long granulePosition) throws OggFormatException, IOException;
 
 	/**
-	 *  @return <code>true</code> if the stream is seekable, <code>false</code>
+	 *  @return {@code true} if the stream is seekable, {@code false}
 	 *          otherwise
 	 */
 

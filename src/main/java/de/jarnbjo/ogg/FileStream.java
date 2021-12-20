@@ -27,7 +27,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Implementation of the <code>PhysicalOggStream</code> interface for accessing
+ * Implementation of the {@code PhysicalOggStream} interface for accessing
  * normal disk files.
  */
 
@@ -40,7 +40,7 @@ public class FileStream implements PhysicalOggStream {
    final private HashMap logicalStreams=new HashMap();
 
    /**
-    * Creates access to the specified file through the <code>PhysicalOggStream</code> interface.
+    * Creates access to the specified file through the {@code PhysicalOggStream} interface.
     * The specified source file must have been opened for reading.
     *
     * @param source the file to read from
@@ -138,7 +138,7 @@ public class FileStream implements PhysicalOggStream {
    }
 
 	/**
-	 *  @return always <code>true</code>
+	 *  @return always {@code true}
 	 */
 
    @Override

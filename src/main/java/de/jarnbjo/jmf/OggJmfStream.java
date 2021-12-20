@@ -32,7 +32,7 @@ import javax.media.protocol.Seekable;
 import de.jarnbjo.ogg.*;
 
 /**
- * Implementation of the <code>PhysicalOggStream</code> interface for accessing
+ * Implementation of the {@code PhysicalOggStream} interface for accessing
  * JMF (Java Media Framework) media streams.
  */
 
@@ -45,9 +45,9 @@ public class OggJmfStream implements PhysicalOggStream {
    final private HashMap logicalStreams=new HashMap();
 
    /**
-    * Creates access to the specified <code>PullSourceStream</code> through the
-    * <code>PhysicalOggStream</code> interface.
-    * The specified source must implement the <code>Seekable</code> interface.
+    * Creates access to the specified {@code PullSourceStream} through the
+    * {@code PhysicalOggStream} interface.
+    * The specified source must implement the {@code Seekable} interface.
     *
     * @param source the media stream to read from
     *

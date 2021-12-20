@@ -43,7 +43,7 @@ public interface LogicalOggStream {
 
    /**
     * <i>Note:</i> To read from the stream, you must use either
-    * this method or the method <code>getNextOggPacket</code>.
+    * this method or the method {@code getNextOggPacket}.
     * Mixing calls to the two methods will cause data corruption.
     *
     * @return the next Ogg page
@@ -58,7 +58,7 @@ public interface LogicalOggStream {
 
    /**
     * <i>Note:</i> To read from the stream, you must use either
-    * this method or the method <code>getNextOggPage</code>.
+    * this method or the method {@code getNextOggPage}.
     * Mixing calls to the two methods will cause data corruption.
     *
     * @return the next packet as a byte array
@@ -74,8 +74,8 @@ public interface LogicalOggStream {
    /**
     * Checks if this stream is open for reading.
     *
-    * @return <code>true</code> if this stream is open for reading,
-    *         <code>false</code> otherwise
+    * @return {@code true} if this stream is open for reading,
+    *         {@code false} otherwise
     */
 
    boolean isOpen();

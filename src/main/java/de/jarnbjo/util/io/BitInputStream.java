@@ -66,8 +66,8 @@ public interface BitInputStream {
 	/**
 	 *  reads one bit (as a boolean) from the input stream
 	 *
-	 *  @return <code>true</code> if the next bit is 1, 
-	 *          <code>false</code> otherwise
+	 *  @return {@code true} if the next bit is 1, 
+	 *          {@code false} otherwise
 	 *
 	 *  @throws IOException if an I/O error occurs
 	 *  @throws UnsupportedOperationException if the method is not supported by the implementation
@@ -76,7 +76,7 @@ public interface BitInputStream {
 	boolean getBit() throws IOException;
 
 	/**
-	 *  reads <code>bits</code> number of bits from the input
+	 *  reads {@code bits} number of bits from the input
 	 *  stream
 	 *
          *  @param bits
@@ -89,7 +89,7 @@ public interface BitInputStream {
 	int getInt(int bits) throws IOException;
 
 	/**
-	 *  reads <code>bits</code> number of bits from the input
+	 *  reads {@code bits} number of bits from the input
 	 *  stream
 	 *
          *  @param bits
@@ -102,7 +102,7 @@ public interface BitInputStream {
 	int getSignedInt(int bits) throws IOException;
 
 	/**
-	 *  reads a huffman codeword based on the <code>root</code> 
+	 *  reads a huffman codeword based on the {@code root} 
 	 *  parameter and returns the decoded value
 	 *
 	 *  @param root the root of the Huffman tree used to decode the codeword
@@ -128,7 +128,7 @@ public interface BitInputStream {
 	int readSignedRice(int order) throws IOException;
 
 	/**
-	 *  fills the array from <code>offset</code> with <code>len</code> 
+	 *  fills the array from {@code offset} with {@code len} 
 	 *  integers encoded as "signed rice" as described in
 	 *  the FLAC audio format specification
 	 *
@@ -144,7 +144,7 @@ public interface BitInputStream {
 	void readSignedRice(int order, int[] buffer, int offset, int len) throws IOException;
 
 	/**
-	 *  reads <code>bits</code> number of bits from the input
+	 *  reads {@code bits} number of bits from the input
 	 *  stream
 	 *
          *  @param bits
@@ -170,7 +170,7 @@ public interface BitInputStream {
 	 *  changes the endian mode used when reading bit-wise from
 	 *  the stream, changing the mode mid-stream will cause the
 	 *  read cursor to move to the beginning of the next byte
-	 *  (as if calling the <code>align</code> method
+	 *  (as if calling the {@code align} method
 	 *
 	 *  @see #align()
 	 *

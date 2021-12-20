@@ -35,8 +35,8 @@ import de.jarnbjo.util.io.*;
 /**
  * <p>An instance of this class represents an ogg page read from an ogg file
  * or network stream. It has no public constructor, but instances can be
- * created by the <code>create</code> methods, supplying a JMF stream or
- * a <code>RandomAccessFile</code>
+ * created by the {@code create} methods, supplying a JMF stream or
+ * a {@code RandomAccessFile}
  * which is positioned at the beginning of an Ogg page.</p>
  *
  * <p>Furthermore, the class provides methods for accessing the raw page data,
@@ -110,13 +110,13 @@ public class OggPage {
    /**
     * This method is called to read data from the current position in the
     * specified RandomAccessFile and create a new OggPage instance based on the data
-    * read. If the parameter <code>skipData</code> is set to <code>true</code>,
+    * read. If the parameter {@code skipData} is set to {@code true},
     * the actual page segments (page data) is skipped and not read into
     * memory. This mode is useful when scanning through an ogg file to build
     * a seek table.
     *
     * @param source the source from which the ogg page is generated
-    * @param skipData if set to <code>true</code>, the actual page data is not read into memory
+    * @param skipData if set to {@code true}, the actual page data is not read into memory
     * @return an ogg page created by reading data from the specified source, starting at the current position
     * @throws OggFormatException if the data read from the specified source is not matching the specification for an ogg page
     * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified source
@@ -147,13 +147,13 @@ public class OggPage {
    /**
     * This method is called to read data from the current position in the
     * specified InputStream and create a new OggPage instance based on the data
-    * read. If the parameter <code>skipData</code> is set to <code>true</code>,
+    * read. If the parameter {@code skipData} is set to {@code true},
     * the actual page segments (page data) is skipped and not read into
     * memory. This mode is useful when scanning through an ogg file to build
     * a seek table.
     *
     * @param source the source from which the ogg page is generated
-    * @param skipData if set to <code>true</code>, the actual page data is not read into memory
+    * @param skipData if set to {@code true}, the actual page data is not read into memory
     * @return an ogg page created by reading data from the specified source, starting at the current position
     * @throws OggFormatException if the data read from the specified source is not matching the specification for an ogg page
     * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified source
@@ -186,7 +186,7 @@ public class OggPage {
     * create a new OggPage instance based on the specified byte array.
     *
     * @param source the source from which the ogg page is generated
-    * @param skipData if set to <code>true</code>, the actual page data is not read into memory
+    * @param skipData if set to {@code true}, the actual page data is not read into memory
     * @return an ogg page created by reading data from the specified source, starting at the current position
     * @throws OggFormatException if the data read from the specified source is not matching the specification for an ogg page
     * @throws EndOfOggStreamException if it is not possible to read an entire ogg page from the specified source
@@ -406,7 +406,7 @@ public class OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page begins with a continued packet
+    * @return {@code true} if this page begins with a continued packet
     */
 
    public boolean isContinued() {
@@ -414,7 +414,7 @@ public class OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page begins with a fresh packet
+    * @return {@code true} if this page begins with a fresh packet
     */
 
    public boolean isFresh() {
@@ -422,7 +422,7 @@ public class OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page is the beginning of a logical stream
+    * @return {@code true} if this page is the beginning of a logical stream
     */
 
    public boolean isBos() {
@@ -430,7 +430,7 @@ public class OggPage {
    }
 
    /**
-    * @return <code>true</code> if this page is the end of a logical stream
+    * @return {@code true} if this page is the end of a logical stream
     */
 
    public boolean isEos() {
