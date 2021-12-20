@@ -26,55 +26,53 @@ import java.io.IOException;
 import de.jarnbjo.util.io.*;
 
 public class StreamInfo extends MetadataBlock {
+    final private int minimumBlockSize, maximumBlockSize, minimumFrameSize, maximumFrameSize;
+    final private int sampleRate, channels, bitsPerSample;
+    final private long totalSamples;
 
-   final private int minimumBlockSize, maximumBlockSize, minimumFrameSize, maximumFrameSize;
-   final private int sampleRate, channels, bitsPerSample;
-   final private long totalSamples;
+    protected StreamInfo(BitInputStream source) throws IOException {
 
-   protected StreamInfo(BitInputStream source) throws IOException {
+        int length = source.getInt(24);
 
-      int length=source.getInt(24);
+        minimumBlockSize = source.getInt(16);
+        maximumBlockSize = source.getInt(16);
+        minimumFrameSize = source.getInt(24);
+        maximumFrameSize = source.getInt(24);
 
-      minimumBlockSize=source.getInt(16);
-      maximumBlockSize=source.getInt(16);
-      minimumFrameSize=source.getInt(24);
-      maximumFrameSize=source.getInt(24);
+        sampleRate = source.getInt(20);
+        channels = source.getInt(3) + 1;
+        bitsPerSample = source.getInt(5) + 1;
+        totalSamples = source.getLong(36);
 
-      sampleRate=source.getInt(20);
-      channels=source.getInt(3)+1;
-      bitsPerSample=source.getInt(5)+1;
-      totalSamples=source.getLong(36);
+        source.getLong(64);
+        source.getLong(64);
+    }
 
-      source.getLong(64);
-      source.getLong(64);
-   }
+    public int getMinimumBlockSize() {
+        return minimumBlockSize;
+    }
 
-   public int getMinimumBlockSize() {
-      return minimumBlockSize;
-   }
+    public int getMaximumBlockSize() {
+        return maximumBlockSize;
+    }
 
-   public int getMaximumBlockSize() {
-      return maximumBlockSize;
-   }
+    public int getMinimumFrameSize() {
+        return minimumFrameSize;
+    }
 
-   public int getMinimumFrameSize() {
-      return minimumFrameSize;
-   }
+    public int getMaximumFrameSize() {
+        return maximumFrameSize;
+    }
 
-   public int getMaximumFrameSize() {
-      return maximumFrameSize;
-   }
+    public int getSampleRate() {
+        return sampleRate;
+    }
 
-   public int getSampleRate() {
-      return sampleRate;
-   }
+    public int getChannels() {
+        return channels;
+    }
 
-   public int getChannels() {
-      return channels;
-   }
-
-   public int getBitsPerSample() {
-      return bitsPerSample;
-   }
-
+    public int getBitsPerSample() {
+        return bitsPerSample;
+    }
 }

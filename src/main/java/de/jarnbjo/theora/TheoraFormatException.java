@@ -27,14 +27,12 @@ import java.io.IOException;
 /**
  * Exception thrown when trying to read a corrupted Vorbis stream.
  */
-
 public class TheoraFormatException extends IOException {
+    public TheoraFormatException() {
+        super();
+    }
 
-   public TheoraFormatException() {
-      super();
-   }
-
-   public TheoraFormatException(String message) {
-      super(message);
-   }
+    public TheoraFormatException(String message) {
+        super(message);
+    }
 }

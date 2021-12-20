@@ -31,39 +31,38 @@ import de.jarnbjo.theora.*;
 import de.jarnbjo.util.io.*;
 
 public class TheoraTrack extends OggTrack {
+    final private LogicalOggStream oggStream;
+    final private VideoFormat format;
 
-   final private LogicalOggStream oggStream;
-   final private VideoFormat format;
+    final private Header header;
 
-   final private Header header;
+    public TheoraTrack(LogicalOggStream source, byte[] idHeaderData) throws IOException {
+        super(source);
+        oggStream = source;
+        BitInputStream bd = new ByteArrayBitInputStream(idHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
+        header = new Header(bd);
 
-   public TheoraTrack(LogicalOggStream source, byte[] idHeaderData) throws IOException {
-      super(source);
-      oggStream=source;
-      BitInputStream bd=new ByteArrayBitInputStream(idHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
-      header=new Header(bd);
+        format = new VideoFormat("THEORA",
+                new Dimension(header.getWidth(), header.getHeight()),
+                -1,
+                Format.byteArray,
+                (float) header.getFrameRate());
+    }
 
-      format=new VideoFormat("THEORA",
-         new Dimension(header.getWidth(), header.getHeight()),
-         -1,
-         Format.byteArray,
-         (float)header.getFrameRate());
-   }
+    @Override
+    public Format getFormat() {
+        return format;
+    }
 
-   @Override
-   public Format getFormat() {
-      return format;
-   }
+    @Override
+    public Time getDuration() {
+        long frame = oggStream.getMaximumGranulePosition() >> 6;
+        return frame == -1
+                ? Duration.DURATION_UNKNOWN
+                : new Time(frame / header.getFrameRate());
+    }
 
-   @Override
-   public Time getDuration() {
-      long frame=oggStream.getMaximumGranulePosition()>>6;
-      return frame==-1?
-         Duration.DURATION_UNKNOWN:
-         new Time(frame/header.getFrameRate());
-   }
-
-   /*
+    /*
    public synchronized void readFrame(javax.media.Buffer buffer) {
 
       try {

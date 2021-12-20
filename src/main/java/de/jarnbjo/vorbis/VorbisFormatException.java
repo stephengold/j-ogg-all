@@ -28,14 +28,12 @@ import java.io.IOException;
 /**
  * Exception thrown when trying to read a corrupted Vorbis stream.
  */
-
 public class VorbisFormatException extends IOException {
+    public VorbisFormatException() {
+        super();
+    }
 
-   public VorbisFormatException() {
-      super();
-   }
-
-   public VorbisFormatException(String message) {
-      super(message);
-   }
+    public VorbisFormatException(String message) {
+        super(message);
+    }
 }

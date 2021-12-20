@@ -28,98 +28,91 @@ import java.io.*;
 import de.jarnbjo.util.io.*;
 
 class SetupHeader {
+    private static final long HEADER = 0x736962726f76L; // 'vorbis'
 
-   private static final long HEADER = 0x736962726f76L; // 'vorbis'
+    final private CodeBook[] codeBooks;
+    final private Floor[] floors;
+    final private Residue[] residues;
+    final private Mapping[] mappings;
+    final private Mode[] modes;
 
-   final private CodeBook[] codeBooks;
-   final private Floor[] floors;
-   final private Residue[] residues;
-   final private Mapping[] mappings;
-   final private Mode[] modes;
+    SetupHeader(VorbisStream vorbis, BitInputStream source) throws IOException {
 
-   SetupHeader(VorbisStream vorbis, BitInputStream source) throws IOException {
+        if (source.getLong(48) != HEADER) {
+            throw new VorbisFormatException("The setup header has an illegal leading.");
+        }
 
-      if(source.getLong(48)!=HEADER) {
-         throw new VorbisFormatException("The setup header has an illegal leading.");
-      }
+        // read code books
+        int codeBookCount = source.getInt(8) + 1;
+        codeBooks = new CodeBook[codeBookCount];
 
-      // read code books
+        for (int i = 0; i < codeBooks.length; i++) {
+            codeBooks[i] = new CodeBook(source);
+        }
 
-      int codeBookCount=source.getInt(8)+1;
-      codeBooks=new CodeBook[codeBookCount];
+        // read the time domain transformations,
+        // these should all be 0
+        int timeCount = source.getInt(6) + 1;
+        for (int i = 0; i < timeCount; i++) {
+            if (source.getInt(16) != 0) {
+                throw new VorbisFormatException("Time domain transformation != 0");
+            }
+        }
 
-      for(int i=0; i<codeBooks.length; i++) {
-         codeBooks[i]=new CodeBook(source);
-      }
+        // read floor entries
+        int floorCount = source.getInt(6) + 1;
+        floors = new Floor[floorCount];
 
-      // read the time domain transformations,
-      // these should all be 0
+        for (int i = 0; i < floorCount; i++) {
+            floors[i] = Floor.createInstance(source, this);
+        }
 
-      int timeCount=source.getInt(6)+1;
-      for(int i=0; i<timeCount; i++) {
-         if(source.getInt(16)!=0) {
-            throw new VorbisFormatException("Time domain transformation != 0");
-         }
-      }
+        // read residue entries
+        int residueCount = source.getInt(6) + 1;
+        residues = new Residue[residueCount];
 
-      // read floor entries
+        for (int i = 0; i < residueCount; i++) {
+            residues[i] = Residue.createInstance(source, this);
+        }
 
-      int floorCount=source.getInt(6)+1;
-      floors=new Floor[floorCount];
+        // read mapping entries
+        int mappingCount = source.getInt(6) + 1;
+        mappings = new Mapping[mappingCount];
 
-      for(int i=0; i<floorCount; i++) {
-         floors[i]=Floor.createInstance(source, this);
-      }
+        for (int i = 0; i < mappingCount; i++) {
+            mappings[i] = Mapping.createInstance(vorbis, source, this);
+        }
 
-      // read residue entries
+        // read mode entries
+        int modeCount = source.getInt(6) + 1;
+        modes = new Mode[modeCount];
 
-      int residueCount=source.getInt(6)+1;
-      residues=new Residue[residueCount];
+        for (int i = 0; i < modeCount; i++) {
+            modes[i] = new Mode(source, this);
+        }
 
-      for(int i=0; i<residueCount; i++) {
-         residues[i]=Residue.createInstance(source, this);
-      }
+        if (!source.getBit()) {
+            throw new VorbisFormatException("The setup header framing bit is incorrect.");
+        }
+    }
 
-      // read mapping entries
+    public CodeBook[] getCodeBooks() {
+        return codeBooks;
+    }
 
-      int mappingCount=source.getInt(6)+1;
-      mappings=new Mapping[mappingCount];
+    public Floor[] getFloors() {
+        return floors;
+    }
 
-      for(int i=0; i<mappingCount; i++) {
-         mappings[i]=Mapping.createInstance(vorbis, source, this);
-      }
+    public Residue[] getResidues() {
+        return residues;
+    }
 
-      // read mode entries
+    public Mapping[] getMappings() {
+        return mappings;
+    }
 
-      int modeCount=source.getInt(6)+1;
-      modes=new Mode[modeCount];
-
-      for(int i=0; i<modeCount; i++) {
-         modes[i]=new Mode(source, this);
-      }
-
-      if(!source.getBit()) {
-         throw new VorbisFormatException("The setup header framing bit is incorrect.");
-      }
-   }
-
-   public CodeBook[] getCodeBooks() {
-      return codeBooks;
-   }
-
-   public Floor[] getFloors() {
-      return floors;
-   }
-
-   public Residue[] getResidues() {
-      return residues;
-   }
-
-   public Mapping[] getMappings() {
-      return mappings;
-   }
-
-   public Mode[] getModes() {
-      return modes;
-   }
+    public Mode[] getModes() {
+        return modes;
+    }
 }

@@ -19,17 +19,14 @@
  * no message
  *
  */
-
- package de.jarnbjo.ogg;
+package de.jarnbjo.ogg;
 
 import java.io.IOException;
 
 /**
  * Exception thrown when reaching the end of an Ogg stream
  */
-
 public class EndOfOggStreamException extends IOException {
-
-   public EndOfOggStreamException() {
-   }
+    public EndOfOggStreamException() {
+    }
 }

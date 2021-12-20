@@ -23,12 +23,13 @@
 package de.jarnbjo.theora;
 
 public class ScanConfigData {
-   byte[] yuv0ptr;
-   byte[] yuv1ptr;
-   byte[] srfWorkSpcPtr;
-   byte[] dispFragments;
+    byte[] yuv0ptr;
+    byte[] yuv1ptr;
+    byte[] srfWorkSpcPtr;
+    byte[] dispFragments;
 
-   int[] regionIndex; /* Gives pixel index for top left of each block */
-   int videoFrameHeight;
-   int videoFrameWidth;
+    int[] regionIndex;
+    /* Gives pixel index for top left of each block */
+    int videoFrameHeight;
+    int videoFrameWidth;
 }

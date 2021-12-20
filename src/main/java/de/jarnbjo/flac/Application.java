@@ -27,19 +27,19 @@ import de.jarnbjo.util.io.BitInputStream;
 
 public class Application extends MetadataBlock {
 
-   final private byte[] data;
+    final private byte[] data;
 
-   protected Application(BitInputStream source) throws IOException {
+    protected Application(BitInputStream source) throws IOException {
 
-      int length=source.getInt(24);
-      data=new byte[length];
+        int length = source.getInt(24);
+        data = new byte[length];
 
-      for(int i=0; i<length; i++) {
-         data[i]=(byte)source.getInt(8);
-      }
-   }
+        for (int i = 0; i < length; i++) {
+            data[i] = (byte) source.getInt(8);
+        }
+    }
 
-   public byte[] getData() {
-      return data;
-   }
+    public byte[] getData() {
+        return data;
+    }
 }

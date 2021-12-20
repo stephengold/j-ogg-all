@@ -36,91 +36,86 @@ import java.util.*;
  *  requested to do so. It is intended to be used in non-realtime applications
  *  like file download managers or similar.
  */
-
 public class OnDemandUrlStream implements PhysicalOggStream {
+    private boolean closed = false;
+    final private URLConnection source;
+    final private InputStream sourceStream;
+    final private Object drainLock = new Object();
+    final private LinkedList pageCache = new LinkedList();
+    private int contentLength = 0;
+    private int position = 0;
 
-   private boolean closed=false;
-   final private URLConnection source;
-   final private InputStream sourceStream;
-   final private Object drainLock=new Object();
-   final private LinkedList pageCache=new LinkedList();
-   private int contentLength=0;
-   private int position=0;
+    final private HashMap logicalStreams = new HashMap();
+    private OggPage firstPage;
 
-   final private HashMap logicalStreams=new HashMap();
-   private OggPage firstPage;
+    private static final int PAGECACHE_SIZE = 20;
 
-   private static final int PAGECACHE_SIZE = 20;
+    public OnDemandUrlStream(URL source) throws IOException {
+        this.source = source.openConnection();
+        this.sourceStream = this.source.getInputStream();
 
-   public OnDemandUrlStream(URL source) throws IOException {
-      this.source=source.openConnection();
-      this.sourceStream=this.source.getInputStream();
+        contentLength = this.source.getContentLength();
 
-      contentLength=this.source.getContentLength();
+        firstPage = OggPage.create(sourceStream);
+        position += firstPage.getTotalLength();
+        LogicalOggStreamImpl los = new LogicalOggStreamImpl(this, firstPage.getStreamSerialNumber());
+        logicalStreams.put(firstPage.getStreamSerialNumber(), los);
+        los.checkFormat(firstPage);
+    }
 
-      firstPage=OggPage.create(sourceStream);
-      position+=firstPage.getTotalLength();
-      LogicalOggStreamImpl los=new LogicalOggStreamImpl(this, firstPage.getStreamSerialNumber());
-      logicalStreams.put(firstPage.getStreamSerialNumber(), los);
-      los.checkFormat(firstPage);
-   }
+    @Override
+    public Collection getLogicalStreams() {
+        return logicalStreams.values();
+    }
 
-   @Override
-   public Collection getLogicalStreams() {
-      return logicalStreams.values();
-   }
+    @Override
+    public boolean isOpen() {
+        return !closed;
+    }
 
-   @Override
-   public boolean isOpen() {
-      return !closed;
-   }
+    @Override
+    public void close() throws IOException {
+        closed = true;
+        sourceStream.close();
+    }
 
-   @Override
-   public void close() throws IOException {
-      closed=true;
-      sourceStream.close();
-   }
+    public int getContentLength() {
+        return contentLength;
+    }
 
-   public int getContentLength() {
-      return contentLength;
-   }
+    public int getPosition() {
+        return position;
+    }
 
-   public int getPosition() {
-      return position;
-   }
+    int pageNumber = 2;
 
-   int pageNumber=2;
+    @Override
+    public OggPage getOggPage(int index) throws IOException {
+        if (firstPage != null) {
+            OggPage tmp = firstPage;
+            firstPage = null;
+            return tmp;
+        } else {
+            OggPage page = OggPage.create(sourceStream);
+            position += page.getTotalLength();
+            return page;
+        }
+    }
 
-   @Override
-   public OggPage getOggPage(int index) throws IOException {
-      if(firstPage!=null) {
-         OggPage tmp=firstPage;
-         firstPage=null;
-         return tmp;
-      }
-      else {
-         OggPage page=OggPage.create(sourceStream);
-         position+=page.getTotalLength();
-         return page;
-      }
-   }
+    private LogicalOggStream getLogicalStream(int serialNumber) {
+        return (LogicalOggStream) logicalStreams.get(serialNumber);
+    }
 
-   private LogicalOggStream getLogicalStream(int serialNumber) {
-      return (LogicalOggStream)logicalStreams.get(serialNumber);
-   }
+    @Override
+    public void setTime(long granulePosition) throws IOException {
+        throw new UnsupportedOperationException("Method not supported by this class");
+    }
 
-   @Override
-   public void setTime(long granulePosition) throws IOException {
-      throw new UnsupportedOperationException("Method not supported by this class");
-   }
-
-	/** 
-	 *  @return always {@code false}
-	 */
-
-   @Override
-   public boolean isSeekable() {
-      return false;
-   }
-
+    /**
+     * @return always {@code false}
+     */
+    @Override
+    public boolean isSeekable() {
+        return false;
+    }
 }

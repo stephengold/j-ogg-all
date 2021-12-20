@@ -23,5 +23,5 @@
 package de.jarnbjo.theora;
 
 public class MotionVector {
-   public int x, y;
+    public int x, y;
 }

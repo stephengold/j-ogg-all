@@ -29,46 +29,43 @@ import de.jarnbjo.ogg.*;
 import de.jarnbjo.flac.*;
 import de.jarnbjo.util.io.*;
 
-
 public class FlacTrack extends OggTrack {
+    final private LogicalOggStream oggStream;
+    final private StreamInfo streamInfo;
+    final private AudioFormat format;
 
-   final private LogicalOggStream oggStream;
-   final private StreamInfo streamInfo;
-   final private AudioFormat format;
+    public FlacTrack(LogicalOggStream source, byte[] siHeaderData) throws IOException {
+        super(source);
+        oggStream = source;
+        BitInputStream bd = new ByteArrayBitInputStream(siHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
+        streamInfo = (StreamInfo) MetadataBlock.createInstance(bd);
 
-   public FlacTrack(LogicalOggStream source, byte[] siHeaderData) throws IOException {
-      super(source);
-      oggStream=source;
-      BitInputStream bd=new ByteArrayBitInputStream(siHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
-      streamInfo=(StreamInfo)MetadataBlock.createInstance(bd);
+        format = new AudioFormat(
+                "audio/x-flac",
+                (double) streamInfo.getSampleRate(),
+                16,
+                streamInfo.getChannels(),
+                Format.NOT_SPECIFIED,
+                Format.NOT_SPECIFIED,
+                Format.NOT_SPECIFIED,
+                Format.NOT_SPECIFIED,
+                Format.byteArray);
+    }
 
-      format=new AudioFormat(
-         "audio/x-flac",
-         (double)streamInfo.getSampleRate(),
-         16,
-         streamInfo.getChannels(),
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.NOT_SPECIFIED,
-         Format.byteArray);
-   }
+    @Override
+    public Format getFormat() {
+        return format;
+    }
 
-   @Override
-   public Format getFormat() {
-      return format;
-   }
+    @Override
+    public Time getDuration() {
+        long nos = oggStream.getMaximumGranulePosition();
+        return nos == -1
+                ? Duration.DURATION_UNKNOWN
+                : new Time(nos * 1000000000L / (streamInfo.getSampleRate()));
+    }
 
-   @Override
-   public Time getDuration() {
-      long nos=oggStream.getMaximumGranulePosition();
-      return nos==-1?
-         Duration.DURATION_UNKNOWN:
-         new Time(nos*1000000000L/(streamInfo.getSampleRate()));
-   }
-
-   protected int getSampleRate() {
-      return streamInfo.getSampleRate();
-   }
-
+    protected int getSampleRate() {
+        return streamInfo.getSampleRate();
+    }
 }

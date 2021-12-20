@@ -27,21 +27,18 @@ import java.io.IOException;
 import de.jarnbjo.util.io.BitInputStream;
 
 class Residue1 extends Residue {
+    protected Residue1(BitInputStream source, SetupHeader header) throws IOException {
+        super(source, header);
+    }
 
-   protected Residue1(BitInputStream source, SetupHeader header) throws IOException {
-      super(source, header);
-   }
+    @Override
+    protected int getType() {
+        return 1;
+    }
 
-   @Override
-   protected int getType() {
-      return 1;
-   }
-
-   @Override
-   protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException {
-      /* @todo implement */
-      throw new UnsupportedOperationException();
-   }
-
-
+    @Override
+    protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException {
+        /* @todo implement */
+        throw new UnsupportedOperationException();
+    }
 }

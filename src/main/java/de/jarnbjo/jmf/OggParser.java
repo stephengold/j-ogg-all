@@ -29,190 +29,181 @@ import javax.media.protocol.*;
 import de.jarnbjo.ogg.*;
 import de.jarnbjo.vorbis.*;
 
-
 public class OggParser implements Demultiplexer {
+    private static final String DEMULTIPLEXER_NAME = "Ogg demultiplexer";
 
-   private static final String DEMULTIPLEXER_NAME = "Ogg demultiplexer";
+    private final ContentDescriptor[] supportedContentTypes = new ContentDescriptor[]{
+        new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/ogg")),
+        new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/x-ogg"))
+    };
 
-   private final ContentDescriptor[] supportedContentTypes = new ContentDescriptor[] {
-      new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/ogg")),
-      new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/x-ogg"))
-   };
+    private Track[] tracks;
 
-   private Track[] tracks;
+    private PullDataSource source;
+    private PullSourceStream stream;
+    private PhysicalOggStream oggStream;
 
-   private PullDataSource source;
-   private PullSourceStream stream;
-   private PhysicalOggStream oggStream;
+    public OggParser() {
+    }
 
-   public OggParser() {
-   }
-
-   @Override
-   public Time getDuration() {
-      if(tracks==null) {
-         return Time.TIME_UNKNOWN;
-      }
-      long max=0;
-      for (Track track : tracks) {
-         if (track.getDuration().getNanoseconds() > max) {
-            max = track.getDuration().getNanoseconds();
-         }
-      }
-      return new Time(max);//Time.TIME_UNKNOWN;
-   }
-
-   @Override
-   public ContentDescriptor[] getSupportedInputContentDescriptors() {
-      return supportedContentTypes;
-   }
-
-   @Override
-   public Track[] getTracks() throws BadHeaderException, IOException {
-      if(tracks==null) {
-         try {
-            Collection coll=oggStream.getLogicalStreams();
-            tracks=new Track[coll.size()];
-            int i=0;
-            for(Iterator iter=coll.iterator(); iter.hasNext(); i++) {
-               LogicalOggStream los=(LogicalOggStream)iter.next();
-               System.out.println("type: "+los.getFormat());
-               tracks[i]=OggTrack.createInstance(los);
+    @Override
+    public Time getDuration() {
+        if (tracks == null) {
+            return Time.TIME_UNKNOWN;
+        }
+        long max = 0;
+        for (Track track : tracks) {
+            if (track.getDuration().getNanoseconds() > max) {
+                max = track.getDuration().getNanoseconds();
             }
-         }
-         catch (OggFormatException | VorbisFormatException e) {
-            throw new BadHeaderException(e.getMessage());
-         }
-      }
-      return tracks;
-   }
+        }
+        return new Time(max);//Time.TIME_UNKNOWN;
+    }
 
-   @Override
-   public boolean isPositionable() {
-      return true;
-   }
+    @Override
+    public ContentDescriptor[] getSupportedInputContentDescriptors() {
+        return supportedContentTypes;
+    }
 
-   @Override
-   public boolean isRandomAccess() {
-      return true;
-   }
+    @Override
+    public Track[] getTracks() throws BadHeaderException, IOException {
+        if (tracks == null) {
+            try {
+                Collection coll = oggStream.getLogicalStreams();
+                tracks = new Track[coll.size()];
+                int i = 0;
+                for (Iterator iter = coll.iterator(); iter.hasNext(); i++) {
+                    LogicalOggStream los = (LogicalOggStream) iter.next();
+                    System.out.println("type: " + los.getFormat());
+                    tracks[i] = OggTrack.createInstance(los);
+                }
+            } catch (OggFormatException | VorbisFormatException e) {
+                throw new BadHeaderException(e.getMessage());
+            }
+        }
+        return tracks;
+    }
 
-   @Override
-   public Time getMediaTime() {
-      /* @todo implement */
-      return Time.TIME_UNKNOWN;
-   }
+    @Override
+    public boolean isPositionable() {
+        return true;
+    }
 
-   @Override
-   public Time setPosition(Time time, int rounding) {
+    @Override
+    public boolean isRandomAccess() {
+        return true;
+    }
 
-      try {
-         if(tracks[0] instanceof VorbisTrack) {
-            long sampleRate=((VorbisTrack)tracks[0]).getSampleRate();
-            oggStream.setTime(time.getNanoseconds()*sampleRate/1000000000L);
-         }
-         else if(tracks[0] instanceof FlacTrack) {
-            long sampleRate=((FlacTrack)tracks[0]).getSampleRate();
-            oggStream.setTime(time.getNanoseconds()*sampleRate/1000000000L);
-         }
-      }
-      catch(IOException e) {
-         e.printStackTrace();
-      }
+    @Override
+    public Time getMediaTime() {
+        /* @todo implement */
+        return Time.TIME_UNKNOWN;
+    }
 
-      /* @todo implement */
-      return Time.TIME_UNKNOWN;
-   }
+    @Override
+    public Time setPosition(Time time, int rounding) {
 
-   @Override
-   public void start() throws IOException {
-      if(source!=null) {
-         source.start();
-      }
-   }
+        try {
+            if (tracks[0] instanceof VorbisTrack) {
+                long sampleRate = ((VorbisTrack) tracks[0]).getSampleRate();
+                oggStream.setTime(time.getNanoseconds() * sampleRate / 1000000000L);
+            } else if (tracks[0] instanceof FlacTrack) {
+                long sampleRate = ((FlacTrack) tracks[0]).getSampleRate();
+                oggStream.setTime(time.getNanoseconds() * sampleRate / 1000000000L);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-   @Override
-   public void stop()  {
-      if(source!=null) {
-         try {
-            source.stop();
-         }
-         catch(IOException e) {
-            // ignore
-         }
-      }
-   }
+        /* @todo implement */
+        return Time.TIME_UNKNOWN;
+    }
 
-   @Override
-   public void open() {
-      // nothing to be done
-   }
+    @Override
+    public void start() throws IOException {
+        if (source != null) {
+            source.start();
+        }
+    }
 
-   @Override
-   public void close() {
-      if(source!=null) {
-         try {
-            source.stop();
-            source.disconnect();
-         }
-         catch(IOException e) {
-            // ignore
-         }
-         source=null;
-      }
-   }
+    @Override
+    public void stop() {
+        if (source != null) {
+            try {
+                source.stop();
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+    }
 
-   @Override
-   public void reset() {
-      setPosition(new Time(0), 0);
-   }
+    @Override
+    public void open() {
+        // nothing to be done
+    }
 
-   @Override
-   public String getName() {
-      return DEMULTIPLEXER_NAME;
-   }
+    @Override
+    public void close() {
+        if (source != null) {
+            try {
+                source.stop();
+                source.disconnect();
+            } catch (IOException e) {
+                // ignore
+            }
+            source = null;
+        }
+    }
 
-   @Override
-   public void setSource(DataSource source) throws IOException, IncompatibleSourceException {
+    @Override
+    public void reset() {
+        setPosition(new Time(0), 0);
+    }
 
-      try {
-         if(!(source instanceof PullDataSource)) {
-            /* @todo better message */
-            throw new IncompatibleSourceException("DataSource not supported: " + source);
-         }
+    @Override
+    public String getName() {
+        return DEMULTIPLEXER_NAME;
+    }
 
-         this.source=(PullDataSource)source;
+    @Override
+    public void setSource(DataSource source) throws IOException, IncompatibleSourceException {
 
-         if(this.source.getStreams()==null || this.source.getStreams().length==0) {
-            throw new IOException("DataSource has no streams.");
-         }
+        try {
+            if (!(source instanceof PullDataSource)) {
+                /* @todo better message */
+                throw new IncompatibleSourceException("DataSource not supported: " + source);
+            }
 
-         if(this.source.getStreams().length>1) {
-            throw new IOException("This demultiplexer only supports data sources with one stream.");
-         }
+            this.source = (PullDataSource) source;
 
-         stream=this.source.getStreams()[0];
-         oggStream=new OggJmfStream(stream);
+            if (this.source.getStreams() == null || this.source.getStreams().length == 0) {
+                throw new IOException("DataSource has no streams.");
+            }
 
-         if(!(stream instanceof Seekable)) {
-            /* @todo better message */
-            throw new IncompatibleSourceException("Stream is not seekable.");
-         }
-      }
-      catch (IncompatibleSourceException | IOException | RuntimeException e) {
-         e.printStackTrace();
-         throw e;
-      }
-   }
+            if (this.source.getStreams().length > 1) {
+                throw new IOException("This demultiplexer only supports data sources with one stream.");
+            }
 
-   @Override
-   public Object getControl(String controlType) {
-      return null;
-   }
+            stream = this.source.getStreams()[0];
+            oggStream = new OggJmfStream(stream);
 
-   @Override
-   public Object[] getControls() {
-      return new Object[0];
-   }
+            if (!(stream instanceof Seekable)) {
+                /* @todo better message */
+                throw new IncompatibleSourceException("Stream is not seekable.");
+            }
+        } catch (IncompatibleSourceException | IOException | RuntimeException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
+    @Override
+    public Object getControl(String controlType) {
+        return null;
+    }
+
+    @Override
+    public Object[] getControls() {
+        return new Object[0];
+    }
 }

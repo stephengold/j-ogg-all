@@ -27,250 +27,251 @@
 package de.jarnbjo.vorbis;
 
 class MdctFloat {
-  static private final float cPI3_8=0.38268343236508977175f;
-  static private final float cPI2_8=0.70710678118654752441f;
-  static private final float cPI1_8=0.92387953251128675613f;
+    static private final float cPI3_8 = 0.38268343236508977175f;
+    static private final float cPI2_8 = 0.70710678118654752441f;
+    static private final float cPI1_8 = 0.92387953251128675613f;
 
-  final private int n;
-  final private int log2n;
+    final private int n;
+    final private int log2n;
 
-  final private float[] trig;
-  final private int[] bitrev;
+    final private float[] trig;
+    final private int[] bitrev;
 
-  private float[] equalizer;
+    private float[] equalizer;
 
-  final private float scale;
+    final private float scale;
 
-  private int itmp1, itmp2, itmp3, itmp4, itmp5, itmp6, itmp7, itmp8, itmp9;
-  private float dtmp1, dtmp2, dtmp3, dtmp4, dtmp5, dtmp6, dtmp7, dtmp8, dtmp9;
+    private int itmp1, itmp2, itmp3, itmp4, itmp5, itmp6, itmp7, itmp8, itmp9;
+    private float dtmp1, dtmp2, dtmp3, dtmp4, dtmp5, dtmp6, dtmp7, dtmp8, dtmp9;
 
-  protected MdctFloat(int n) {
-    bitrev=new int[n/4];
-    trig=new float[n+n/4];
+    protected MdctFloat(int n) {
+        bitrev = new int[n / 4];
+        trig = new float[n + n / 4];
 
-    int n2=n>>>1;
-    log2n=(int)Math.rint(Math.log(n)/Math.log(2));
-    this.n=n;
+        int n2 = n >>> 1;
+        log2n = (int) Math.rint(Math.log(n) / Math.log(2));
+        this.n = n;
 
-    int AE=0;
-    int AO=1;
-    int BE=AE+n/2;
-    int BO=BE+1;
-    int CE=BE+n/2;
-    int CO=CE+1;
-    // trig lookups...
-    for(int i=0;i<n/4;i++){
-      trig[AE+i*2]=(float)Math.cos((Math.PI/n)*(4*i));
-      trig[AO+i*2]=(float)-Math.sin((Math.PI/n)*(4*i));
-      trig[BE+i*2]=(float)Math.cos((Math.PI/(2*n))*(2*i+1));
-      trig[BO+i*2]=(float)Math.sin((Math.PI/(2*n))*(2*i+1));
+        int AE = 0;
+        int AO = 1;
+        int BE = AE + n / 2;
+        int BO = BE + 1;
+        int CE = BE + n / 2;
+        int CO = CE + 1;
+        // trig lookups...
+        for (int i = 0; i < n / 4; i++) {
+            trig[AE + i * 2] = (float) Math.cos((Math.PI / n) * (4 * i));
+            trig[AO + i * 2] = (float) -Math.sin((Math.PI / n) * (4 * i));
+            trig[BE + i * 2] = (float) Math.cos((Math.PI / (2 * n)) * (2 * i + 1));
+            trig[BO + i * 2] = (float) Math.sin((Math.PI / (2 * n)) * (2 * i + 1));
+        }
+        for (int i = 0; i < n / 8; i++) {
+            trig[CE + i * 2] = (float) Math.cos((Math.PI / n) * (4 * i + 2));
+            trig[CO + i * 2] = (float) -Math.sin((Math.PI / n) * (4 * i + 2));
+        }
+
+        {
+            int mask = (1 << (log2n - 1)) - 1;
+            int msb = 1 << (log2n - 2);
+            for (int i = 0; i < n / 8; i++) {
+                int acc = 0;
+                for (int j = 0; msb >>> j != 0; j++) {
+                    if (((msb >>> j) & i) != 0) {
+                        acc |= 1 << j;
+                    }
+                }
+                bitrev[i * 2] = ((~acc) & mask);
+                bitrev[i * 2 + 1] = acc;
+            }
+        }
+        scale = 4.f / n;
     }
-    for(int i=0;i<n/8;i++){
-      trig[CE+i*2]=(float)Math.cos((Math.PI/n)*(4*i+2));
-      trig[CO+i*2]=(float)-Math.sin((Math.PI/n)*(4*i+2));
+
+    private float[] _x = new float[1024];
+    private float[] _w = new float[1024];
+
+    protected void setEqualizer(float[] equalizer) {
+        this.equalizer = equalizer;
     }
 
-    {
-      int mask=(1<<(log2n-1))-1;
-      int msb=1<<(log2n-2);
-      for(int i=0;i<n/8;i++){
-	int acc=0;
-	for(int j=0;msb>>>j!=0;j++)
-	  if(((msb>>>j)&i)!=0) {
-              acc|=1<<j;
-          }
-	bitrev[i*2]=((~acc)&mask);
-	bitrev[i*2+1]=acc;
-      }
+    protected float[] getEqualizer() {
+        return equalizer;
     }
-    scale=4.f/n;
-  }
 
-   private float[] _x=new float[1024];
-   private float[] _w=new float[1024];
+    protected synchronized void imdct(final float[] frq, final float[] window, final int[] pcm) {//, float[] out){
 
-   protected void setEqualizer(float[] equalizer) {
-      this.equalizer=equalizer;
-   }
+        float[] in = frq;//, out=buf;
+        if (_x.length < n / 2) {
+            _x = new float[n / 2];
+        }
+        if (_w.length < n / 2) {
+            _w = new float[n / 2];
+        }
+        final float[] x = _x;
+        final float[] w = _w;
+        int n2 = n >> 1;
+        int n4 = n >> 2;
+        int n8 = n >> 3;
 
-   protected float[] getEqualizer() {
-      return equalizer;
-   }
+        if (equalizer != null) {
+            for (int i = 0; i < n; i++) {
+                frq[i] *= equalizer[i];
+            }
+        }
 
-   protected synchronized void imdct(final float[] frq, final float[] window, final int[] pcm) {//, float[] out){
+        // rotate + step 1
+        {
+            int inO = -1;
+            int xO = 0;
+            int A = n2;
 
-      float[] in=frq;//, out=buf;
-      if(_x.length<n/2){_x=new float[n/2];}
-      if(_w.length<n/2){_w=new float[n/2];}
-      final float[] x=_x;
-      final float[] w=_w;
-      int n2=n>>1;
-      int n4=n>>2;
-      int n8=n>>3;
+            int i;
+            for (i = 0; i < n8; i++) {
+                dtmp1 = in[inO += 2];
+                dtmp2 = in[inO += 2];
+                dtmp3 = trig[--A];
+                dtmp4 = trig[--A];
+                x[xO++] = -dtmp2 * dtmp3 - dtmp1 * dtmp4;
+                x[xO++] = dtmp1 * dtmp3 - dtmp2 * dtmp4;
+            }
 
-      if(equalizer!=null) {
-         for(int i=0; i<n; i++) {
-            frq[i]*=equalizer[i];
-         }
-      }
+            inO = n2;//-4;
 
-      // rotate + step 1
-      {
-         int inO=-1;
-         int xO=0;
-         int A=n2;
+            for (i = 0; i < n8; i++) {
+                dtmp1 = in[inO -= 2];
+                dtmp2 = in[inO -= 2];
+                dtmp3 = trig[--A];
+                dtmp4 = trig[--A];
+                x[xO++] = dtmp2 * dtmp3 + dtmp1 * dtmp4;
+                x[xO++] = dtmp2 * dtmp4 - dtmp1 * dtmp3;
+            }
+        }
 
-         int i;
-         for(i=0;i<n8;i++) {
-            dtmp1=in[inO+=2];
-            dtmp2=in[inO+=2];
-            dtmp3=trig[--A];
-            dtmp4=trig[--A];
-	         x[xO++]=-dtmp2*dtmp3 - dtmp1*dtmp4;
-	         x[xO++]= dtmp1*dtmp3 - dtmp2*dtmp4;
-         }
+        float[] xxx = kernel(x, w, n, n2, n4, n8);
+        int xx = 0;
 
-         inO=n2;//-4;
+        // step 8
+        {
+            int B = n2;
+            int o1 = n4, o2 = o1 - 1;
+            int o3 = n4 + n2, o4 = o3 - 1;
 
-         for(i=0;i<n8;i++) {
-            dtmp1=in[inO-=2];
-            dtmp2=in[inO-=2];
-            dtmp3=trig[--A];
-            dtmp4=trig[--A];
-	         x[xO++]=dtmp2*dtmp3 + dtmp1*dtmp4;
-	         x[xO++]=dtmp2*dtmp4 - dtmp1*dtmp3;
-         }
-      }
+            for (int i = 0; i < n4; i++) {
+                dtmp1 = xxx[xx++];
+                dtmp2 = xxx[xx++];
+                dtmp3 = trig[B++];
+                dtmp4 = trig[B++];
 
-      float[] xxx=kernel(x,w,n,n2,n4,n8);
-      int xx=0;
+                float temp1 = (dtmp1 * dtmp4 - dtmp2 * dtmp3);
+                float temp2 = -(dtmp1 * dtmp3 + dtmp2 * dtmp4);
 
-      // step 8
+                pcm[o1] = (int) (-temp1 * window[o1]);
+                pcm[o2] = (int) (temp1 * window[o2]);
+                pcm[o3] = (int) (temp2 * window[o3]);
+                pcm[o4] = (int) (temp2 * window[o4]);
 
-      {
-         int B=n2;
-         int o1=n4,o2=o1-1;
-         int o3=n4+n2,o4=o3-1;
+                o1++;
+                o2--;
+                o3++;
+                o4--;
+            }
+        }
+    }
 
-         for(int i=0;i<n4;i++){
-            dtmp1=xxx[xx++];
-            dtmp2=xxx[xx++];
-            dtmp3=trig[B++];
-            dtmp4=trig[B++];
+    private float[] kernel(float[] x, float[] w,
+            int n, int n2, int n4, int n8) {
+        // step 2
 
-	         float temp1= (dtmp1* dtmp4 - dtmp2 * dtmp3);
-	         float temp2=-(dtmp1 * dtmp3 + dtmp2 * dtmp4);
+        int xA = n4;
+        int xB = 0;
+        int w2 = n4;
+        int A = n2;
 
-	         pcm[o1]=(int)(-temp1*window[o1]);
-	         pcm[o2]=(int)( temp1*window[o2]);
-	         pcm[o3]=(int)( temp2*window[o3]);
-	         pcm[o4]=(int)( temp2*window[o4]);
+        for (int i = 0; i < n4;) {
+            float x0 = x[xA] - x[xB];
+            float x1;
+            w[w2 + i] = x[xA++] + x[xB++];
 
-	         o1++;
-	         o2--;
-	         o3++;
-	         o4--;
-         }
-      }
-   }
+            x1 = x[xA] - x[xB];
+            A -= 4;
 
-   private float[] kernel(float[] x, float[] w,
-	                       int n, int n2, int n4, int n8){
-      // step 2
+            w[i++] = x0 * trig[A] + x1 * trig[A + 1];
+            w[i] = x1 * trig[A] - x0 * trig[A + 1];
 
-      int xA=n4;
-      int xB=0;
-      int w2=n4;
-      int A=n2;
+            w[w2 + i] = x[xA++] + x[xB++];
+            i++;
+        }
 
-      for(int i=0;i<n4;){
-         float x0=x[xA] - x[xB];
-         float x1;
-         w[w2+i]=x[xA++]+x[xB++];
+        // step 3
+        {
+            for (int i = 0; i < log2n - 3; i++) {
+                int k0 = n >>> (i + 2);
+                int k1 = 1 << (i + 3);
+                int wbase = n2 - 2;
 
-         x1=x[xA]-x[xB];
-         A-=4;
+                A = 0;
+                float[] temp;
 
-         w[i++]=   x0 * trig[A] + x1 * trig[A+1];
-         w[i]=     x1 * trig[A] - x0 * trig[A+1];
+                for (int r = 0; r < (k0 >>> 2); r++) {
+                    int w1 = wbase;
+                    w2 = w1 - (k0 >> 1);
+                    float AEv = trig[A], wA;
+                    float AOv = trig[A + 1], wB;
+                    wbase -= 2;
 
-         w[w2+i]=x[xA++]+x[xB++];
-         i++;
-      }
+                    k0++;
+                    for (int s = 0; s < (2 << i); s++) {
+                        dtmp1 = w[w1];
+                        dtmp2 = w[w2];
+                        wB = dtmp1 - dtmp2;
+                        x[w1] = dtmp1 + dtmp2;
+                        dtmp1 = w[++w1];
+                        dtmp2 = w[++w2];
+                        wA = dtmp1 - dtmp2;
+                        x[w1] = dtmp1 + dtmp2;
+                        x[w2] = wA * AEv - wB * AOv;
+                        x[w2 - 1] = wB * AEv + wA * AOv;
 
-      // step 3
+                        w1 -= k0;
+                        w2 -= k0;
+                    }
+                    k0--;
+                    A += k1;
+                }
 
-      {
-         for(int i=0;i<log2n-3;i++){
-            int k0=n>>>(i+2);
-	         int k1=1<<(i+3);
-	         int wbase=n2-2;
+                temp = w;
+                w = x;
+                x = temp;
+            }
+        }
 
-	         A=0;
-	         float[] temp;
+        // step 4, 5, 6, 7
+        {
+            int C = n;
+            int bit = 0;
+            int x1 = 0;
+            int x2 = n2 - 1;
 
-	         for(int r=0;r<(k0>>>2);r++){
-               int w1=wbase;
-               w2=w1-(k0>>1);
-               float AEv= trig[A],wA;
-               float AOv= trig[A+1],wB;
-               wbase-=2;
+            for (int i = 0; i < n8; i++) {
+                int t1 = bitrev[bit++];
+                int t2 = bitrev[bit++];
 
-               k0++;
-               for(int s=0;s<(2<<i);s++){
-                  dtmp1=w[w1];
-                  dtmp2=w[w2];
-                  wB=dtmp1-dtmp2;
-                  x[w1]=dtmp1+dtmp2;
-                  dtmp1=w[++w1];
-                  dtmp2=w[++w2];
-                  wA=dtmp1-dtmp2;
-                  x[w1]=dtmp1+dtmp2;
-                  x[w2]  =wA*AEv  - wB*AOv;
-                  x[w2-1]=wB*AEv  + wA*AOv;
+                float wA = w[t1] - w[t2 + 1];
+                float wB = w[t1 - 1] + w[t2];
+                float wC = w[t1] + w[t2 + 1];
+                float wD = w[t1 - 1] - w[t2];
 
-                  w1-=k0;
-                  w2-=k0;
-	            }
-	            k0--;
-	            A+=k1;
-	         }
+                float wACE = wA * trig[C];
+                float wBCE = wB * trig[C++];
+                float wACO = wA * trig[C];
+                float wBCO = wB * trig[C++];
 
-	         temp=w;
-	         w=x;
-	         x=temp;
-         }
-      }
-
-      // step 4, 5, 6, 7
-      {
-         int C=n;
-         int bit=0;
-         int x1=0;
-         int x2=n2-1;
-
-         for(int i=0;i<n8;i++) {
-            int t1=bitrev[bit++];
-            int t2=bitrev[bit++];
-
-            float wA=w[t1]-w[t2+1];
-            float wB=w[t1-1]+w[t2];
-            float wC=w[t1]+w[t2+1];
-            float wD=w[t1-1]-w[t2];
-
-            float wACE=wA* trig[C];
-            float wBCE=wB* trig[C++];
-            float wACO=wA* trig[C];
-            float wBCO=wB* trig[C++];
-
-            x[x1++]=( wC+wACO+wBCE)*16383.0f;
-            x[x2--]=(-wD+wBCO-wACE)*16383.0f;
-            x[x1++]=( wD+wBCO-wACE)*16383.0f;
-            x[x2--]=( wC-wACO-wBCE)*16383.0f;
-         }
-      }
-      return x;
-   }
-
+                x[x1++] = (wC + wACO + wBCE) * 16383.0f;
+                x[x2--] = (-wD + wBCO - wACE) * 16383.0f;
+                x[x1++] = (wD + wBCO - wACE) * 16383.0f;
+                x[x2--] = (wC - wACO - wBCE) * 16383.0f;
+            }
+        }
+        return x;
+    }
 }
-

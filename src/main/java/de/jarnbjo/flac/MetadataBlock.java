@@ -26,51 +26,50 @@ import java.io.IOException;
 import de.jarnbjo.util.io.*;
 
 public abstract class MetadataBlock {
+    private static final int STREAMINFO = 0;
+    private static final int PADDING = 1;
+    private static final int APPLICATION = 2;
+    private static final int SEEKTABLE = 3;
+    private static final int VORBIS_COMMENT = 4;
 
-   private static final int STREAMINFO = 0;
-   private static final int PADDING = 1;
-   private static final int APPLICATION = 2;
-   private static final int SEEKTABLE = 3;
-   private static final int VORBIS_COMMENT = 4;
+    private boolean lastBlock;
 
-   private boolean lastBlock;
+    public static MetadataBlock createInstance(BitInputStream source) throws IOException {
 
-   public static MetadataBlock createInstance(BitInputStream source) throws IOException {
+        boolean lb = source.getBit();
 
-      boolean lb=source.getBit();
+        int blockType = source.getInt(7);
 
-      int blockType=source.getInt(7);
+        MetadataBlock mb;
 
-      MetadataBlock mb;
+        switch (blockType) {
+            // BLOCK_TYPE
+            case STREAMINFO:
+                mb = new StreamInfo(source);
+                mb.lastBlock = lb;
+                return mb;
+            case SEEKTABLE:
+                mb = new SeekTable(source);
+                mb.lastBlock = lb;
+                return mb;
+            case VORBIS_COMMENT:
+                mb = new VorbisComment(source);
+                mb.lastBlock = lb;
+                return mb;
+            case PADDING:
+                mb = new Padding(source);
+                mb.lastBlock = lb;
+                return mb;
+            case APPLICATION:
+                mb = new Application(source);
+                mb.lastBlock = lb;
+                return mb;
+        }
 
-      switch(blockType) {
-         // BLOCK_TYPE
-         case STREAMINFO:
-            mb=new StreamInfo(source);
-            mb.lastBlock=lb;
-            return mb;
-         case SEEKTABLE:
-            mb=new SeekTable(source);
-            mb.lastBlock=lb;
-            return mb;
-         case VORBIS_COMMENT:
-            mb=new VorbisComment(source);
-            mb.lastBlock=lb;
-            return mb;
-         case PADDING:
-            mb=new Padding(source);
-            mb.lastBlock=lb;
-            return mb;
-         case APPLICATION:
-            mb=new Application(source);
-            mb.lastBlock=lb;
-            return mb;
-      }
+        throw new FlacFormatException("Unsupported block type " + blockType);
+    }
 
-      throw new FlacFormatException("Unsupported block type "+blockType);
-   }
-
-   boolean isLastBlock() {
-      return lastBlock;
-   }
+    boolean isLastBlock() {
+        return lastBlock;
+    }
 }

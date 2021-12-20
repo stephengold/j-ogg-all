@@ -27,14 +27,12 @@ import java.io.IOException;
 /**
  * Exception thrown when trying to read a corrupted Ogg stream.
  */
-
 public class OggFormatException extends IOException {
+    public OggFormatException() {
+        super();
+    }
 
-   public OggFormatException() {
-      super();
-   }
-
-   public OggFormatException(String message) {
-      super(message);
-   }
+    public OggFormatException(String message) {
+        super(message);
+    }
 }

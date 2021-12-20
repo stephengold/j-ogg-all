@@ -23,14 +23,12 @@
 package de.jarnbjo.flac;
 
 public class SeekPoint {
+    final private long sampleNumber, offset;
+    final private int numberOfSamples;
 
-   final private long sampleNumber, offset;
-   final private int numberOfSamples;
-
-   public SeekPoint(long sampleNumber, long offset, int numberOfSamples) {
-      this.sampleNumber=sampleNumber;
-      this.offset=offset;
-      this.numberOfSamples=numberOfSamples;
-   }
-
+    public SeekPoint(long sampleNumber, long offset, int numberOfSamples) {
+        this.sampleNumber = sampleNumber;
+        this.offset = offset;
+        this.numberOfSamples = numberOfSamples;
+    }
 }

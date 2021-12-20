@@ -23,6 +23,6 @@
 package de.jarnbjo.theora;
 
 public class HuffEntry {
-   public HuffEntry zeroChild, oneChild, previous, next;
-   int value, frequency;
+    public HuffEntry zeroChild, oneChild, previous, next;
+    int value, frequency;
 }
