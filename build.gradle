@@ -6,9 +6,6 @@ plugins {
     id 'signing'
 }
 
-description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.\n\
-        At the moment the support for Vorbis and FLAC is almost complete (the library decodes all files created by the\n\
-        current versions of libvorbis and libflac correctly) and I\'ve started working on Theora support.'
 ext {
     group = 'com.github.stephengold'
     artifact = 'j-ogg-all'
