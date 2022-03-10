@@ -107,7 +107,7 @@ publishing {
             from components.java
             groupId project.ext.group
             pom {
-                description = project.description
+                description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.'
                 developers {
                     developer {
                         name = 'Tor-Einar Jarnbjo'
