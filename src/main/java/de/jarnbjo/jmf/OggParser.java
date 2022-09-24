@@ -32,7 +32,7 @@ import de.jarnbjo.vorbis.*;
 public class OggParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "Ogg demultiplexer";
 
-    private final ContentDescriptor[] supportedContentTypes = new ContentDescriptor[]{
+    private final ContentDescriptor[] supportedContentTypes = {
         new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/ogg")),
         new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/x-ogg"))
     };

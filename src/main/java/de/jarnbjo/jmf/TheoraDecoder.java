@@ -31,11 +31,11 @@ import de.jarnbjo.theora.*;
 public class TheoraDecoder implements Codec {
     private static final String CODEC_NAME = "Theora decoder";
 
-    private static final Format[] supportedInputFormats = new Format[]{
+    private static final Format[] supportedInputFormats = {
         new VideoFormat("THEORA")
     };
 
-    private static final Format[] supportedOutputFormats = new Format[]{
+    private static final Format[] supportedOutputFormats = {
         new RGBFormat(null, -1, VideoFormat.intArray, -1.0f, 32, 0xff0000, 0xff00, 0xff)
     //new YUVFormat(null, -1, VideoFormat.byteArray, -1.0f, YUVFormat.YUV_422, -1, -1, -1, -1, -1)
     };

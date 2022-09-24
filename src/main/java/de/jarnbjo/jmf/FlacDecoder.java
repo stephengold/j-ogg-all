@@ -32,7 +32,7 @@ import de.jarnbjo.flac.*;
 public class FlacDecoder implements Codec {
     private static final String CODEC_NAME = "Flac decoder";
 
-    private static final Format[] supportedInputFormats = new Format[]{
+    private static final Format[] supportedInputFormats = {
         new AudioFormat(
         "audio/x-flac",
         Format.NOT_SPECIFIED,
@@ -55,7 +55,7 @@ public class FlacDecoder implements Codec {
         Format.byteArray)
     };
 
-    private static final Format[] supportedOutputFormats = new Format[]{
+    private static final Format[] supportedOutputFormats = {
         new AudioFormat(
         AudioFormat.LINEAR,
         Format.NOT_SPECIFIED,

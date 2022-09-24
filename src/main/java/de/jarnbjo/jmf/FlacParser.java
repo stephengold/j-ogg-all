@@ -7,7 +7,7 @@ import javax.media.protocol.*;
 public class FlacParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "FLAC demultiplexer";
 
-    private final ContentDescriptor[] supportedContentTypes = new ContentDescriptor[]{
+    private final ContentDescriptor[] supportedContentTypes = {
         new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/flac")),
         new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/x-flac"))
     };

@@ -30,7 +30,7 @@ import de.jarnbjo.vorbis.*;
 public class VorbisDecoder implements Codec {
     private static final String CODEC_NAME = "Vorbis decoder";
 
-    private static final Format[] supportedInputFormats = new Format[]{
+    private static final Format[] supportedInputFormats = {
         new AudioFormat(
         "audio/x-vorbis",
         Format.NOT_SPECIFIED,
@@ -52,7 +52,7 @@ public class VorbisDecoder implements Codec {
         Format.NOT_SPECIFIED,
         Format.byteArray),};
 
-    private static final Format[] supportedOutputFormats = new Format[]{
+    private static final Format[] supportedOutputFormats = {
         new AudioFormat(
         AudioFormat.LINEAR,
         Format.NOT_SPECIFIED,
