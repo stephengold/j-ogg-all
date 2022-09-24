@@ -32,13 +32,14 @@ import java.util.*;
  */
 public class BasicStream implements PhysicalOggStream {
     private boolean closed = false;
-    private InputStream sourceStream;
+    final private InputStream sourceStream;
     private int position = 0;
 
     final private HashMap logicalStreams = new HashMap();
     private OggPage firstPage;
 
     public BasicStream(InputStream sourceStream) throws IOException {
+        this.sourceStream = sourceStream;
         firstPage = OggPage.create(sourceStream);
         position += firstPage.getTotalLength();
         LogicalOggStreamImpl los = new LogicalOggStreamImpl(this, firstPage.getStreamSerialNumber());
