@@ -168,4 +168,8 @@ public interface BitInputStream {
      * the implementation
      */
     void setEndian(int endian);
+    
+    int position ();
+    
+    void skip (int length);
 }

@@ -85,9 +85,11 @@ public class ByteArrayBitInputStream implements BitInputStream {
             }
         } else {
             if (bitIndex < 0) {
-                bitIndex = 7;
-                currentByte = source[++byteIndex];
-            }
+	            bitIndex = 7;
+	            currentByte = source[++byteIndex];
+	        } else if (bitIndex >= 7) {
+	            currentByte = source[--byteIndex];
+	        }
             if (bits <= bitIndex + 1) {
                 int ci = ((int) currentByte) & 0xff;
                 int offset = 1 + bitIndex - bits;
@@ -271,10 +273,6 @@ public class ByteArrayBitInputStream implements BitInputStream {
 
                 int bits = order;
 
-                if (bitIndex < 0) {
-                    bitIndex = 7;
-                    byteIndex++;
-                }
                 if (bits <= bitIndex + 1) {
                     int ci = ((int) source[byteIndex]) & 0xff;
                     int offset = 1 + bitIndex - bits;
@@ -334,5 +332,23 @@ public class ByteArrayBitInputStream implements BitInputStream {
      */
     public byte[] getSource() {
         return source;
+    }
+    
+    @Override
+    public int position () {
+        return byteIndex;
+    }
+    
+    @Override
+    public void skip (int length) {
+    
+        if (this.endian == BIG_ENDIAN) {
+            bitIndex = 7;
+        } else if (this.endian == LITTLE_ENDIAN) {
+            bitIndex = 0;
+        }
+        
+        byteIndex += length;
+    
     }
 }
