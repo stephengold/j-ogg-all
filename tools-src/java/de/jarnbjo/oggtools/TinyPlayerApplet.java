@@ -30,11 +30,18 @@ package de.jarnbjo.oggtools;
 
 import java.applet.Applet;
 
-import java.io.*;
-import java.net.*;
-import javax.sound.sampled.*;
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.vorbis.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.ogg.UncachedUrlStream;
+import de.jarnbjo.vorbis.VorbisStream;
 
 public class TinyPlayerApplet extends Applet implements Runnable {
 

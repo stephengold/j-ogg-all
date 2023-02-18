@@ -31,13 +31,21 @@
 
 package de.jarnbjo.oggtools;
 
-import java.io.*;
-import java.net.*;
-import javax.sound.sampled.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.SourceDataLine;
 
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.vorbis.*;
-import de.jarnbjo.flac.*;
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.ogg.UncachedUrlStream;
+import de.jarnbjo.vorbis.VorbisStream;
+import de.jarnbjo.flac.FlacStream;
 
 public class Player {
 

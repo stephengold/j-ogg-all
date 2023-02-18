@@ -1,8 +1,14 @@
 package de.jarnbjo.oggtools;
 
-import java.io.*;
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.vorbis.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.FileStream;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.ogg.PhysicalOggStream;
+import de.jarnbjo.vorbis.CommentHeader;
+import de.jarnbjo.vorbis.VorbisStream;
 
 public class Ogg2Wav {
 
