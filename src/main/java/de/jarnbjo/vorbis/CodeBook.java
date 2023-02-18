@@ -26,9 +26,10 @@
 
 package de.jarnbjo.vorbis;
 
-import java.io.*;
-import java.util.*;
-import de.jarnbjo.util.io.*;
+import java.io.IOException;
+import java.util.Arrays;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.HuffmanNode;
 
 class CodeBook {
 

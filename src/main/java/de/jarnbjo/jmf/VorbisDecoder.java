@@ -23,9 +23,12 @@
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
-import javax.media.*;
-import javax.media.format.*;
-import de.jarnbjo.vorbis.*;
+import javax.media.Buffer;
+import javax.media.Codec;
+import javax.media.Format;
+import javax.media.PlugIn;
+import javax.media.format.AudioFormat;
+import de.jarnbjo.vorbis.VorbisStream;
 
 public class VorbisDecoder implements Codec {
     private static final String CODEC_NAME = "Vorbis decoder";

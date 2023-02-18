@@ -25,11 +25,20 @@
 
 package de.jarnbjo.jmf;
 
-import java.io.*;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 import javax.media.protocol.PullSourceStream;
 import javax.media.protocol.Seekable;
-import de.jarnbjo.ogg.*;
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.ogg.LogicalOggStreamImpl;
+import de.jarnbjo.ogg.OggFormatException;
+import de.jarnbjo.ogg.OggPage;
+import de.jarnbjo.ogg.PhysicalOggStream;
 
 /**
  * Implementation of the {@code PhysicalOggStream} interface for accessing JMF

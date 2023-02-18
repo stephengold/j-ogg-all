@@ -23,7 +23,7 @@
 package de.jarnbjo.flac;
 
 import java.io.IOException;
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.BitInputStream;
 
 public abstract class MetadataBlock {
     private static final int STREAMINFO = 0;

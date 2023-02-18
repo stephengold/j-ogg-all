@@ -23,7 +23,7 @@
 package de.jarnbjo.flac;
 
 import java.io.IOException;
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.BitInputStream;
 
 public class Frame {
     private int blockSize, sampleRate, bitsPerSample;

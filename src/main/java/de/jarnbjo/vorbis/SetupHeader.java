@@ -23,9 +23,9 @@
  
 package de.jarnbjo.vorbis;
 
-import java.io.*;
+import java.io.IOException;
 
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.BitInputStream;
 
 class SetupHeader {
     private static final long HEADER = 0x736962726f76L; // 'vorbis'

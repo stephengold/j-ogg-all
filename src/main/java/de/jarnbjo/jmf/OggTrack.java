@@ -22,9 +22,14 @@
  
 package de.jarnbjo.jmf;
 
-import java.io.*;
-import javax.media.*;
-import de.jarnbjo.ogg.*;
+import java.io.IOException;
+import javax.media.Duration;
+import javax.media.Format;
+import javax.media.Time;
+import javax.media.Track;
+import javax.media.TrackListener;
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.LogicalOggStream;
 
 public class OggTrack implements Track {
     private TrackListener listener;

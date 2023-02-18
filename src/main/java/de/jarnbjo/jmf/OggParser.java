@@ -22,12 +22,23 @@
  
 package de.jarnbjo.jmf;
 
-import java.io.*;
-import java.util.*;
-import javax.media.*;
-import javax.media.protocol.*;
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.vorbis.*;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import javax.media.BadHeaderException;
+import javax.media.Demultiplexer;
+import javax.media.IncompatibleSourceException;
+import javax.media.Time;
+import javax.media.Track;
+import javax.media.protocol.ContentDescriptor;
+import javax.media.protocol.DataSource;
+import javax.media.protocol.PullDataSource;
+import javax.media.protocol.PullSourceStream;
+import javax.media.protocol.Seekable;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.ogg.OggFormatException;
+import de.jarnbjo.ogg.PhysicalOggStream;
+import de.jarnbjo.vorbis.VorbisFormatException;
 
 public class OggParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "Ogg demultiplexer";

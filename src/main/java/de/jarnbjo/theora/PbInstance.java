@@ -23,8 +23,8 @@
 package de.jarnbjo.theora;
 
 import java.io.IOException;
-import java.util.*;
-import de.jarnbjo.util.io.*;
+import java.util.Arrays;
+import de.jarnbjo.util.io.BitInputStream;
 
 public class PbInstance {
     Header info;

@@ -1,8 +1,8 @@
 package de.jarnbjo.theora;
 
-import java.io.*;
+import java.io.IOException;
 
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.BitInputStream;
 
 public class Header {
     final private int[] version = new int[3];

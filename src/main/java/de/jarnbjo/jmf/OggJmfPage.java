@@ -25,12 +25,19 @@
 
 package de.jarnbjo.jmf;
 
-import java.io.*;
+import java.io.DataInput;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import javax.media.protocol.PullSourceStream;
 
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
-import de.jarnbjo.ogg.*;
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.OggFormatException;
+import de.jarnbjo.ogg.OggPage;
 
 /**
  * <p>An instance of this class represents an ogg page read from an ogg file

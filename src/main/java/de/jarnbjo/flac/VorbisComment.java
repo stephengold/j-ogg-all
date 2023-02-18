@@ -1,8 +1,9 @@
 package de.jarnbjo.flac;
 
 import java.io.IOException;
-import java.util.*;
-import de.jarnbjo.util.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import de.jarnbjo.util.io.BitInputStream;
 
 public class VorbisComment extends MetadataBlock {
     public static final String TITLE = "TITLE";

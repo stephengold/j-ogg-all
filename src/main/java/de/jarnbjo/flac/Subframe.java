@@ -23,9 +23,10 @@
 package de.jarnbjo.flac;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
 
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 public abstract class Subframe {
 

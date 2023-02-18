@@ -1,8 +1,16 @@
 package de.jarnbjo.jmf;
 
-import java.io.*;
-import javax.media.*;
-import javax.media.protocol.*;
+import java.io.IOException;
+import javax.media.BadHeaderException;
+import javax.media.Demultiplexer;
+import javax.media.IncompatibleSourceException;
+import javax.media.Time;
+import javax.media.Track;
+import javax.media.protocol.ContentDescriptor;
+import javax.media.protocol.DataSource;
+import javax.media.protocol.PullDataSource;
+import javax.media.protocol.PullSourceStream;
+import javax.media.protocol.Seekable;
 
 public class FlacParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "FLAC demultiplexer";

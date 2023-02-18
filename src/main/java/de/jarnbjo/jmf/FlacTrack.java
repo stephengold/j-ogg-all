@@ -22,12 +22,16 @@
  
 package de.jarnbjo.jmf;
 
-import java.io.*;
-import javax.media.*;
-import javax.media.format.*;
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.flac.*;
-import de.jarnbjo.util.io.*;
+import java.io.IOException;
+import javax.media.Duration;
+import javax.media.Format;
+import javax.media.Time;
+import javax.media.format.AudioFormat;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.flac.MetadataBlock;
+import de.jarnbjo.flac.StreamInfo;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 public class FlacTrack extends OggTrack {
     final private LogicalOggStream oggStream;

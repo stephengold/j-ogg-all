@@ -25,11 +25,13 @@
 
 package de.jarnbjo.flac;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import de.jarnbjo.ogg.*;
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 public class FlacStream {
     private LogicalOggStream oggStream;

@@ -1,7 +1,7 @@
 package de.jarnbjo.flac;
 
 import java.io.IOException;
-import de.jarnbjo.util.io.*;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 public class FlacFormatException extends IOException {
     private ByteArrayBitInputStream source;
