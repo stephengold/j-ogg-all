@@ -1,5 +1,5 @@
 /.gradle/
 /.idea/
 /.nb-gradle/
-/build/
-/bin/
+/library/build/
+/vorbis/build/
