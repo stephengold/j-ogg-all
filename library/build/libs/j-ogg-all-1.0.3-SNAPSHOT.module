@@ -1,0 +1,69 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.github.stephengold",
+    "module": "j-ogg-all",
+    "version": "1.0.3-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.6"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 7,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "j-ogg-all-1.0.3-SNAPSHOT.jar",
+          "url": "j-ogg-all-1.0.3-SNAPSHOT.jar",
+          "size": 156515,
+          "sha512": "01f84a395c1dd92ca1fff7b8cfc26a4763f58013ccf15fa20f290119a2d9041aa672b5b4ed10d11a844c6939c3127ba1db1f35d8d15bd58a1659a7d7c6371fe5",
+          "sha256": "40aa39ec3fd0c38afb933eae1549ed029c5ed53037e796e6b5473511cb99b6e3",
+          "sha1": "3373aeb1627f9a84eaa8f63cd9354e2ea64a6127",
+          "md5": "dbc2cf858f7029f3cd93431e5e524e43"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 7,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "javax.media",
+          "module": "jmf",
+          "version": {
+            "requires": "2.1.1e"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "j-ogg-all-1.0.3-SNAPSHOT.jar",
+          "url": "j-ogg-all-1.0.3-SNAPSHOT.jar",
+          "size": 156515,
+          "sha512": "01f84a395c1dd92ca1fff7b8cfc26a4763f58013ccf15fa20f290119a2d9041aa672b5b4ed10d11a844c6939c3127ba1db1f35d8d15bd58a1659a7d7c6371fe5",
+          "sha256": "40aa39ec3fd0c38afb933eae1549ed029c5ed53037e796e6b5473511cb99b6e3",
+          "sha1": "3373aeb1627f9a84eaa8f63cd9354e2ea64a6127",
+          "md5": "dbc2cf858f7029f3cd93431e5e524e43"
+        }
+      ]
+    }
+  ]
+}

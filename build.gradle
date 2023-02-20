@@ -1,178 +1,20 @@
 // Gradle build script for the j-ogg-all project
 
 plugins {
-    id 'java-library'
-    id 'maven-publish'
-    id 'signing'
+    id 'base' // to add a "clean" task to the root project
 }
 
-ext {
-    group = 'com.github.stephengold'
-    artifact = 'j-ogg-all'
-    version = '1.0.3-SNAPSHOT'
-    baseName = "${artifact}-${version}" // for artifacts
-    websiteUrl = 'https://github.com/stephengold/j-ogg-all'
-}
-
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
-
-dependencies {
-    implementation 'javax.media:jmf:2.1.1e'
-}
-
-tasks.withType(JavaCompile) { // Java compile-time options:
-    options.compilerArgs << '-Xdiags:verbose'
-    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
-        // Suppress warnings that source value 7 is obsolete.
-        options.compilerArgs << '-Xlint:-options'
-    }
-    //options.compilerArgs << '-Xlint:unchecked'
-    options.deprecation = true // to provide detailed deprecation warnings
-    options.encoding = 'UTF-8'
-    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10)) {
-        options.release = 7
-    }
-}
-
-javadoc {
-    // Disable doclint for JDK8+.
-    if (JavaVersion.current().isJava8Compatible()) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-    }
-}
-
-repositories {
-    //mavenLocal() // to find local SNAPSHOTs of libraries
-    mavenCentral()
+subprojects {
+    apply from: rootProject.file('common.gradle')
 }
 
 // publishing tasks:
 
 tasks.register('install') {
-    dependsOn 'publishMavenPublicationToMavenLocal'
+    dependsOn ':library:install', 'vorbis:install'
     description 'Installs Maven artifacts to the local repository.'
 }
 tasks.register('release') {
-    dependsOn 'publishMavenPublicationToOSSRHRepository'
+    dependsOn 'library:release', 'vorbis:install'
     description 'Stages Maven artifacts to Sonatype OSSRH.'
 }
-
-jar {
-    archiveBaseName = project.ext.baseName
-    manifest {
-        attributes 'Created-By': "${JavaVersion.current()} (${System.getProperty("java.vendor")})"
-    }
-}
-tasks.register('javadocJar', Jar) {
-    archiveBaseName = project.ext.baseName
-    archiveClassifier = 'javadoc'
-    dependsOn 'javadoc'
-    description 'Creates a JAR of javadoc.'
-    from javadoc.destinationDir
-}
-tasks.register('sourcesJar', Jar) {
-    archiveBaseName = project.ext.baseName
-    archiveClassifier = 'sources'
-    description 'Creates a JAR of sourcecode.'
-    from sourceSets.main.allJava
-}
-
-assemble.dependsOn('module', 'moduleAsc', 'pom', 'pomAsc')
-tasks.register('module', Copy) {
-    dependsOn 'generateMetadataFileForMavenPublication'
-    description 'Copies the module metadata to build/libs.'
-    from "${buildDir}/publications/maven/module.json"
-    into "${buildDir}/libs"
-    rename 'module.json', project.ext.baseName + '.module'
-}
-tasks.register('moduleAsc', Copy) {
-    dependsOn 'signMavenPublication'
-    description 'Copies the signature of the module metadata to build/libs.'
-    from "${buildDir}/publications/maven/module.json.asc"
-    into "${buildDir}/libs"
-    rename 'module.json.asc', project.ext.baseName + '.module.asc'
-}
-tasks.register('pom', Copy) {
-    dependsOn 'generatePomFileForMavenPublication'
-    description 'Copies the Maven POM to build/libs.'
-    from "${buildDir}/publications/maven/pom-default.xml"
-    into "${buildDir}/libs"
-    rename 'pom-default.xml', project.ext.baseName + '.pom'
-}
-tasks.register('pomAsc', Copy) {
-    dependsOn 'signMavenPublication'
-    description 'Copies the signature of the Maven POM to build/libs.'
-    from "${buildDir}/publications/maven/pom-default.xml.asc"
-    into "${buildDir}/libs"
-    rename 'pom-default.xml.asc', project.ext.baseName + '.pom.asc'
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifact javadocJar
-            artifact sourcesJar
-            artifactId artifact
-            from components.java
-            groupId project.ext.group
-            pom {
-                description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.'
-                developers {
-                    developer {
-                        name = 'Tor-Einar Jarnbjo'
-                    }
-                }
-                inceptionYear = '2002'
-                licenses {
-                    license {
-                        distribution = 'repo'
-                        name = 'Free and commercial use, modification and redistribution with attribution.'
-                        url = project.ext.websiteUrl + '/blob/master/LICENSE'
-                    }
-                }
-                name = project.ext.group + ':' + artifact
-                scm {
-                    connection = 'scm:git:git://github.com/stephengold/j-ogg-all.git'
-                    developerConnection = 'scm:git:ssh://github.com:stephengold/j-ogg-all.git'
-                    url = project.ext.websiteUrl + '/tree/master'
-                }
-                url = project.ext.websiteUrl
-            }
-            version project.ext.version
-        }
-    }
-    // Staging to OSSRH relies on the existence of 2 properties
-    // (ossrhUsername and ossrhPassword)
-    // which should be stored in ~/.gradle/gradle.properties
-    repositories {
-        maven {
-            credentials {
-                username = project.hasProperty('ossrhUsername') ? ossrhUsername : 'Unknown user'
-                password = project.hasProperty('ossrhPassword') ? ossrhPassword : 'Unknown password'
-            }
-            name = 'OSSRH'
-            url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2'
-        }
-    }
-}
-generateMetadataFileForMavenPublication.dependsOn('pom')
-publishMavenPublicationToMavenLocal.dependsOn('assemble')
-publishMavenPublicationToMavenLocal.doLast {
-    println 'installed locally as ' + project.ext.baseName
-}
-publishMavenPublicationToOSSRHRepository.dependsOn('assemble')
-
-// signing tasks
-
-// Signing relies on the existence of 3 properties
-// (signing.keyId, signing.password, and signing.secretKeyRingFile)
-// which should be stored in ~/.gradle/gradle.properties
-
-signing {
-    sign publishing.publications.maven
-}
-tasks.withType(Sign) {
-    onlyIf { project.hasProperty('signing.keyId') }
-}
-signMavenPublication.dependsOn('module')

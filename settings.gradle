@@ -1,1 +1,22 @@
+/*
+ * settings.gradle: global settings shared by all subprojects
+ */
+
 rootProject.name = 'j-ogg-all'
+
+/*
+ * Enumerate subdirectories in the project's root directory that contain a
+ * "build.gradle" file. Any subdirectory with a "build.gradle" file is
+ * automatically a subproject of this project.
+ */
+def subDirs = rootDir.listFiles(
+    new FileFilter() {
+        boolean accept(File file) {
+            return file.isDirectory() && new File(file, 'build.gradle').isFile()
+        }
+    }
+)
+
+subDirs.each { File dir ->
+    include dir.name
+}
