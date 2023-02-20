@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"de.jarnbjo.ogg"},{"l":"de.jarnbjo.util.io"},{"l":"de.jarnbjo.vorbis"}];updateSearchResults();
