@@ -8,6 +8,10 @@ subprojects {
     apply from: rootProject.file('common.gradle')
 }
 
+tasks.register('checkstyle') {
+    dependsOn ':library:checkstyleMain', ':vorbis:checkstyleMain'
+}
+
 // publishing tasks:
 
 tasks.register('install') {

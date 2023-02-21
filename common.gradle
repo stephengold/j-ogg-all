@@ -1,5 +1,6 @@
 // Gradle settings and tasks common to all j-ogg-all subprojects
 
+apply plugin: 'checkstyle'
 apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
@@ -50,12 +51,15 @@ tasks.register('release') {
     description 'Stages Maven artifacts to Sonatype OSSRH.'
 }
 
+// custom tasks for creating source/javadoc JARs:
+
 tasks.register('javadocJar', Jar) {
     archiveClassifier = 'javadoc'
     dependsOn 'javadoc'
     description 'Creates a JAR of javadoc.'
     from javadoc.destinationDir
 }
+
 tasks.register('sourcesJar', Jar) {
     archiveClassifier = 'sources'
     description 'Creates a JAR of sourcecode.'
