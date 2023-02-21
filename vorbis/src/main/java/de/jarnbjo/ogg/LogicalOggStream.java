@@ -20,9 +20,7 @@
  *
  * Revision 1.1  2003/03/03 21:02:20  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.ogg;
 
 import java.io.IOException;

@@ -17,10 +17,7 @@
  * $Log: FileStream.java,v $
  * Revision 1.1  2003/04/10 19:48:22  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.ogg;
 
 import java.io.IOException;
@@ -35,7 +32,6 @@ import java.util.List;
  * normal disk files.
  */
 public class FileStream implements PhysicalOggStream {
-
     private boolean closed = false;
     final private RandomAccessFile source;
     final private long[] pageOffsets;
@@ -43,15 +39,17 @@ public class FileStream implements PhysicalOggStream {
     final private HashMap logicalStreams = new HashMap();
 
     /**
-     * Creates access to the specified file through the {@code PhysicalOggStream} interface.
-     * The specified source file must have been opened for reading.
+     * Creates access to the specified file through the
+     * {@code PhysicalOggStream} interface. The specified source file must have
+     * been opened for reading.
      *
      * @param source the file to read from
      *
      * @throws OggFormatException if the stream format is incorrect
      * @throws IOException if some other IO error occurs when reading the file
      */
-    public FileStream(RandomAccessFile source) throws OggFormatException, IOException {
+    public FileStream(RandomAccessFile source)
+            throws OggFormatException, IOException {
         this.source = source;
 
         List po = new ArrayList();
@@ -66,9 +64,11 @@ public class FileStream implements PhysicalOggStream {
                     break;
                 }
 
-                LogicalOggStreamImpl los = (LogicalOggStreamImpl) getLogicalStream(op.getStreamSerialNumber());
+                LogicalOggStreamImpl los = (LogicalOggStreamImpl)
+                        getLogicalStream(op.getStreamSerialNumber());
                 if (los == null) {
-                    los = new LogicalOggStreamImpl(this, op.getStreamSerialNumber());
+                    los = new LogicalOggStreamImpl(
+                            this, op.getStreamSerialNumber());
                     logicalStreams.put(op.getStreamSerialNumber(), los);
                 }
 
@@ -80,7 +80,8 @@ public class FileStream implements PhysicalOggStream {
                 los.addGranulePosition(op.getAbsoluteGranulePosition());
 
                 if (pageNumber > 0) {
-                    this.source.seek(this.source.getFilePointer() + op.getTotalLength());
+                    this.source.seek(
+                            this.source.getFilePointer() + op.getTotalLength());
                 }
 
                 pageNumber++;

@@ -17,10 +17,7 @@
  * $Log: Residue2.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -32,7 +29,8 @@ class Residue2 extends Residue {
     private Residue2() {
     }
 
-    protected Residue2(BitInputStream source, SetupHeader header) throws IOException {
+    protected Residue2(BitInputStream source, SetupHeader header)
+            throws IOException {
         super(source, header);
     }
 
@@ -42,11 +40,13 @@ class Residue2 extends Residue {
     }
 
     @Override
-    protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException {
-
+    protected void decodeResidue(VorbisStream vorbis, BitInputStream source,
+            Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors)
+            throws IOException {
         Look look = getLook(vorbis, mode);
 
-        CodeBook codeBook = vorbis.getSetupHeader().getCodeBooks()[getClassBook()];
+        CodeBook codeBook
+                = vorbis.getSetupHeader().getCodeBooks()[getClassBook()];
 
         int classvalsPerCodeword = codeBook.getDimensions();
         int nToRead = getEnd() - getBegin();
@@ -55,7 +55,8 @@ class Residue2 extends Residue {
         int samplesPerPartition = getPartitionSize();
         int partitionsPerWord = look.getPhraseBook().getDimensions();
 
-        int partWords = (partitionsToRead + partitionsPerWord - 1) / partitionsPerWord;
+        int partWords = (partitionsToRead + partitionsPerWord - 1)
+                / partitionsPerWord;
 
         int realCh = 0;
         for (boolean doNotDecodeFlag : doNotDecodeFlags) {
@@ -78,7 +79,8 @@ class Residue2 extends Residue {
             for (int i = 0, l = 0; i < partitionsToRead; l++) {
                 if (s == 0) {
                     //int temp=look.getPhraseBook().readInt(source);
-                    int temp = source.getInt(look.getPhraseBook().getHuffmanRoot());
+                    int temp = source
+                            .getInt(look.getPhraseBook().getHuffmanRoot());
                     if (temp == -1) {
                         throw new VorbisFormatException("");
                     }
@@ -88,12 +90,16 @@ class Residue2 extends Residue {
                     }
                 }
 
-                for (int k = 0; k < partitionsPerWord && i < partitionsToRead; k++, i++) {
+                for (int k = 0; k < partitionsPerWord && i < partitionsToRead;
+                        k++, i++) {
                     int offset = begin + i * samplesPerPartition;
                     if ((cascade[partword[l][k]] & (1 << s)) != 0) {
-                        CodeBook stagebook = vorbis.getSetupHeader().getCodeBooks()[look.getPartBooks()[partword[l][k]][s]];
+                        CodeBook stagebook = vorbis.getSetupHeader()
+                                .getCodeBooks()[look.getPartBooks()
+                                [partword[l][k]][s]];
                         if (stagebook != null) {
-                            stagebook.readVvAdd(realVectors, source, offset, samplesPerPartition);
+                            stagebook.readVvAdd(realVectors, source, offset,
+                                    samplesPerPartition);
                         }
                     }
                 }

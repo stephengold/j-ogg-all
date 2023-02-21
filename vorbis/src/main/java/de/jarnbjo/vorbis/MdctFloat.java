@@ -20,10 +20,7 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 class MdctFloat {
@@ -62,8 +59,10 @@ class MdctFloat {
         for (int i = 0; i < n / 4; i++) {
             trig[AE + i * 2] = (float) Math.cos((Math.PI / n) * (4 * i));
             trig[AO + i * 2] = (float) -Math.sin((Math.PI / n) * (4 * i));
-            trig[BE + i * 2] = (float) Math.cos((Math.PI / (2 * n)) * (2 * i + 1));
-            trig[BO + i * 2] = (float) Math.sin((Math.PI / (2 * n)) * (2 * i + 1));
+            trig[BE + i * 2]
+                    = (float) Math.cos((Math.PI / (2 * n)) * (2 * i + 1));
+            trig[BO + i * 2]
+                    = (float) Math.sin((Math.PI / (2 * n)) * (2 * i + 1));
         }
         for (int i = 0; i < n / 8; i++) {
             trig[CE + i * 2] = (float) Math.cos((Math.PI / n) * (4 * i + 2));
@@ -98,9 +97,10 @@ class MdctFloat {
         return equalizer;
     }
 
-    protected synchronized void imdct(final float[] frq, final float[] window, final int[] pcm) {//, float[] out){
-
-        float[] in = frq;//, out=buf;
+    protected synchronized void imdct(
+            final float[] frq, final float[] window, final int[] pcm) {
+        //, float[] out){
+        float[] in = frq; //, out=buf;
         if (_x.length < n / 2) {
             _x = new float[n / 2];
         }
@@ -135,7 +135,7 @@ class MdctFloat {
                 x[xO++] = dtmp1 * dtmp3 - dtmp2 * dtmp4;
             }
 
-            inO = n2;//-4;
+            inO = n2; //-4;
 
             for (i = 0; i < n8; i++) {
                 dtmp1 = in[inO -= 2];
@@ -178,10 +178,9 @@ class MdctFloat {
         }
     }
 
-    private float[] kernel(float[] x, float[] w,
-            int n, int n2, int n4, int n8) {
+    private float[] kernel(
+            float[] x, float[] w, int n, int n2, int n4, int n8) {
         // step 2
-
         int xA = n4;
         int xB = 0;
         int w2 = n4;

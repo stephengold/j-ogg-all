@@ -17,22 +17,19 @@
  * $Log: Mapping0.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
- 
 package de.jarnbjo.vorbis;
 
-import java.io.IOException;
-
 import de.jarnbjo.util.io.BitInputStream;
+import java.io.IOException;
 
 class Mapping0 extends Mapping {
     final private int[] magnitudes, angles;
     final private int[] mux, submapFloors, submapResidues;
 
-    protected Mapping0(VorbisStream vorbis, BitInputStream source, SetupHeader header) throws IOException {
-
+    protected Mapping0(
+            VorbisStream vorbis, BitInputStream source, SetupHeader header)
+            throws IOException {
         int submaps = 1;
 
         if (source.getBit()) {
@@ -52,10 +49,12 @@ class Mapping0 extends Mapping {
             for (int i = 0; i < couplingSteps; i++) {
                 magnitudes[i] = source.getInt(ilogChannels);
                 angles[i] = source.getInt(ilogChannels);
-                if (magnitudes[i] == angles[i] || magnitudes[i] >= channels || angles[i] >= channels) {
+                if (magnitudes[i] == angles[i] || magnitudes[i] >= channels
+                        || angles[i] >= channels) {
                     System.err.println(magnitudes[i]);
                     System.err.println(angles[i]);
-                    throw new VorbisFormatException("The channel magnitude and/or angle mismatch.");
+                    throw new VorbisFormatException(
+                            "The channel magnitude and/or angle mismatch.");
                 }
             }
         } else {
@@ -64,7 +63,8 @@ class Mapping0 extends Mapping {
         }
 
         if (source.getInt(2) != 0) {
-            throw new VorbisFormatException("A reserved mapping field has an invalid value.");
+            throw new VorbisFormatException(
+                    "A reserved mapping field has an invalid value.");
         }
 
         mux = new int[channels];
@@ -72,7 +72,8 @@ class Mapping0 extends Mapping {
             for (int i = 0; i < channels; i++) {
                 mux[i] = source.getInt(4);
                 if (mux[i] > submaps) {
-                    throw new VorbisFormatException("A mapping mux value is higher than the number of submaps");
+                    throw new VorbisFormatException("A mapping mux value is "
+                            + "higher than the number of submaps");
                 }
             }
         } else {
@@ -93,11 +94,13 @@ class Mapping0 extends Mapping {
             submapResidues[i] = source.getInt(8);
 
             if (submapFloors[i] > floorCount) {
-                throw new VorbisFormatException("A mapping floor value is higher than the number of floors.");
+                throw new VorbisFormatException("A mapping floor value is "
+                        + "higher than the number of floors.");
             }
 
             if (submapResidues[i] > residueCount) {
-                throw new VorbisFormatException("A mapping residue value is higher than the number of residues.");
+                throw new VorbisFormatException("A mapping residue value is "
+                        + "higher than the number of residues.");
             }
         }
     }

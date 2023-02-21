@@ -29,20 +29,17 @@
  *
  * Revision 1.1  2003/03/03 21:02:20  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.util.io;
 
 import java.io.IOException;
 
 /**
- *	An interface with methods allowing bit-wise reading from
- * an input stream. All methods in this interface are optional
- * and an implementation not support a method or a specific state
- * (e.g. endian) will throw an UnsupportedOperationException if
- * such a method is being called. This should be specified in
- * the implementation documentation.
+ * An interface with methods allowing bit-wise reading from an input stream. All
+ * methods in this interface are optional and an implementation not support a
+ * method or a specific state (e.g. endian) will throw an
+ * UnsupportedOperationException if such a method is being called. This should
+ * be specified in the implementation documentation.
  */
 public interface BitInputStream {
     /**
@@ -133,7 +130,8 @@ public interface BitInputStream {
      * @throws UnsupportedOperationException if the method is not supported by
      * the implementation
      */
-    void readSignedRice(int order, int[] buffer, int offset, int len) throws IOException;
+    void readSignedRice(int order, int[] buffer, int offset, int len)
+            throws IOException;
 
     /**
      * reads {@code bits} number of bits from the input stream
@@ -168,8 +166,8 @@ public interface BitInputStream {
      * the implementation
      */
     void setEndian(int endian);
-    
-    int position ();
-    
-    void skip (int length);
+
+    int position();
+
+    void skip(int length);
 }

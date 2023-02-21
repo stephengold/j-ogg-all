@@ -17,10 +17,7 @@
  * $Log: Floor0.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
- 
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -30,8 +27,8 @@ class Floor0 extends Floor {
     final private int order, rate, barkMapSize, amplitudeBits, amplitudeOffset;
     final private int[] bookList;
 
-    protected Floor0(BitInputStream source, SetupHeader header) throws IOException {
-
+    protected Floor0(BitInputStream source, SetupHeader header)
+            throws IOException {
         order = source.getInt(8);
         rate = source.getInt(16);
         barkMapSize = source.getInt(16);
@@ -44,7 +41,8 @@ class Floor0 extends Floor {
         for (int i = 0; i < bookList.length; i++) {
             bookList[i] = source.getInt(8);
             if (bookList[i] > header.getCodeBooks().length) {
-                throw new VorbisFormatException("A floor0_book_list entry is higher than the code book count.");
+                throw new VorbisFormatException("A floor0_book_list entry is "
+                        + "higher than the code book count.");
             }
         }
     }
@@ -55,7 +53,8 @@ class Floor0 extends Floor {
     }
 
     @Override
-    protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws IOException {
+    protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source)
+            throws IOException {
         /* @todo implement */
         throw new UnsupportedOperationException();
     }

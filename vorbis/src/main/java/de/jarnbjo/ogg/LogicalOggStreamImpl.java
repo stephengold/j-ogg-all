@@ -23,9 +23,7 @@
  *
  * Revision 1.1  2003/03/03 21:02:20  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.ogg;
 
 import java.io.ByteArrayOutputStream;
@@ -70,7 +68,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
     @Override
     public synchronized OggPage getNextOggPage() throws IOException {
         if (source.isSeekable()) {
-            currentPage = source.getOggPage(((Integer) pageNumberMapping.get(pageIndex++)));
+            currentPage = source.getOggPage((
+                    (Integer) pageNumberMapping.get(pageIndex++)));
         } else {
             currentPage = source.getOggPage(-1);
         }
@@ -94,7 +93,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                 currentSegmentIndex = 0;
 
                 if (!currentPage.isEos()) {
-                    if (source.isSeekable() && pageNumberMapping.size() <= pageIndex) {
+                    if (source.isSeekable()
+                            && pageNumberMapping.size() <= pageIndex) {
                         while (pageNumberMapping.size() <= pageIndex + 10) {
                             try {
                                 Thread.sleep(1000);
@@ -110,11 +110,14 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                     if (res.size() == 0 && currentPage.isContinued()) {
                         boolean done = false;
                         while (!done) {
-                            if (currentPage.getSegmentLengths()[currentSegmentIndex++] != 255) {
+                            if (currentPage.getSegmentLengths()
+                                    [currentSegmentIndex++] != 255) {
                                 done = true;
                             }
-                            if (currentSegmentIndex > currentPage.getSegmentTable().length) {
-                                currentPage = source.getOggPage(((Integer) pageNumberMapping.get(pageIndex++)));
+                            if (currentSegmentIndex
+                                    > currentPage.getSegmentTable().length) {
+                                currentPage = source.getOggPage(((Integer)
+                                        pageNumberMapping.get(pageIndex++)));
                             }
                         }
                     }
@@ -122,8 +125,11 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                     throw new EndOfOggStreamException();
                 }
             }
-            segmentLength = currentPage.getSegmentLengths()[currentSegmentIndex];
-            res.write(currentPage.getData(), currentPage.getSegmentOffsets()[currentSegmentIndex], segmentLength);
+            segmentLength
+                    = currentPage.getSegmentLengths()[currentSegmentIndex];
+            res.write(currentPage.getData(),
+                    currentPage.getSegmentOffsets()[currentSegmentIndex],
+                    segmentLength);
             currentSegmentIndex++;
         } while (segmentLength == 255);
 
@@ -148,7 +154,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
 
     @Override
     public synchronized long getTime() {
-        return currentPage != null ? currentPage.getAbsoluteGranulePosition() : -1;
+        return currentPage != null
+                ? currentPage.getAbsoluteGranulePosition() : -1;
     }
 
     @Override
@@ -163,7 +170,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
         }
 
         pageIndex = page;
-        currentPage = source.getOggPage(((Integer) pageNumberMapping.get(pageIndex++)));
+        currentPage = source.getOggPage((
+                (Integer) pageNumberMapping.get(pageIndex++)));
         currentSegmentIndex = 0;
         int segmentLength = 0;
         do {
@@ -172,9 +180,11 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                 if (pageIndex >= pageNumberMapping.size()) {
                     throw new EndOfOggStreamException();
                 }
-                currentPage = source.getOggPage(((Integer) pageNumberMapping.get(pageIndex++)));
+                currentPage = source.getOggPage((
+                        (Integer) pageNumberMapping.get(pageIndex++)));
             }
-            segmentLength = currentPage.getSegmentLengths()[currentSegmentIndex];
+            segmentLength
+                    = currentPage.getSegmentLengths()[currentSegmentIndex];
             currentSegmentIndex++;
         } while (segmentLength == 255);
     }

@@ -20,9 +20,7 @@
  *
  * Revision 1.1  2003/03/31 00:23:04  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.ogg;
 
 import java.io.IOException;
@@ -34,11 +32,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Implementation of the {@code PhysicalOggStream} interface for reading
- * an Ogg stream from a URL. This class performs
- *  no internal caching, and will not read data from the network before
- *  requested to do so. It is intended to be used in non-realtime applications
- *  like file download managers or similar.
+ * Implementation of the {@code PhysicalOggStream} interface for reading an Ogg
+ * stream from a URL. This class performs no internal caching, and will not read
+ * data from the network before requested to do so. It is intended to be used in
+ * non-realtime applications like file download managers or similar.
  */
 public class OnDemandUrlStream implements PhysicalOggStream {
     private boolean closed = false;
@@ -62,7 +59,8 @@ public class OnDemandUrlStream implements PhysicalOggStream {
 
         firstPage = OggPage.create(sourceStream);
         position += firstPage.getTotalLength();
-        LogicalOggStreamImpl los = new LogicalOggStreamImpl(this, firstPage.getStreamSerialNumber());
+        LogicalOggStreamImpl los = new LogicalOggStreamImpl(
+                this, firstPage.getStreamSerialNumber());
         logicalStreams.put(firstPage.getStreamSerialNumber(), los);
         los.checkFormat(firstPage);
     }
@@ -112,7 +110,8 @@ public class OnDemandUrlStream implements PhysicalOggStream {
 
     @Override
     public void setTime(long granulePosition) throws IOException {
-        throw new UnsupportedOperationException("Method not supported by this class");
+        throw new UnsupportedOperationException(
+                "Method not supported by this class");
     }
 
     /**

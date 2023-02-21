@@ -17,10 +17,7 @@
  * $Log: AudioPacket.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -34,7 +31,8 @@ class AudioPacket {
     final private boolean blockFlag;
     private boolean previousWindowFlag, nextWindowFlag;
 
-    final private int windowCenter, leftWindowStart, leftWindowEnd, leftN, rightWindowStart, rightWindowEnd, rightN;
+    final private int windowCenter, leftWindowStart, leftWindowEnd, leftN,
+            rightWindowStart, rightWindowEnd, rightN;
     final private float[] window;
     final private float[][] pcm;
     final private int[][] pcmInt;
@@ -44,8 +42,9 @@ class AudioPacket {
 
     private final static float[][] windows = new float[8][];
 
-    protected AudioPacket(final VorbisStream vorbis, final BitInputStream source) throws IOException {
-
+    protected AudioPacket(
+            final VorbisStream vorbis, final BitInputStream source)
+            throws IOException {
         final SetupHeader sHeader = vorbis.getSetupHeader();
         final IdentificationHeader iHeader = vorbis.getIdentificationHeader();
         final Mode[] modes = sHeader.getModes();
@@ -54,7 +53,8 @@ class AudioPacket {
         final int channels = iHeader.getChannels();
 
         if (source.getInt(1) != 0) {
-            throw new VorbisFormatException("Packet type mismatch when trying to create an audio packet.");
+            throw new VorbisFormatException("Packet type mismatch "
+                    + "when trying to create an audio packet.");
         }
 
         modeNumber = source.getInt(Util.ilog(modes.length - 1));
@@ -62,7 +62,8 @@ class AudioPacket {
         try {
             mode = modes[modeNumber];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new VorbisFormatException("Reference to invalid mode in audio packet.");
+            throw new VorbisFormatException(
+                    "Reference to invalid mode in audio packet.");
         }
 
         mapping = mappings[mode.getMapping()];
@@ -104,7 +105,7 @@ class AudioPacket {
             rightN = n / 2;
         }
 
-        window = getComputedWindow();//new double[n];
+        window = getComputedWindow(); //new double[n];
 
         channelFloors = new Floor[channels];
         noResidues = new boolean[channels];
@@ -117,7 +118,8 @@ class AudioPacket {
         for (int i = 0; i < channels; i++) {
             int submapNumber = mapping.getMux()[i];
             int floorNumber = mapping.getSubmapFloors()[submapNumber];
-            Floor decodedFloor = sHeader.getFloors()[floorNumber].decodeFloor(vorbis, source);
+            Floor decodedFloor = sHeader.getFloors()[floorNumber]
+                    .decodeFloor(vorbis, source);
             channelFloors[i] = decodedFloor;
             noResidues[i] = decodedFloor == null;
             if (decodedFloor != null) {
@@ -151,7 +153,8 @@ class AudioPacket {
             int residueNumber = mapping.getSubmapResidues()[i];
             Residue residue = residues[residueNumber];
 
-            residue.decodeResidue(vorbis, source, mode, ch, doNotDecodeFlags, pcm);
+            residue.decodeResidue(
+                    vorbis, source, mode, ch, doNotDecodeFlags, pcm);
         }
 
         for (int i = mapping.getCouplingSteps() - 1; i >= 0; i--) {
@@ -179,14 +182,16 @@ class AudioPacket {
 
         // perform an inverse MDCT to all channels
         for (int i = 0; i < channels; i++) {
-            MdctFloat mdct = blockFlag ? iHeader.getMdct1() : iHeader.getMdct0();
+            MdctFloat mdct = blockFlag ? iHeader.getMdct1()
+                    : iHeader.getMdct0();
             mdct.imdct(pcm[i], window, pcmInt[i]);
         }
 
     }
 
     private float[] getComputedWindow() {
-        int ix = (blockFlag ? 4 : 0) + (previousWindowFlag ? 2 : 0) + (nextWindowFlag ? 1 : 0);
+        int ix = (blockFlag ? 4 : 0) + (previousWindowFlag ? 2 : 0)
+                + (nextWindowFlag ? 1 : 0);
         float[] w = windows[ix];
         if (w == null) {
             w = new float[n];
@@ -220,7 +225,8 @@ class AudioPacket {
         return rightWindowStart - leftWindowStart;
     }
 
-    protected int getPcm(final AudioPacket previousPacket, final int[][] buffer) {
+    protected int getPcm(
+            final AudioPacket previousPacket, final int[][] buffer) {
         int channels = pcm.length;
         int val;
 
@@ -248,14 +254,17 @@ class AudioPacket {
         // of the window
         if (leftWindowEnd + 1 < rightWindowStart) {
             for (int i = 0; i < channels; i++) {
-                System.arraycopy(pcmInt[i], leftWindowEnd, buffer[i], leftWindowEnd - leftWindowStart, rightWindowStart - leftWindowEnd);
+                System.arraycopy(pcmInt[i], leftWindowEnd, buffer[i],
+                        leftWindowEnd - leftWindowStart,
+                        rightWindowStart - leftWindowEnd);
             }
         }
 
         return rightWindowStart - leftWindowStart;
     }
 
-    protected void getPcm(final AudioPacket previousPacket, final byte[] buffer) {
+    protected void getPcm(
+            final AudioPacket previousPacket, final byte[] buffer) {
         int channels = pcm.length;
         int val;
 

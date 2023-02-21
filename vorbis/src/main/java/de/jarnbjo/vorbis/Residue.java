@@ -20,15 +20,11 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
 import java.util.HashMap;
-
 import de.jarnbjo.util.io.BitInputStream;
 
 abstract class Residue {
@@ -43,7 +39,8 @@ abstract class Residue {
     protected Residue() {
     }
 
-    protected Residue(BitInputStream source, SetupHeader header) throws IOException {
+    protected Residue(BitInputStream source, SetupHeader header)
+            throws IOException {
         begin = source.getInt(24);
         end = source.getInt(24);
         partitionSize = source.getInt(24) + 1;
@@ -71,15 +68,16 @@ abstract class Residue {
                 if ((cascade[i] & (1 << j)) != 0) {
                     books[i][j] = source.getInt(8);
                     if (books[i][j] > header.getCodeBooks().length) {
-                        throw new VorbisFormatException("Reference to invalid codebook entry in residue header.");
+                        throw new VorbisFormatException("Reference to invalid"
+                                + " codebook entry in residue header.");
                     }
                 }
             }
         }
     }
 
-    protected static Residue createInstance(BitInputStream source, SetupHeader header) throws IOException {
-
+    protected static Residue createInstance(
+            BitInputStream source, SetupHeader header) throws IOException {
         int type = source.getInt(16);
         switch (type) {
             case 0:
@@ -92,13 +90,16 @@ abstract class Residue {
                 //System.out.println("residue type 2");
                 return new Residue2(source, header);
             default:
-                throw new VorbisFormatException("Residue type " + type + " is not supported.");
+                throw new VorbisFormatException(
+                        "Residue type " + type + " is not supported.");
         }
     }
 
     protected abstract int getType();
 
-    protected abstract void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException;
+    protected abstract void decodeResidue(VorbisStream vorbis,
+            BitInputStream source, Mode mode, int ch,
+            boolean[] doNotDecodeFlags, float[][] vectors) throws IOException;
     //public abstract double[][] getDecodedVectors();
 
     protected int getBegin() {

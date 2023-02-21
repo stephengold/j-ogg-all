@@ -23,15 +23,11 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
 import java.util.LinkedList;
-
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
@@ -71,7 +67,8 @@ public class VorbisStream {
         this.oggStream = oggStream;
 
         for (int i = 0; i < 3; i++) {
-            BitInputStream source = new ByteArrayBitInputStream(oggStream.getNextOggPacket());
+            BitInputStream source
+                    = new ByteArrayBitInputStream(oggStream.getNextOggPacket());
             int headerType = source.getInt(8);
             switch (headerType) {
                 case IDENTIFICATION_HEADER:
@@ -87,7 +84,8 @@ public class VorbisStream {
         }
 
         if (identificationHeader == null) {
-            throw new VorbisFormatException("The file has no identification header.");
+            throw new VorbisFormatException(
+                    "The file has no identification header.");
         }
 
         if (commentHeader == null) {
@@ -99,7 +97,8 @@ public class VorbisStream {
         }
 
         //currentPcm=new int[identificationHeader.getChannels()][16384];
-        currentPcm = new byte[identificationHeader.getChannels() * identificationHeader.getBlockSize1() * 2];
+        currentPcm = new byte[identificationHeader.getChannels()
+                * identificationHeader.getBlockSize1() * 2];
         //new BufferThread().start();
     }
 
@@ -123,7 +122,8 @@ public class VorbisStream {
         oggStream.close();
     }
 
-    public int readPcm(byte[] buffer, int offset, int length) throws IOException {
+    public int readPcm(byte[] buffer, int offset, int length)
+            throws IOException {
         synchronized (streamLock) {
             final int channels = identificationHeader.getChannels();
 
@@ -134,7 +134,8 @@ public class VorbisStream {
                 AudioPacket ap = getNextAudioPacket();
                 try {
                     ap.getPcm(lastAudioPacket, currentPcm);
-                    currentPcmLimit = ap.getNumberOfSamples() * identificationHeader.getChannels() * 2;
+                    currentPcmLimit = ap.getNumberOfSamples()
+                            * identificationHeader.getChannels() * 2;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     return 0;
                 }
@@ -144,7 +145,8 @@ public class VorbisStream {
             int written = 0;
             int i = 0;
             int arrIx = 0;
-            for (i = currentPcmIndex; i < currentPcmLimit && arrIx < length; i++) {
+            for (i = currentPcmIndex;
+                    i < currentPcmLimit && arrIx < length; i++) {
                 buffer[offset + arrIx++] = currentPcm[i];
                 written++;
             }
@@ -165,7 +167,8 @@ public class VorbisStream {
             }
         }
         currentGranulePosition += res.getNumberOfSamples();
-        currentBitRate = data.length * 8 * identificationHeader.getSampleRate() / res.getNumberOfSamples();
+        currentBitRate = data.length * 8 * identificationHeader.getSampleRate()
+                / res.getNumberOfSamples();
         return res;
     }
 
@@ -179,7 +182,8 @@ public class VorbisStream {
 
     public byte[] processPacket(byte[] packet) throws IOException {
         if (packet.length == 0) {
-            throw new VorbisFormatException("Cannot decode a vorbis packet with length = 0");
+            throw new VorbisFormatException(
+                    "Cannot decode a vorbis packet with length = 0");
         }
         if (((int) packet[0] & 1) == 1) {
             // header packet
@@ -202,10 +206,12 @@ public class VorbisStream {
                     || commentHeader == null
                     || setupHeader == null) {
 
-                throw new VorbisFormatException("Cannot decode audio packet before all three header packets have been decoded.");
+                throw new VorbisFormatException("Cannot decode audio packet "
+                        + "before all three header packets have been decoded.");
             }
 
-            AudioPacket ap = new AudioPacket(this, new ByteArrayBitInputStream(packet));
+            AudioPacket ap = new AudioPacket(
+                    this, new ByteArrayBitInputStream(packet));
             currentGranulePosition += ap.getNumberOfSamples();
 
             if (lastAudioPacket == null) {
@@ -213,7 +219,8 @@ public class VorbisStream {
                 return null;
             }
 
-            byte[] res = new byte[identificationHeader.getChannels() * ap.getNumberOfSamples() * 2];
+            byte[] res = new byte[identificationHeader.getChannels()
+                    * ap.getNumberOfSamples() * 2];
 
             try {
                 ap.getPcm(lastAudioPacket, res);

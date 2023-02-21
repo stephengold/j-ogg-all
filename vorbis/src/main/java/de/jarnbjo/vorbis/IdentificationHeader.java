@@ -20,10 +20,7 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -32,7 +29,9 @@ import de.jarnbjo.util.io.BitInputStream;
 /**
  */
 public class IdentificationHeader {
-    final private int version, channels, sampleRate, bitrateMaximum, bitrateNominal, bitrateMinimum, blockSize0, blockSize1;
+    final private int version, channels, sampleRate,
+            bitrateMaximum, bitrateNominal, bitrateMinimum,
+            blockSize0, blockSize1;
     final private boolean framingFlag;
     final private MdctFloat[] mdct = new MdctFloat[2];
     //private MdctLong[] mdctInt=new MdctLong[2];
@@ -42,7 +41,8 @@ public class IdentificationHeader {
     public IdentificationHeader(BitInputStream source) throws IOException {
         long leading = source.getLong(48);
         if (leading != HEADER) {
-            throw new VorbisFormatException("The identification header has an illegal leading.");
+            throw new VorbisFormatException(
+                    "The identification header has an illegal leading.");
         }
         version = source.getInt(32);
         channels = source.getInt(8);

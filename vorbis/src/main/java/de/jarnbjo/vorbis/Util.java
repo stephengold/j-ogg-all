@@ -20,10 +20,7 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 final public class Util {
@@ -95,7 +92,8 @@ final public class Util {
         return dy < 0 ? y0 - off : y0 + off;
     }
 
-    public static void renderLine(final int x0, final int y0, final int x1, final int y1, final float[] v) {
+    public static void renderLine(final int x0, final int y0, final int x1,
+            final int y1, final float[] v) {
         final int dy = y1 - y0;
         final int adx = x1 - x0;
         final int base = dy / adx;
@@ -103,7 +101,8 @@ final public class Util {
         int x = x0;
         int y = y0;
         int err = 0;
-        final int ady = (dy < 0 ? -dy : dy) - (base > 0 ? base * adx : -base * adx);
+        final int ady = (dy < 0 ? -dy : dy)
+                - (base > 0 ? base * adx : -base * adx);
 
         v[x] *= Floor.DB_STATIC_TABLE[y];
         for (x = x0 + 1; x < x1; x++) {

@@ -17,36 +17,36 @@
  * $Log: Mode.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
- 
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
-
 import de.jarnbjo.util.io.BitInputStream;
 
 class Mode {
     final private boolean blockFlag;
     final private int windowType, transformType, mapping;
 
-    protected Mode(BitInputStream source, SetupHeader header) throws IOException {
+    protected Mode(BitInputStream source, SetupHeader header)
+            throws IOException {
         blockFlag = source.getBit();
         windowType = source.getInt(16);
         transformType = source.getInt(16);
         mapping = source.getInt(8);
 
         if (windowType != 0) {
-            throw new VorbisFormatException("Window type = " + windowType + ", != 0");
+            throw new VorbisFormatException(
+                    "Window type = " + windowType + ", != 0");
         }
 
         if (transformType != 0) {
-            throw new VorbisFormatException("Transform type = " + transformType + ", != 0");
+            throw new VorbisFormatException(
+                    "Transform type = " + transformType + ", != 0");
         }
 
         if (mapping > header.getMappings().length) {
-            throw new VorbisFormatException("Mode mapping number is higher than total number of mappings.");
+            throw new VorbisFormatException("Mode mapping number is higher "
+                    + "than total number of mappings.");
         }
     }
 

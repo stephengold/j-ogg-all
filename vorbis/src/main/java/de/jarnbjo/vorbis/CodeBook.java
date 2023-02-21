@@ -20,10 +20,7 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -32,7 +29,6 @@ import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.HuffmanNode;
 
 class CodeBook {
-
     private HuffmanNode huffmanRoot;
     final private int dimensions, entries;
 
@@ -40,10 +36,10 @@ class CodeBook {
     private float[][] valueVector;
 
     protected CodeBook(BitInputStream source) throws IOException {
-
         // check sync
         if (source.getInt(24) != 0x564342) {
-            throw new VorbisFormatException("The code book sync pattern is not correct.");
+            throw new VorbisFormatException(
+                    "The code book sync pattern is not correct.");
         }
 
         dimensions = source.getInt(16);
@@ -58,7 +54,9 @@ class CodeBook {
             for (int i = 0; i < entryLengths.length;) {
                 int num = source.getInt(Util.ilog(entryLengths.length - i));
                 if (i + num > entryLengths.length) {
-                    throw new VorbisFormatException("The codebook entry length list is longer than the actual number of entry lengths.");
+                    throw new VorbisFormatException(
+                            "The codebook entry length list is longer than the "
+                            + "actual number of entry lengths.");
                 }
                 Arrays.fill(entryLengths, i, i + num, cl);
                 cl++;
@@ -85,7 +83,8 @@ class CodeBook {
         }
 
         if (!createHuffmanTree(entryLengths)) {
-            throw new VorbisFormatException("An exception was thrown when building the codebook Huffman tree.");
+            throw new VorbisFormatException("An exception was thrown "
+                    + "when building the codebook Huffman tree.");
         }
 
         int codeBookLookupType = source.getInt(4);
@@ -96,8 +95,10 @@ class CodeBook {
                 break;
             case 1:
             case 2:
-                float codeBookMinimumValue = Util.float32unpack(source.getInt(32));
-                float codeBookDeltaValue = Util.float32unpack(source.getInt(32));
+                float codeBookMinimumValue
+                        = Util.float32unpack(source.getInt(32));
+                float codeBookDeltaValue
+                        = Util.float32unpack(source.getInt(32));
 
                 int codeBookValueBits = source.getInt(4) + 1;
                 boolean codeBookSequenceP = source.getBit();
@@ -105,7 +106,8 @@ class CodeBook {
                 int codeBookLookupValues = 0;
 
                 if (codeBookLookupType == 1) {
-                    codeBookLookupValues = Util.lookup1Values(entries, dimensions);
+                    codeBookLookupValues
+                            = Util.lookup1Values(entries, dimensions);
                 } else {
                     codeBookLookupValues = entries * dimensions;
                 }
@@ -126,7 +128,9 @@ class CodeBook {
                             int multiplicandOffset
                                     = (i / indexDivisor) % codeBookLookupValues;
                             valueVector[i][j]
-                                    = codeBookMultiplicands[multiplicandOffset] * codeBookDeltaValue + codeBookMinimumValue + last;
+                                    = codeBookMultiplicands[multiplicandOffset]
+                                    * codeBookDeltaValue
+                                    + codeBookMinimumValue + last;
                             if (codeBookSequenceP) {
                                 last = valueVector[i][j];
                             }
@@ -139,7 +143,9 @@ class CodeBook {
                 }
                 break;
             default:
-                throw new VorbisFormatException("Unsupported codebook lookup type: " + codeBookLookupType);
+                throw new VorbisFormatException(
+                        "Unsupported codebook lookup type: "
+                        + codeBookLookupType);
         }
     }
 
@@ -172,10 +178,11 @@ class CodeBook {
         return source.getInt(huffmanRoot);
     }
 
-    protected void readVvAdd(float[][] a, BitInputStream source, int offset, int length)
+    protected void readVvAdd(
+            float[][] a, BitInputStream source, int offset, int length)
             throws IOException {
 
-        int i, j;//k;//entry;
+        int i, j; //k;//entry;
         int chptr = 0;
         int ch = a.length;
 

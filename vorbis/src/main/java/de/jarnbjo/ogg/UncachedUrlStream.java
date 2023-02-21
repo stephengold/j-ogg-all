@@ -17,9 +17,7 @@
  * $Log: UncachedUrlStream.java,v $
  * Revision 1.1  2003/04/10 19:48:22  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.ogg;
 
 import java.io.IOException;
@@ -58,8 +56,8 @@ public class UncachedUrlStream implements PhysicalOggStream {
      * @throws OggFormatException
      * @throws IOException
      */
-    public UncachedUrlStream(URL source) throws OggFormatException, IOException {
-
+    public UncachedUrlStream(URL source)
+            throws OggFormatException, IOException {
         this.source = source.openConnection();
         this.sourceStream = this.source.getInputStream();
 
@@ -71,7 +69,8 @@ public class UncachedUrlStream implements PhysicalOggStream {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
             }
-            //System.out.print("caching "+pageCache.size()+"/"+PAGECACHE_SIZE+" pages\r");
+            //System.out.print("caching "+pageCache.size()
+            //+"/"+PAGECACHE_SIZE+" pages\r");
         }
         //System.out.println();
     }
@@ -111,7 +110,8 @@ public class UncachedUrlStream implements PhysicalOggStream {
 
     @Override
     public void setTime(long granulePosition) throws IOException {
-        throw new UnsupportedOperationException("Method not supported by this class");
+        throw new UnsupportedOperationException(
+                "Method not supported by this class");
     }
 
     public class LoaderThread implements Runnable {
@@ -148,9 +148,11 @@ public class UncachedUrlStream implements PhysicalOggStream {
                         eos = true;
                     }
 
-                    LogicalOggStreamImpl los = (LogicalOggStreamImpl) getLogicalStream(op.getStreamSerialNumber());
+                    LogicalOggStreamImpl los = (LogicalOggStreamImpl)
+                            getLogicalStream(op.getStreamSerialNumber());
                     if (los == null) {
-                        los = new LogicalOggStreamImpl(UncachedUrlStream.this, op.getStreamSerialNumber());
+                        los = new LogicalOggStreamImpl(UncachedUrlStream.this,
+                                op.getStreamSerialNumber());
                         logicalStreams.put(op.getStreamSerialNumber(), los);
                         los.checkFormat(op);
                     }

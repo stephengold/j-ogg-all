@@ -17,10 +17,7 @@
  * $Log: VorbisFormatException.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
- 
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;

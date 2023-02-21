@@ -20,10 +20,7 @@
  *
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -96,8 +93,8 @@ public abstract class Floor {
         0.64356699f, 0.68538959f, 0.72993007f, 0.77736504f,
         0.82788260f, 0.88168307f, 0.9389798f, 1.0f};
 
-    static Floor createInstance(BitInputStream source, SetupHeader header) throws IOException {
-
+    static Floor createInstance(BitInputStream source, SetupHeader header)
+            throws IOException {
         int type = source.getInt(16);
         switch (type) {
             case 0:
@@ -105,13 +102,15 @@ public abstract class Floor {
             case 1:
                 return new Floor1(source, header);
             default:
-                throw new VorbisFormatException("Floor type " + type + " is not supported.");
+                throw new VorbisFormatException(
+                        "Floor type " + type + " is not supported.");
         }
     }
 
     abstract int getType();
 
-    abstract Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws IOException;
+    abstract Floor decodeFloor(VorbisStream vorbis, BitInputStream source)
+            throws IOException;
 
     abstract void computeFloor(float[] vector);
 }

@@ -17,10 +17,7 @@
  * $Log: CommentHeader.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -34,13 +31,13 @@ import de.jarnbjo.util.io.ByteArrayBitInputStream;
 /**
  */
 public class CommentHeader {
-	private static final String defaultCharsetName;
-    
+    private static final String defaultCharsetName;
+
     static {
-        Charset charset = Charset.forName ("ISO-8859-1");
-        defaultCharsetName = charset.name ();
+        Charset charset = Charset.forName("ISO-8859-1");
+        defaultCharsetName = charset.name();
     }
-    
+
     public static final String TITLE = "TITLE";
     public static final String ARTIST = "ARTIST";
     public static final String ALBUM = "ALBUM";
@@ -56,7 +53,8 @@ public class CommentHeader {
     public static final String LOCATION = "LOCATION";
     public static final String CONTACT = "CONTACT";
     public static final String ISRC = "ISRC";
-    public static final String METADATA_BLOCK_PICTURE = "METADATA_BLOCK_PICTURE";
+    public static final String METADATA_BLOCK_PICTURE
+            = "METADATA_BLOCK_PICTURE";
 
     final private String vendor;
     final private HashMap comments = new HashMap();
@@ -66,7 +64,8 @@ public class CommentHeader {
 
     public CommentHeader(BitInputStream source) throws IOException {
         if (source.getLong(48) != HEADER) {
-            throw new VorbisFormatException("The identification header has an illegal leading.");
+            throw new VorbisFormatException(
+                    "The identification header has an illegal leading.");
         }
 
         vendor = getString(source);
@@ -84,19 +83,21 @@ public class CommentHeader {
 
         framingBit = source.getInt(8) != 0;
     }
-    
-    public static String byteBufferToString (byte[] bytes, int offset, int length) throws UnsupportedEncodingException {
-        return byteBufferToString (bytes, offset, length, defaultCharsetName);
+
+    public static String byteBufferToString(
+            byte[] bytes, int offset, int length)
+            throws UnsupportedEncodingException {
+        return byteBufferToString(bytes, offset, length, defaultCharsetName);
     }
-    
-    public static String byteBufferToString (byte[] bytes, int offset, int length, String charsetName) throws UnsupportedEncodingException {
-    
+
+    public static String byteBufferToString(
+            byte[] bytes, int offset, int length, String charsetName)
+            throws UnsupportedEncodingException {
         if (length < 1) {
             return "";
         }
-        
-        return new String (bytes, offset, length, charsetName);
-    
+
+        return new String(bytes, offset, length, charsetName);
     }
 
     private void addComment(String key, String value) {
@@ -119,7 +120,8 @@ public class CommentHeader {
 
     public String[] getComments(String key) {
         ArrayList al = (ArrayList) comments.get(key);
-        return al == null ? new String[0] : (String[]) al.toArray(new String[al.size()]);
+        return al == null ? new String[0]
+                : (String[]) al.toArray(new String[al.size()]);
     }
 
     public String getTitle() {
@@ -243,7 +245,6 @@ public class CommentHeader {
     }
 
     private static String getString(BitInputStream source) throws IOException {
-
         int length = source.getInt(32);
 
         byte[] strArray = new byte[length];
@@ -254,112 +255,114 @@ public class CommentHeader {
 
         return new String(strArray, "UTF-8");
     }
-    
-    public byte[] getAlbumArt () throws IOException {
-    
-        String base64 = getComment (METADATA_BLOCK_PICTURE);
-        
+
+    public byte[] getAlbumArt() throws IOException {
+        String base64 = getComment(METADATA_BLOCK_PICTURE);
+
         if (base64 == null) {
             return null;
         }
-        
-        byte[] bytes = Base64.decode (base64);
-        
-        BitInputStream bis = new ByteArrayBitInputStream (bytes);
-        bis.setEndian (BitInputStream.BIG_ENDIAN);
-        
-        int pictype = bis.getInt (32);
-        System.err.print ("pictype: " + pictype + ", " + Integer.toHexString (pictype) + System.lineSeparator());
-        
-        int mimetype_len = bis.getInt (32);
-        System.err.print ("mimetype_len: " + mimetype_len + ", " + Integer.toHexString (mimetype_len) + System.lineSeparator());
-        
-        String mimetype = byteBufferToString (bytes, bis.position () + 1, mimetype_len);
-        System.err.print ("mimetype: " + mimetype + System.lineSeparator());
-        
-        bis.skip (mimetype.length () + 2);
-        
-        int descStringByteCount = bis.getInt (32);
-        System.err.print ("descStringByteCount: " + descStringByteCount + ", " + Integer.toHexString (descStringByteCount) + System.lineSeparator());
-        
+
+        byte[] bytes = Base64.decode(base64);
+
+        BitInputStream bis = new ByteArrayBitInputStream(bytes);
+        bis.setEndian(BitInputStream.BIG_ENDIAN);
+
+        int pictype = bis.getInt(32);
+        System.err.print("pictype: " + pictype + ", "
+                + Integer.toHexString(pictype) + System.lineSeparator());
+
+        int mimetype_len = bis.getInt(32);
+        System.err.print("mimetype_len: " + mimetype_len + ", "
+                + Integer.toHexString(mimetype_len) + System.lineSeparator());
+
+        String mimetype
+                = byteBufferToString(bytes, bis.position() + 1, mimetype_len);
+        System.err.print("mimetype: " + mimetype + System.lineSeparator());
+
+        bis.skip(mimetype.length() + 2);
+
+        int descStringByteCount = bis.getInt(32);
+        System.err.print("descStringByteCount: " + descStringByteCount + ", "
+                + Integer.toHexString(descStringByteCount)
+                + System.lineSeparator());
+
         if (descStringByteCount != 0) {
-        
-            String descString = byteBufferToString (bytes, bis.position () + 1, descStringByteCount);
-            System.err.print ("descString: " + descString + System.lineSeparator());
-            
-            bis.skip (descStringByteCount + 2);
-        
+            String descString = byteBufferToString(
+                    bytes, bis.position() + 1, descStringByteCount);
+            System.err.print(
+                    "descString: " + descString + System.lineSeparator());
+
+            bis.skip(descStringByteCount + 2);
         }
-        
-        int width = bis.getInt (32);
-        System.err.print ("width: " + width + ", " + Integer.toHexString (width) + System.lineSeparator());
-        
-        int height = bis.getInt (32);
-        System.err.print ("height: " + height + ", " + Integer.toHexString (height) + System.lineSeparator());
-        
-        int bpp = bis.getInt (32);
-        System.err.print ("bpp: " + bpp + ", " + Integer.toHexString (bpp) + System.lineSeparator());
-        
-        int color_count = bis.getInt (32);
-        System.err.print ("color_count: " + color_count + ", " + Integer.toHexString (color_count) + System.lineSeparator());
-        
-        int byte_count = bis.getInt (32);
-        System.err.print ("byte_count: " + byte_count + ", " + Integer.toHexString (byte_count) + System.lineSeparator());
-        
+
+        int width = bis.getInt(32);
+        System.err.print("width: " + width + ", "
+                + Integer.toHexString(width) + System.lineSeparator());
+
+        int height = bis.getInt(32);
+        System.err.print("height: " + height + ", "
+                + Integer.toHexString(height) + System.lineSeparator());
+
+        int bpp = bis.getInt(32);
+        System.err.print("bpp: " + bpp + ", "
+                + Integer.toHexString(bpp) + System.lineSeparator());
+
+        int color_count = bis.getInt(32);
+        System.err.print("color_count: " + color_count + ", "
+                + Integer.toHexString(color_count) + System.lineSeparator());
+
+        int byte_count = bis.getInt(32);
+        System.err.print("byte_count: " + byte_count + ", "
+                + Integer.toHexString(byte_count) + System.lineSeparator());
+
         byte[] data = new byte[byte_count];
-        System.arraycopy (bytes, bis.position () + 1, data, 0, data.length);
-        
+        System.arraycopy(bytes, bis.position() + 1, data, 0, data.length);
+
         return data;
-    
     }
-    
+
     private static class Base64 {
-    
-        private final static char[] ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray ();
+        private final static char[] ALPHABET = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "abcdefghijklmnopqrstuvwxyz0123456789+/").toCharArray();
         private static int[] toInt = new int[128];
-        
+
         static {
-        
-            for (int i = 0; i < ALPHABET.length; i++){
+            for (int i = 0; i < ALPHABET.length; i++) {
                 toInt[ALPHABET[i]] = i;
             }
-        
         }
-        
-        public static byte[] decode (String s) {
-        
-            int delta = s.endsWith ("==") ? 2 : s.endsWith ("=") ? 1 : 0;
-            byte[] buffer = new byte[s.length () * 3 / 4 - delta];
-            
+
+        public static byte[] decode(String s) {
+            int delta = s.endsWith("==") ? 2 : s.endsWith("=") ? 1 : 0;
+            byte[] buffer = new byte[s.length() * 3 / 4 - delta];
+
             int mask = 0xFF;
             int index = 0;
-            
-            for (int i = 0; i < s.length (); i += 4) {
-            
-                int c0 = toInt[s.charAt (i)];
-                int c1 = toInt[s.charAt (i + 1)];
-                
+
+            for (int i = 0; i < s.length(); i += 4) {
+
+                int c0 = toInt[s.charAt(i)];
+                int c1 = toInt[s.charAt(i + 1)];
+
                 buffer[index++] = (byte) (((c0 << 2) | (c1 >> 4)) & mask);
-                
+
                 if (index >= buffer.length) {
                     return buffer;
                 }
-                
-                int c2 = toInt[s.charAt (i + 2)];
+
+                int c2 = toInt[s.charAt(i + 2)];
                 buffer[index++] = (byte) (((c1 << 4) | (c2 >> 2)) & mask);
-                
+
                 if (index >= buffer.length) {
                     return buffer;
                 }
-                
-                int c3 = toInt[s.charAt (i + 3)];
+
+                int c3 = toInt[s.charAt(i + 3)];
                 buffer[index++] = (byte) (((c2 << 6) | c3) & mask);
-            
             }
-            
+
             return buffer;
-        
-        } 
-    
+        }
     }
 }

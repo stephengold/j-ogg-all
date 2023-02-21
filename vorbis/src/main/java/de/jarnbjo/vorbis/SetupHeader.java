@@ -17,14 +17,10 @@
  * $Log: SetupHeader.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
- 
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
-
 import de.jarnbjo.util.io.BitInputStream;
 
 class SetupHeader {
@@ -37,9 +33,9 @@ class SetupHeader {
     final private Mode[] modes;
 
     SetupHeader(VorbisStream vorbis, BitInputStream source) throws IOException {
-
         if (source.getLong(48) != HEADER) {
-            throw new VorbisFormatException("The setup header has an illegal leading.");
+            throw new VorbisFormatException(
+                    "The setup header has an illegal leading.");
         }
 
         // read code books
@@ -55,7 +51,8 @@ class SetupHeader {
         int timeCount = source.getInt(6) + 1;
         for (int i = 0; i < timeCount; i++) {
             if (source.getInt(16) != 0) {
-                throw new VorbisFormatException("Time domain transformation != 0");
+                throw new VorbisFormatException(
+                        "Time domain transformation != 0");
             }
         }
 
@@ -92,7 +89,8 @@ class SetupHeader {
         }
 
         if (!source.getBit()) {
-            throw new VorbisFormatException("The setup header framing bit is incorrect.");
+            throw new VorbisFormatException(
+                    "The setup header framing bit is incorrect.");
         }
     }
 

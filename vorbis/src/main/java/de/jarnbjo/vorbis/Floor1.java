@@ -17,10 +17,7 @@
  * $Log: Floor1.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
@@ -28,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
 import de.jarnbjo.util.io.BitInputStream;
 
 class Floor1 extends Floor implements Cloneable {
@@ -48,8 +44,8 @@ class Floor1 extends Floor implements Cloneable {
     private Floor1() {
     }
 
-    protected Floor1(BitInputStream source, SetupHeader header) throws IOException {
-
+    protected Floor1(BitInputStream source, SetupHeader header)
+            throws IOException {
         maximumClass = -1;
         int partitions = source.getInt(5);
         partitionClassList = new int[partitions];
@@ -75,7 +71,9 @@ class Floor1 extends Floor implements Cloneable {
 
             if (classDimensions[i] > header.getCodeBooks().length
                     || classSubclasses[i] > header.getCodeBooks().length) {
-                throw new VorbisFormatException("There is a class dimension or class subclasses entry higher than the number of codebooks in the setup header.");
+                throw new VorbisFormatException("There is a class dimension or"
+                        + " class subclasses entry higher than the number of "
+                        + "codebooks in the setup header.");
             }
             if (classSubclasses[i] != 0) {
                 classMasterbooks[i] = source.getInt(8);
@@ -123,8 +121,8 @@ class Floor1 extends Floor implements Cloneable {
     }
 
     @Override
-    protected Floor decodeFloor(VorbisStream vorbis, BitInputStream source) throws IOException {
-
+    protected Floor decodeFloor(
+            VorbisStream vorbis, BitInputStream source) throws IOException {
         //System.out.println("decodeFloor");
         if (!source.getBit()) {
             //System.out.println("null");
@@ -148,15 +146,19 @@ class Floor1 extends Floor implements Cloneable {
             int csub = (1 << cbits) - 1;
             int cval = 0;
             if (cbits > 0) {
-                cval = source.getInt(vorbis.getSetupHeader().getCodeBooks()[classMasterbooks[cls]].getHuffmanRoot());
+                cval = source.getInt(vorbis.getSetupHeader().getCodeBooks()
+                        [classMasterbooks[cls]].getHuffmanRoot());
             }
-            //System.out.println("0: "+cls+" "+cdim+" "+cbits+" "+csub+" "+cval);
+            //System.out.println(
+            //"0: "+cls+" "+cdim+" "+cbits+" "+csub+" "+cval);
             for (int j = 0; j < cdim; j++) {
                 //System.out.println("a: "+cls+" "+cval+" "+csub);
                 int book = subclassBooks[cls][cval & csub];
                 cval >>>= cbits;
                 if (book >= 0) {
-                    clone.yList[j + offset] = source.getInt(vorbis.getSetupHeader().getCodeBooks()[book].getHuffmanRoot());
+                    clone.yList[j + offset] = source.getInt(
+                            vorbis.getSetupHeader().getCodeBooks()[book]
+                            .getHuffmanRoot());
                 } else {
                     clone.yList[j + offset] = 0;
                 }
@@ -168,7 +170,6 @@ class Floor1 extends Floor implements Cloneable {
 
     @Override
     protected void computeFloor(final float[] vector) {
-
         int n = vector.length;
         final int values = xList.length;
         final boolean[] step2Flags = new boolean[values];
@@ -176,8 +177,10 @@ class Floor1 extends Floor implements Cloneable {
         final int range = RANGES[multiplier - 1];
 
         for (int i = 2; i < values; i++) {
-            final int lowNeighbourOffset = lowNeighbours[i];//Util.lowNeighbour(xList, i);
-            final int highNeighbourOffset = highNeighbours[i];//Util.highNeighbour(xList, i);
+            final int lowNeighbourOffset
+                    = lowNeighbours[i]; //Util.lowNeighbour(xList, i);
+            final int highNeighbourOffset
+                    = highNeighbours[i]; //Util.highNeighbour(xList, i);
             final int predicted = Util.renderPoint(
                     xList[lowNeighbourOffset], xList[highNeighbourOffset],
                     yList[lowNeighbourOffset], yList[highNeighbourOffset],

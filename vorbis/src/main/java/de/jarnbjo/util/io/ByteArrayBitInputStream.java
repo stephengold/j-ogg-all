@@ -23,16 +23,14 @@
  *
  * Revision 1.1  2003/03/03 21:02:20  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.util.io;
 
 import java.io.IOException;
 
 /**
- *  Implementation of the {@code BitInputStream} interface,
- *  using a byte array as data source.
+ * Implementation of the {@code BitInputStream} interface, using a byte array as
+ * data source.
  */
 public class ByteArrayBitInputStream implements BitInputStream {
     final private byte[] source;
@@ -74,7 +72,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
     @Override
     public int getInt(int bits) throws IOException {
         if (bits > 32) {
-            throw new IllegalArgumentException("Argument \"bits\" must be <= 32");
+            throw new IllegalArgumentException(
+                    "Argument \"bits\" must be <= 32");
         }
         int res = 0;
         if (endian == LITTLE_ENDIAN) {
@@ -85,11 +84,11 @@ public class ByteArrayBitInputStream implements BitInputStream {
             }
         } else {
             if (bitIndex < 0) {
-	            bitIndex = 7;
-	            currentByte = source[++byteIndex];
-	        } else if (bitIndex >= 7) {
-	            currentByte = source[--byteIndex];
-	        }
+                bitIndex = 7;
+                currentByte = source[++byteIndex];
+            } else if (bitIndex >= 7) {
+                currentByte = source[--byteIndex];
+            }
             if (bits <= bitIndex + 1) {
                 int ci = ((int) currentByte) & 0xff;
                 int offset = 1 + bitIndex - bits;
@@ -97,7 +96,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
                 res = (ci & mask) >> offset;
                 bitIndex -= bits;
             } else {
-                res = (((int) currentByte) & 0xff & ((1 << (bitIndex + 1)) - 1)) << (bits - bitIndex - 1);
+                res = (((int) currentByte) & 0xff & ((1 << (bitIndex + 1)) - 1))
+                        << (bits - bitIndex - 1);
                 bits -= bitIndex + 1;
                 currentByte = source[++byteIndex];
                 while (bits >= 8) {
@@ -143,7 +143,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
     @Override
     public long getLong(int bits) throws IOException {
         if (bits > 64) {
-            throw new IllegalArgumentException("Argument \"bits\" must be <= 64");
+            throw new IllegalArgumentException(
+                    "Argument \"bits\" must be <= 64");
         }
         long res = 0;
         if (endian == LITTLE_ENDIAN) {
@@ -163,10 +164,12 @@ public class ByteArrayBitInputStream implements BitInputStream {
     }
 
     /**
-     *  <p>reads an integer encoded as "signed rice" as described in
-     *  the FLAC audio format specification</p>
+     * <p>
+     * reads an integer encoded as "signed rice" as described in the FLAC audio
+     * format specification</p>
      *
-     *  <p><b>not supported for little endian</b></p>
+     * <p>
+     * <b>not supported for little endian</b></p>
      *
      * @param order
      * @return the decoded integer value read from the stream
@@ -177,12 +180,13 @@ public class ByteArrayBitInputStream implements BitInputStream {
      */
     @Override
     public int readSignedRice(int order) throws IOException {
-
         int msbs = -1, lsbs = 0, res = 0;
 
         if (endian == LITTLE_ENDIAN) {
             // little endian
-            throw new UnsupportedOperationException("ByteArrayBitInputStream.readSignedRice() is only supported in big endian mode");
+            throw new UnsupportedOperationException(
+                    "ByteArrayBitInputStream.readSignedRice() "
+                            + "is only supported in big endian mode");
         } else {
             // big endian
 
@@ -209,7 +213,8 @@ public class ByteArrayBitInputStream implements BitInputStream {
                 lsbs = (ci & mask) >> offset;
                 bitIndex -= bits;
             } else {
-                lsbs = (((int) source[byteIndex]) & 0xff & ((1 << (bitIndex + 1)) - 1)) << (bits - bitIndex - 1);
+                lsbs = (((int) source[byteIndex]) & 0xff
+                        & ((1 << (bitIndex + 1)) - 1)) << (bits - bitIndex - 1);
                 bits -= bitIndex + 1;
                 byteIndex++;
                 while (bits >= 8) {
@@ -234,11 +239,12 @@ public class ByteArrayBitInputStream implements BitInputStream {
     }
 
     /**
-     *  <p>fills the array from {@code offset} with {@code len} 
-     *  integers encoded as "signed rice" as described in
-     *  the FLAC audio format specification</p>
+     * <p>
+     * fills the array from {@code offset} with {@code len} integers encoded as
+     * "signed rice" as described in the FLAC audio format specification</p>
      *
-     *  <p><b>not supported for little endian</b></p>
+     * <p>
+     * <b>not supported for little endian</b></p>
      *
      * @param order
      * @param buffer
@@ -250,11 +256,13 @@ public class ByteArrayBitInputStream implements BitInputStream {
      * the implementation
      */
     @Override
-    public void readSignedRice(int order, int[] buffer, int off, int len) throws IOException {
-
+    public void readSignedRice(int order, int[] buffer, int off, int len)
+            throws IOException {
         if (endian == LITTLE_ENDIAN) {
             // little endian
-            throw new UnsupportedOperationException("ByteArrayBitInputStream.readSignedRice() is only supported in big endian mode");
+            throw new UnsupportedOperationException(
+                    "ByteArrayBitInputStream.readSignedRice() "
+                            + "is only supported in big endian mode");
         } else {
             // big endian
             for (int i = off; i < off + len; i++) {
@@ -280,7 +288,9 @@ public class ByteArrayBitInputStream implements BitInputStream {
                     lsbs = (ci & mask) >> offset;
                     bitIndex -= bits;
                 } else {
-                    lsbs = (((int) source[byteIndex]) & 0xff & ((1 << (bitIndex + 1)) - 1)) << (bits - bitIndex - 1);
+                    lsbs = (((int) source[byteIndex])
+                            & 0xff & ((1 << (bitIndex + 1)) - 1))
+                            << (bits - bitIndex - 1);
                     bits -= bitIndex + 1;
                     byteIndex++;
                     while (bits >= 8) {
@@ -333,22 +343,20 @@ public class ByteArrayBitInputStream implements BitInputStream {
     public byte[] getSource() {
         return source;
     }
-    
+
     @Override
-    public int position () {
+    public int position() {
         return byteIndex;
     }
-    
+
     @Override
-    public void skip (int length) {
-    
+    public void skip(int length) {
         if (this.endian == BIG_ENDIAN) {
             bitIndex = 7;
         } else if (this.endian == LITTLE_ENDIAN) {
             bitIndex = 0;
         }
-        
+
         byteIndex += length;
-    
     }
 }

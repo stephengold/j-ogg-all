@@ -17,17 +17,15 @@
  * $Log: Residue1.java,v $
  * Revision 1.2  2003/03/16 01:11:12  jarnbjo
  * no message
- *
- *
  */
- 
 package de.jarnbjo.vorbis;
 
 import java.io.IOException;
 import de.jarnbjo.util.io.BitInputStream;
 
 class Residue1 extends Residue {
-    protected Residue1(BitInputStream source, SetupHeader header) throws IOException {
+    protected Residue1(BitInputStream source, SetupHeader header)
+            throws IOException {
         super(source, header);
     }
 
@@ -37,7 +35,9 @@ class Residue1 extends Residue {
     }
 
     @Override
-    protected void decodeResidue(VorbisStream vorbis, BitInputStream source, Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors) throws IOException {
+    protected void decodeResidue(VorbisStream vorbis, BitInputStream source,
+            Mode mode, int ch, boolean[] doNotDecodeFlags, float[][] vectors)
+            throws IOException {
         /* @todo implement */
         throw new UnsupportedOperationException();
     }

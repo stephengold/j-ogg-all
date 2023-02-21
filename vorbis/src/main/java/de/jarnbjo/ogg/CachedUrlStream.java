@@ -17,10 +17,7 @@
  * $Log: CachedUrlStream.java,v $
  * Revision 1.1  2003/04/10 19:48:22  jarnbjo
  * no message
- *
- *
  */
-
 package de.jarnbjo.ogg;
 
 import java.io.IOException;
@@ -39,7 +36,6 @@ import java.util.HashMap;
  * supports seeking within the available data.
  */
 public class CachedUrlStream implements PhysicalOggStream {
-
     private boolean closed = false;
     final private URLConnection source;
     final private InputStream sourceStream;
@@ -74,14 +70,15 @@ public class CachedUrlStream implements PhysicalOggStream {
      * @throws OggFormatException
      * @throws IOException
      */
-    public CachedUrlStream(URL source, RandomAccessFile drain) throws OggFormatException, IOException {
-
+    public CachedUrlStream(URL source, RandomAccessFile drain)
+            throws OggFormatException, IOException {
         this.source = source.openConnection();
 
         if (drain == null) {
             int contentLength = this.source.getContentLength();
             if (contentLength == -1) {
-                throw new IOException("The URLConnection's content length must be set when operating with a in-memory cache.");
+                throw new IOException("The URLConnection's content length must"
+                        + " be set when operating with a in-memory cache.");
             }
             memoryCache = new byte[contentLength];
         }
@@ -93,7 +90,8 @@ public class CachedUrlStream implements PhysicalOggStream {
         new Thread(loaderThread).start();
 
         while (!loaderThread.isBosDone() || pageOffsets.size() < 20) {
-            System.out.print("pageOffsets.size(): " + pageOffsets.size() + "\r");
+            System.out.print(
+                    "pageOffsets.size(): " + pageOffsets.size() + "\r");
             try {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
@@ -134,7 +132,8 @@ public class CachedUrlStream implements PhysicalOggStream {
                     return OggPage.create(drain);
                 } else {
                     byte[] tmpArray = new byte[length.intValue()];
-                    System.arraycopy(memoryCache, offset.intValue(), tmpArray, 0, length.intValue());
+                    System.arraycopy(memoryCache, offset.intValue(), tmpArray,
+                            0, length.intValue());
                     return OggPage.create(tmpArray);
                 }
             } else {
@@ -156,7 +155,6 @@ public class CachedUrlStream implements PhysicalOggStream {
     }
 
     public class LoaderThread implements Runnable {
-
         final private InputStream source;
         final private RandomAccessFile drain;
         final private byte[] memoryCache;
@@ -165,7 +163,8 @@ public class CachedUrlStream implements PhysicalOggStream {
 
         private int pageNumber;
 
-        public LoaderThread(InputStream source, RandomAccessFile drain, byte[] memoryCache) {
+        public LoaderThread(InputStream source, RandomAccessFile drain,
+                byte[] memoryCache) {
             this.source = source;
             this.drain = drain;
             this.memoryCache = memoryCache;
@@ -197,13 +196,18 @@ public class CachedUrlStream implements PhysicalOggStream {
                             drain.write(arr2);
                             drain.write(arr3);
                         } else {
-                            System.arraycopy(arr1, 0, memoryCache, (int) pos, arr1.length);
-                            System.arraycopy(arr2, 0, memoryCache, (int) pos + arr1.length, arr2.length);
-                            System.arraycopy(arr3, 0, memoryCache, (int) pos + arr1.length + arr2.length, arr3.length);
+                            System.arraycopy(arr1, 0, memoryCache,
+                                    (int) pos, arr1.length);
+                            System.arraycopy(arr2, 0, memoryCache,
+                                    (int) pos + arr1.length, arr2.length);
+                            System.arraycopy(arr3, 0, memoryCache,
+                                    (int) pos + arr1.length + arr2.length,
+                                    arr3.length);
                         }
 
                         pageOffsets.add(pos);
-                        pageLengths.add(arr1.length + arr2.length + arr3.length);
+                        pageLengths.add(
+                                arr1.length + arr2.length + arr3.length);
                     }
 
                     if (!op.isBos()) {
@@ -214,9 +218,11 @@ public class CachedUrlStream implements PhysicalOggStream {
                         eos = true;
                     }
 
-                    LogicalOggStreamImpl los = (LogicalOggStreamImpl) getLogicalStream(op.getStreamSerialNumber());
+                    LogicalOggStreamImpl los = (LogicalOggStreamImpl)
+                            getLogicalStream(op.getStreamSerialNumber());
                     if (los == null) {
-                        los = new LogicalOggStreamImpl(CachedUrlStream.this, op.getStreamSerialNumber());
+                        los = new LogicalOggStreamImpl(CachedUrlStream.this,
+                                op.getStreamSerialNumber());
                         logicalStreams.put(op.getStreamSerialNumber(), los);
                         los.checkFormat(op);
                     }

@@ -17,16 +17,14 @@
  * $Log: HuffmanNode.java,v $
  * Revision 1.2  2003/04/10 19:48:31  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.util.io;
 
 import java.io.IOException;
 
 /**
- *  Representation of a node in a Huffman tree, used to read
- *  Huffman compressed codewords from e.g. a Vorbis stream.
+ * Representation of a node in a Huffman tree, used to read Huffman compressed
+ * codewords from e.g. a Vorbis stream.
  */
 final public class HuffmanNode {
     final private HuffmanNode parent;
@@ -84,7 +82,8 @@ final public class HuffmanNode {
     }
 
     private boolean isFull() {
-        return full ? true : (full = o0 != null && o0.isFull() && o1 != null && o1.isFull());
+        return full ? true : (full =
+                o0 != null && o0.isFull() && o1 != null && o1.isFull());
     }
 
     private HuffmanNode set0(HuffmanNode value) {
