@@ -7,7 +7,7 @@ apply plugin: 'signing'
 
 ext {
     group = 'com.github.stephengold'
-    version = '1.0.3'
+    version = '1.0.4-SNAPSHOT'
     websiteUrl = 'https://github.com/stephengold/j-ogg-all'
 }
 
