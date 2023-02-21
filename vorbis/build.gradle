@@ -53,7 +53,7 @@ publishing {
             from components.java
             groupId project.ext.group
             pom {
-                description = 'J-Ogg is a collection of Java libraries for reading Ogg files and decoding different contained formats.'
+                description = 'Library for reading Ogg files and decoding the Vorbis audio format.'
                 developers {
                     developer {
                         name = 'Tor-Einar Jarnbjo'
