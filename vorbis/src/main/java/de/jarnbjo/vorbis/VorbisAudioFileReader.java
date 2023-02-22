@@ -1,5 +1,3 @@
-package de.jarnbjo.vorbis;
-
 /*
  * $ProjectName$
  * $ProjectRevision$
@@ -18,6 +16,8 @@ package de.jarnbjo.vorbis;
  * -----------------------------------------------------------
  * $Log: VorbisAudioFileReader.java,v $
  */
+package de.jarnbjo.vorbis;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
