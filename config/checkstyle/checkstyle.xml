@@ -27,7 +27,7 @@
     </module>
     <module name="LineLength">
         <property name="fileExtensions" value="java"/>
-        <property name="max" value="210"/>
+        <property name="max" value="80"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
     </module>
 
@@ -103,7 +103,7 @@
 
         <module name="WhitespaceAfter">
             <property name="tokens"
-                      value="TYPECAST, LITERAL_IF, LITERAL_ELSE,
+                      value="COMMA, SEMI, TYPECAST, LITERAL_IF, LITERAL_ELSE,
                     LITERAL_WHILE, LITERAL_DO, LITERAL_FOR, DO_WHILE"/>
         </module>
         <module name="WhitespaceAround">
@@ -134,7 +134,7 @@
         <module name="EmptyLineSeparator">
             <property name="tokens"
                       value="IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                    STATIC_INIT, INSTANCE_INIT, CTOR_DEF, VARIABLE_DEF, RECORD_DEF,
+                    STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, RECORD_DEF,
                     COMPACT_CTOR_DEF"/>
             <property name="allowNoEmptyLineBetweenFields" value="true"/>
         </module>
