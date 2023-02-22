@@ -23,10 +23,10 @@
  */
 package de.jarnbjo.vorbis;
 
-import java.io.IOException;
-import java.util.Arrays;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.HuffmanNode;
+import java.io.IOException;
+import java.util.Arrays;
 
 class CodeBook {
     private HuffmanNode huffmanRoot;

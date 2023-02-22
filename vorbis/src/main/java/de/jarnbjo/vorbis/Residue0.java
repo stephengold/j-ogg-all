@@ -20,8 +20,8 @@
  */
 package de.jarnbjo.vorbis;
 
-import java.io.IOException;
 import de.jarnbjo.util.io.BitInputStream;
+import java.io.IOException;
 
 class Residue0 extends Residue {
     protected Residue0(BitInputStream source, SetupHeader header)

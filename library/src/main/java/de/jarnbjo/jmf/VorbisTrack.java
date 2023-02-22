@@ -1,14 +1,14 @@
 package de.jarnbjo.jmf;
 
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
+import de.jarnbjo.vorbis.IdentificationHeader;
 import java.io.IOException;
 import javax.media.Duration;
 import javax.media.Format;
 import javax.media.Time;
 import javax.media.format.AudioFormat;
-import de.jarnbjo.ogg.LogicalOggStream;
-import de.jarnbjo.vorbis.IdentificationHeader;
-import de.jarnbjo.util.io.BitInputStream;
-import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 /**
  * <p>Überschrift: JOgg</p>

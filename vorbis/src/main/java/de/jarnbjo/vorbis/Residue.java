@@ -23,9 +23,9 @@
  */
 package de.jarnbjo.vorbis;
 
+import de.jarnbjo.util.io.BitInputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import de.jarnbjo.util.io.BitInputStream;
 
 abstract class Residue {
     protected int begin, end;

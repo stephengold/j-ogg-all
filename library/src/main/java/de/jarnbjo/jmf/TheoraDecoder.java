@@ -20,8 +20,10 @@
  */
 package de.jarnbjo.jmf;
 
-import java.io.IOException;
+import de.jarnbjo.theora.Header;
+import de.jarnbjo.theora.TheoraStream;
 import java.awt.Dimension;
+import java.io.IOException;
 import javax.media.Buffer;
 import javax.media.Codec;
 import javax.media.Format;
@@ -29,8 +31,6 @@ import javax.media.PlugIn;
 import javax.media.format.RGBFormat;
 import javax.media.format.VideoFormat;
 import javax.media.format.YUVFormat;
-import de.jarnbjo.theora.Header;
-import de.jarnbjo.theora.TheoraStream;
 
 public class TheoraDecoder implements Codec {
     private static final String CODEC_NAME = "Theora decoder";

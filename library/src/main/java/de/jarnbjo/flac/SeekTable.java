@@ -20,8 +20,8 @@
  */
 package de.jarnbjo.flac;
 
-import java.io.IOException;
 import de.jarnbjo.util.io.BitInputStream;
+import java.io.IOException;
 
 public class SeekTable extends MetadataBlock {
     final private SeekPoint[] seekPoints;

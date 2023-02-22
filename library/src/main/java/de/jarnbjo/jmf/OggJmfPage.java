@@ -23,17 +23,17 @@
  */
 package de.jarnbjo.jmf;
 
+import de.jarnbjo.ogg.EndOfOggStreamException;
+import de.jarnbjo.ogg.OggFormatException;
+import de.jarnbjo.ogg.OggPage;
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 import java.io.DataInput;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import javax.media.protocol.PullSourceStream;
-import de.jarnbjo.util.io.BitInputStream;
-import de.jarnbjo.util.io.ByteArrayBitInputStream;
-import de.jarnbjo.ogg.EndOfOggStreamException;
-import de.jarnbjo.ogg.OggFormatException;
-import de.jarnbjo.ogg.OggPage;
 
 /**
  * <p>

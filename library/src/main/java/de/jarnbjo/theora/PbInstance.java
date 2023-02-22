@@ -20,9 +20,9 @@
  */
 package de.jarnbjo.theora;
 
+import de.jarnbjo.util.io.BitInputStream;
 import java.io.IOException;
 import java.util.Arrays;
-import de.jarnbjo.util.io.BitInputStream;
 
 public class PbInstance {
     Header info;

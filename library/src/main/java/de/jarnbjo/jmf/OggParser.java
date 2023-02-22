@@ -20,6 +20,10 @@
  */
 package de.jarnbjo.jmf;
 
+import de.jarnbjo.ogg.LogicalOggStream;
+import de.jarnbjo.ogg.OggFormatException;
+import de.jarnbjo.ogg.PhysicalOggStream;
+import de.jarnbjo.vorbis.VorbisFormatException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
@@ -33,10 +37,6 @@ import javax.media.protocol.DataSource;
 import javax.media.protocol.PullDataSource;
 import javax.media.protocol.PullSourceStream;
 import javax.media.protocol.Seekable;
-import de.jarnbjo.ogg.LogicalOggStream;
-import de.jarnbjo.ogg.OggFormatException;
-import de.jarnbjo.ogg.PhysicalOggStream;
-import de.jarnbjo.vorbis.VorbisFormatException;
 
 public class OggParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "Ogg demultiplexer";

@@ -26,13 +26,13 @@
  */
 package de.jarnbjo.ogg;
 
+import de.jarnbjo.util.io.BitInputStream;
+import de.jarnbjo.util.io.ByteArrayBitInputStream;
 import java.io.DataInput;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
-import de.jarnbjo.util.io.BitInputStream;
-import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 /**
  * <p>

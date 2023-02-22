@@ -26,11 +26,11 @@
  */
 package de.jarnbjo.vorbis;
 
-import java.io.IOException;
-import java.util.LinkedList;
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
+import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  */

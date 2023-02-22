@@ -18,12 +18,6 @@
  */
 package de.jarnbjo.vorbis;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.net.URL;
-import java.util.Collection;
 import de.jarnbjo.ogg.BasicStream;
 import de.jarnbjo.ogg.EndOfOggStreamException;
 import de.jarnbjo.ogg.FileStream;
@@ -31,6 +25,12 @@ import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.ogg.OggFormatException;
 import de.jarnbjo.ogg.PhysicalOggStream;
 import de.jarnbjo.ogg.UncachedUrlStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.net.URL;
+import java.util.Collection;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;

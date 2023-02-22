@@ -20,16 +20,16 @@
  */
 package de.jarnbjo.jmf;
 
-import java.io.IOException;
-import java.awt.Dimension;
-import javax.media.Duration;
-import javax.media.Format;
-import javax.media.Time;
-import javax.media.format.VideoFormat;
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.theora.Header;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
+import java.awt.Dimension;
+import java.io.IOException;
+import javax.media.Duration;
+import javax.media.Format;
+import javax.media.Time;
+import javax.media.format.VideoFormat;
 
 public class TheoraTrack extends OggTrack {
     final private LogicalOggStream oggStream;

@@ -20,10 +20,10 @@
  */
 package de.jarnbjo.flac;
 
-import java.io.IOException;
-import java.util.Arrays;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
+import java.io.IOException;
+import java.util.Arrays;
 
 public abstract class Subframe {
     public static Subframe createInstance(BitInputStream source, Frame frame,

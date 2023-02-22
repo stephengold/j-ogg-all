@@ -23,8 +23,8 @@
  */
 package de.jarnbjo.vorbis;
 
-import java.io.IOException;
 import de.jarnbjo.util.io.BitInputStream;
+import java.io.IOException;
 
 public abstract class Floor {
     public final static float[] DB_STATIC_TABLE = {

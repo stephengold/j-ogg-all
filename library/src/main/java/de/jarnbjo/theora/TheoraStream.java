@@ -1,11 +1,11 @@
 package de.jarnbjo.theora;
 
-import java.io.IOException;
-import java.util.Arrays;
 import de.jarnbjo.ogg.LogicalOggStream;
-import de.jarnbjo.vorbis.Util;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
+import de.jarnbjo.vorbis.Util;
+import java.io.IOException;
+import java.util.Arrays;
 
 /**
  */

@@ -20,12 +20,12 @@
  */
 package de.jarnbjo.vorbis;
 
+import de.jarnbjo.util.io.BitInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import de.jarnbjo.util.io.BitInputStream;
 
 class Floor1 extends Floor implements Cloneable {
     private int[] partitionClassList;
