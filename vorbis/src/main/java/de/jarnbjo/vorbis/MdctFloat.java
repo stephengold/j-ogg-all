@@ -23,6 +23,10 @@
  */
 package de.jarnbjo.vorbis;
 
+/**
+ * Implements the Modified Discrete Cosine Transform (MDCT) using
+ * single-precision floating-point arithmetic.
+ */
 class MdctFloat {
     static private final float cPI3_8 = 0.38268343236508977175f;
     static private final float cPI2_8 = 0.70710678118654752441f;
