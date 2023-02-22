@@ -68,8 +68,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
     @Override
     public synchronized OggPage getNextOggPage() throws IOException {
         if (source.isSeekable()) {
-            currentPage = source.getOggPage((
-                    (Integer) pageNumberMapping.get(pageIndex++)));
+            currentPage = source.getOggPage(
+                    (Integer) pageNumberMapping.get(pageIndex++));
         } else {
             currentPage = source.getOggPage(-1);
         }
@@ -116,8 +116,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                             }
                             if (currentSegmentIndex
                                     > currentPage.getSegmentTable().length) {
-                                currentPage = source.getOggPage(((Integer)
-                                        pageNumberMapping.get(pageIndex++)));
+                                currentPage = source.getOggPage((Integer)
+                                        pageNumberMapping.get(pageIndex++));
                             }
                         }
                     }
@@ -170,8 +170,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
         }
 
         pageIndex = page;
-        currentPage = source.getOggPage((
-                (Integer) pageNumberMapping.get(pageIndex++)));
+        currentPage = source.getOggPage(
+                (Integer) pageNumberMapping.get(pageIndex++));
         currentSegmentIndex = 0;
         int segmentLength = 0;
         do {
@@ -180,8 +180,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                 if (pageIndex >= pageNumberMapping.size()) {
                     throw new EndOfOggStreamException();
                 }
-                currentPage = source.getOggPage((
-                        (Integer) pageNumberMapping.get(pageIndex++)));
+                currentPage = source.getOggPage(
+                        (Integer) pageNumberMapping.get(pageIndex++));
             }
             segmentLength
                     = currentPage.getSegmentLengths()[currentSegmentIndex];
