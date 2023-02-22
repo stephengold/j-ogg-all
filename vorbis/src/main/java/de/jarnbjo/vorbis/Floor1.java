@@ -232,7 +232,9 @@ class Floor1 extends Floor implements Cloneable {
         }
 
         final float r = DB_STATIC_TABLE[hy];
-        for (; hx < n / 2; vector[hx++] = r);
+        while (hx < n / 2) {
+            vector[hx++] = r;
+        }
     }
 
     @Override

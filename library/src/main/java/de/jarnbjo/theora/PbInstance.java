@@ -741,7 +741,9 @@ public class PbInstance {
 
         /* Read run length */
         frArrayDeCodeInit();
-        while (frArrayDeCodeSBRun(source.getBit()) == 0);
+        while (frArrayDeCodeSBRun(source.getBit()) == 0) {
+            // do nothing
+        }
     }
 
     byte getNextSbBit(BitInputStream source) throws IOException {
@@ -751,7 +753,9 @@ public class PbInstance {
 
             /* Read next run */
             frArrayDeCodeInit();
-            while (frArrayDeCodeSBRun(source.getBit()) == 0);
+            while (frArrayDeCodeSBRun(source.getBit()) == 0) {
+                // do nothing
+            }
         }
 
         /* Have  read a bit */
@@ -766,7 +770,9 @@ public class PbInstance {
 
         /* Read run length */
         frArrayDeCodeInit();
-        while (frArrayDeCodeBlockRun(source.getBit()) == 0);
+        while (frArrayDeCodeBlockRun(source.getBit()) == 0) {
+            // do nothing
+        }
     }
 
     byte getNextBBit(BitInputStream source) throws IOException {
@@ -776,7 +782,9 @@ public class PbInstance {
 
             /* Read next run */
             frArrayDeCodeInit();
-            while (frArrayDeCodeBlockRun(source.getBit()) == 0);
+            while (frArrayDeCodeBlockRun(source.getBit()) == 0) {
+                // do nothing
+            }
         }
 
         /* Have  read a bit */

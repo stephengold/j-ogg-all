@@ -26,7 +26,11 @@ package de.jarnbjo.vorbis;
 final public class Util {
     public static int ilog(int x) {
         int res = 0;
-        for (; x > 0; x >>= 1, res++);
+        while (x > 0) {
+            x >>= 1;
+            ++res;
+        }
+
         return res;
     }
 
@@ -46,7 +50,11 @@ final public class Util {
 
     public static int intPow(int base, int e) {
         int res = 1;
-        for (; e > 0; e--, res *= base);
+        while (e > 0) {
+            res *= base;
+            --e;
+        }
+
         return res;
     }
 
