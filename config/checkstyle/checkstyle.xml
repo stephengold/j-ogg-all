@@ -13,6 +13,11 @@
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
+
+    <!-- Checks that a package-info.java file exists for each package. -->
+    <!-- See https://checkstyle.org/config_javadoc.html#JavadocPackage -->
+    <module name="JavadocPackage"/>
+
     <module name="RegexpSingleline">
         <property name="format" value="\s+$"/>
         <property name="minimum" value="0"/>
