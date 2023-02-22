@@ -357,6 +357,7 @@
 
         <!-- Checks for common coding problems             -->
         <!-- See https://checkstyle.org/config_coding.html -->
+        <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="IllegalInstantiation"/>
 
