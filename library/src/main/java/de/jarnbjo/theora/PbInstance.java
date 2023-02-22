@@ -939,6 +939,8 @@ public class PbInstance {
                 retVal = 1;
                 bitsLeft = (bitPattern & 0xf) + 15;
                 break;
+
+            default:
         }
 
         return retVal;

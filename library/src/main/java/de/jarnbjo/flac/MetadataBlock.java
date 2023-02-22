@@ -62,6 +62,7 @@ public abstract class MetadataBlock {
                 mb = new Application(source);
                 mb.lastBlock = lb;
                 return mb;
+            default:
         }
 
         throw new FlacFormatException("Unsupported block type " + blockType);

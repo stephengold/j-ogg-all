@@ -80,6 +80,7 @@ public class VorbisStream {
                 case SETUP_HEADER:
                     setupHeader = new SetupHeader(this, source);
                     break;
+                default:
             }
         }
 
@@ -198,6 +199,7 @@ public class VorbisStream {
                 case SETUP_HEADER:
                     setupHeader = new SetupHeader(this, source);
                     break;
+                default:
             }
             return null;
         } else {

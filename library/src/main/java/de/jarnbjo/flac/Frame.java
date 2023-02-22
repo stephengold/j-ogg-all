@@ -102,6 +102,7 @@ public class Frame {
             case 7:
                 blockSize = source.getInt(16) + 1;
                 break;
+            default:
         }
 
         switch (sr) {
@@ -117,6 +118,7 @@ public class Frame {
             case 14:
                 sampleRate = source.getInt(16) * 10;
                 break;
+            default:
         }
 
         if (ss == 0) {
