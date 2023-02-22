@@ -356,6 +356,10 @@
         <module name="NoWhitespaceAfter"/>
         <module name="TypecastParenPad"/>
 
+        <!-- Modifier checks                                 -->
+        <!-- See https://checkstyle.org/config_modifier.html -->
+        <module name="RedundantModifier"/>
+
         <!-- Checks for common coding problems             -->
         <!-- See https://checkstyle.org/config_coding.html -->
         <module name="EmptyStatement"/>

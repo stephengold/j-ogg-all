@@ -255,7 +255,7 @@ class Floor1 extends Floor implements Cloneable {
         return clone;
     }
 
-    private final static void sort(int[] x, int[] y, boolean[] b) {
+    private static void sort(int[] x, int[] y, boolean[] b) {
         int off = 0;
         int len = x.length;
         int lim = len + off;
@@ -277,13 +277,13 @@ class Floor1 extends Floor implements Cloneable {
         }
     }
 
-    private final static void swap(int[] x, int a, int b) {
+    private static void swap(int[] x, int a, int b) {
         int t = x[a];
         x[a] = x[b];
         x[b] = t;
     }
 
-    private final static void swap(boolean[] x, int a, int b) {
+    private static void swap(boolean[] x, int a, int b) {
         boolean t = x[a];
         x[a] = x[b];
         x[b] = t;
