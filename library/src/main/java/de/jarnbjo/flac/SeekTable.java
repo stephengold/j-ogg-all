@@ -17,9 +17,7 @@
  * $Log: SeekTable.java,v $
  * Revision 1.1  2003/03/03 21:53:17  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.flac;
 
 import java.io.IOException;
@@ -29,11 +27,11 @@ public class SeekTable extends MetadataBlock {
     final private SeekPoint[] seekPoints;
 
     protected SeekTable(BitInputStream source) throws IOException {
-
         int length = source.getInt(24);
 
         if (length % 18 != 0) {
-            throw new FlacFormatException("SEEKTABLE header length not divisible by 18");
+            throw new FlacFormatException(
+                    "SEEKTABLE header length not divisible by 18");
         }
 
         int points = length / 18;

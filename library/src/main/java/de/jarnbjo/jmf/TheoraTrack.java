@@ -17,9 +17,7 @@
  * $Log: TheoraTrack.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
@@ -39,10 +37,12 @@ public class TheoraTrack extends OggTrack {
 
     final private Header header;
 
-    public TheoraTrack(LogicalOggStream source, byte[] idHeaderData) throws IOException {
+    public TheoraTrack(LogicalOggStream source, byte[] idHeaderData)
+            throws IOException {
         super(source);
         oggStream = source;
-        BitInputStream bd = new ByteArrayBitInputStream(idHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
+        BitInputStream bd = new ByteArrayBitInputStream(
+                idHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
         header = new Header(bd);
 
         format = new VideoFormat("THEORA",
@@ -80,5 +80,5 @@ public class TheoraTrack extends OggTrack {
          /** @todo find a way to signal an error condition
       }
    }
-   */
+     */
 }

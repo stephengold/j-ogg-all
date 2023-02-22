@@ -16,8 +16,10 @@ public class FlacParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "FLAC demultiplexer";
 
     private final ContentDescriptor[] supportedContentTypes = {
-        new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/flac")),
-        new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/x-flac"))
+        new ContentDescriptor(
+        ContentDescriptor.mimeTypeToPackageName("application/flac")),
+        new ContentDescriptor(
+        ContentDescriptor.mimeTypeToPackageName("application/x-flac"))
     };
 
     private Track[] tracks;
@@ -112,22 +114,25 @@ public class FlacParser implements Demultiplexer {
     }
 
     @Override
-    public void setSource(DataSource source) throws IOException, IncompatibleSourceException {
-
+    public void setSource(DataSource source)
+            throws IOException, IncompatibleSourceException {
         try {
             if (!(source instanceof PullDataSource)) {
                 /* @todo better message */
-                throw new IncompatibleSourceException("DataSource not supported: " + source);
+                throw new IncompatibleSourceException(
+                        "DataSource not supported: " + source);
             }
 
             this.source = (PullDataSource) source;
 
-            if (this.source.getStreams() == null || this.source.getStreams().length == 0) {
+            if (this.source.getStreams() == null
+                    || this.source.getStreams().length == 0) {
                 throw new IOException("DataSource has no streams.");
             }
 
             if (this.source.getStreams().length > 1) {
-                throw new IOException("This demultiplexer only supports data sources with one stream.");
+                throw new IOException("This demultiplexer only supports "
+                        + "data sources with one stream.");
             }
 
             stream = this.source.getStreams()[0];
@@ -135,9 +140,11 @@ public class FlacParser implements Demultiplexer {
 
             if (!(stream instanceof Seekable)) {
                 /* @todo better message */
-                throw new IncompatibleSourceException("Stream is not seekable.");
+                throw new IncompatibleSourceException(
+                        "Stream is not seekable.");
             }
-        } catch (IncompatibleSourceException | IOException | RuntimeException e) {
+        } catch (IncompatibleSourceException | IOException
+                | RuntimeException e) {
             e.printStackTrace();
             throw e;
         }

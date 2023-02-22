@@ -17,9 +17,7 @@
  * $Log: OggParser.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
@@ -44,8 +42,10 @@ public class OggParser implements Demultiplexer {
     private static final String DEMULTIPLEXER_NAME = "Ogg demultiplexer";
 
     private final ContentDescriptor[] supportedContentTypes = {
-        new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/ogg")),
-        new ContentDescriptor(ContentDescriptor.mimeTypeToPackageName("application/x-ogg"))
+        new ContentDescriptor(
+                ContentDescriptor.mimeTypeToPackageName("application/ogg")),
+        new ContentDescriptor(
+                ContentDescriptor.mimeTypeToPackageName("application/x-ogg"))
     };
 
     private Track[] tracks;
@@ -68,7 +68,7 @@ public class OggParser implements Demultiplexer {
                 max = track.getDuration().getNanoseconds();
             }
         }
-        return new Time(max);//Time.TIME_UNKNOWN;
+        return new Time(max); //Time.TIME_UNKNOWN;
     }
 
     @Override
@@ -117,10 +117,12 @@ public class OggParser implements Demultiplexer {
         try {
             if (tracks[0] instanceof VorbisTrack) {
                 long sampleRate = ((VorbisTrack) tracks[0]).getSampleRate();
-                oggStream.setTime(time.getNanoseconds() * sampleRate / 1000000000L);
+                oggStream.setTime(
+                        time.getNanoseconds() * sampleRate / 1000000000L);
             } else if (tracks[0] instanceof FlacTrack) {
                 long sampleRate = ((FlacTrack) tracks[0]).getSampleRate();
-                oggStream.setTime(time.getNanoseconds() * sampleRate / 1000000000L);
+                oggStream.setTime(
+                        time.getNanoseconds() * sampleRate / 1000000000L);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -177,22 +179,25 @@ public class OggParser implements Demultiplexer {
     }
 
     @Override
-    public void setSource(DataSource source) throws IOException, IncompatibleSourceException {
-
+    public void setSource(DataSource source)
+            throws IOException, IncompatibleSourceException {
         try {
             if (!(source instanceof PullDataSource)) {
                 /* @todo better message */
-                throw new IncompatibleSourceException("DataSource not supported: " + source);
+                throw new IncompatibleSourceException(
+                        "DataSource not supported: " + source);
             }
 
             this.source = (PullDataSource) source;
 
-            if (this.source.getStreams() == null || this.source.getStreams().length == 0) {
+            if (this.source.getStreams() == null
+                    || this.source.getStreams().length == 0) {
                 throw new IOException("DataSource has no streams.");
             }
 
             if (this.source.getStreams().length > 1) {
-                throw new IOException("This demultiplexer only supports data sources with one stream.");
+                throw new IOException("This demultiplexer only supports data "
+                        + "sources with one stream.");
             }
 
             stream = this.source.getStreams()[0];
@@ -200,9 +205,11 @@ public class OggParser implements Demultiplexer {
 
             if (!(stream instanceof Seekable)) {
                 /* @todo better message */
-                throw new IncompatibleSourceException("Stream is not seekable.");
+                throw new IncompatibleSourceException(
+                        "Stream is not seekable.");
             }
-        } catch (IncompatibleSourceException | IOException | RuntimeException e) {
+        } catch (IncompatibleSourceException | IOException
+                | RuntimeException e) {
             e.printStackTrace();
             throw e;
         }

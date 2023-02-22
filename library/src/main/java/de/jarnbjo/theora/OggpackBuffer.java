@@ -17,11 +17,8 @@
  * $Log: OggpackBuffer.java,v $
  * Revision 1.1  2003/03/03 22:09:02  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.theora;
 
 public class OggpackBuffer {
-
 }

@@ -17,9 +17,7 @@
  * $Log: Frame.java,v $
  * Revision 1.1  2003/03/03 21:53:17  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.flac;
 
 import java.io.IOException;
@@ -31,7 +29,9 @@ public class Frame {
     final private long frameNumber;
 
     private static final int[] SAMPLE_RATES
-            = {0, -1, -1, -1, 8000, 16000, 22050, 24000, 32000, 44100, 48000, 96000, 0, 0, 0, -1};
+            = {0, -1, -1, -1,
+                8000, 16000, 22050, 24000, 32000, 44100, 48000, 96000,
+                0, 0, 0, -1};
 
     private static final int[] SAMPLE_SIZES
             = {0, 8, 12, -1, 16, 20, 24, -1};
@@ -54,8 +54,8 @@ public class Frame {
     final private Subframe[] subframes;
     final private int[][] pcm;
 
-    public Frame(BitInputStream source, StreamInfo streamInfo) throws IOException {
-
+    public Frame(BitInputStream source, StreamInfo streamInfo)
+            throws IOException {
         if (source.getInt(16) != 0xfff8) {
             throw new FlacFormatException("Audio frame header mismatch");
         }
@@ -128,7 +128,8 @@ public class Frame {
         } else if (channelAssignment < 11) {
             channels = 2;
         } else {
-            throw new FlacFormatException("Unsupported channel assignment in frame");
+            throw new FlacFormatException(
+                    "Unsupported channel assignment in frame");
         }
 
         int crc = source.getInt(8);
@@ -138,7 +139,8 @@ public class Frame {
             System.out.print("blocksize=" + blockSize + "\t");
             System.out.print("sample_rate=" + sampleRate + "\t");
             System.out.print("channels=" + channels + "\t");
-            System.out.println("channel_assignment" + CHANNEL_ASSIGNMENTS[channelAssignment]);
+            System.out.println("channel_assignment"
+                    + CHANNEL_ASSIGNMENTS[channelAssignment]);
         }
 
         subframes = new Subframe[channels];
@@ -149,7 +151,8 @@ public class Frame {
                     || channelAssignment == 9 && i == 0
                     || channelAssignment == 10 && i == 1;
 
-            subframes[i] = Subframe.createInstance(source, this, streamInfo, sideChannel);
+            subframes[i] = Subframe.createInstance(
+                    source, this, streamInfo, sideChannel);
         }
 
         pcm = new int[channels][];
@@ -199,7 +202,6 @@ public class Frame {
     }
 
     private static long readUtf8Int(BitInputStream source) throws IOException {
-
         long v = 0;
         int x = 0, i = 0;
 

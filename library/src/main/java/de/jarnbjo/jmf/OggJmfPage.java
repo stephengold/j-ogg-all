@@ -20,9 +20,7 @@
  *
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.jmf;
 
 import java.io.DataInput;
@@ -31,26 +29,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import javax.media.protocol.PullSourceStream;
-
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
-
 import de.jarnbjo.ogg.EndOfOggStreamException;
 import de.jarnbjo.ogg.OggFormatException;
 import de.jarnbjo.ogg.OggPage;
 
 /**
- * <p>An instance of this class represents an ogg page read from an ogg file
- * or network stream. It has no public constructor, but instances can be
- * created by the {@code create} methods, supplying a JMF stream or
- * a {@code RandomAccessFile}
- * which is positioned at the beginning of an Ogg page.</p>
+ * <p>
+ * An instance of this class represents an ogg page read from an ogg file or
+ * network stream. It has no public constructor, but instances can be created by
+ * the {@code create} methods, supplying a JMF stream or a
+ * {@code RandomAccessFile} which is positioned at the beginning of an Ogg
+ * page.</p>
  *
- * <p>Furthermore, the class provides methods for accessing the raw page data,
- * as well as data attributes like segmenting information, sequence number,
- * stream serial number, checksum and whether this page is the beginning or
- * end of a logical bitstream (BOS, EOS) and if the page data starts with a
- * continued packet or a fresh data packet.</p>
+ * <p>
+ * Furthermore, the class provides methods for accessing the raw page data, as
+ * well as data attributes like segmenting information, sequence number, stream
+ * serial number, checksum and whether this page is the beginning or end of a
+ * logical bitstream (BOS, EOS) and if the page data starts with a continued
+ * packet or a fresh data packet.</p>
  */
 public class OggJmfPage extends OggPage {
     final private int version;
@@ -109,15 +107,18 @@ public class OggJmfPage extends OggPage {
      *
      * @see #create(javax.media.protocol.PullSourceStream, boolean)
      */
-    public static OggJmfPage create(PullSourceStream source) throws IOException, EndOfOggStreamException, OggFormatException {
+    public static OggJmfPage create(PullSourceStream source)
+            throws IOException, EndOfOggStreamException, OggFormatException {
         return create(source, false);
     }
 
-    public static OggJmfPage create(PullSourceStream source, boolean skipData) throws IOException {
+    public static OggJmfPage create(PullSourceStream source, boolean skipData)
+            throws IOException {
         return create((Object) source, skipData);
     }
 
-    private static OggJmfPage create(Object source, boolean skipData) throws IOException {
+    private static OggJmfPage create(Object source, boolean skipData)
+            throws IOException {
 
         try {
             byte[] header = new byte[27];
@@ -134,24 +135,30 @@ public class OggJmfPage extends OggPage {
             int capture = bdSource.getInt(32);
 
             if (capture != 0x5367674f) {
-                //throw new FormatException("Ogg page does not start with 'OggS' (0x4f676753)");
-
+                //throw new FormatException(
+                //"Ogg page does not start with 'OggS' (0x4f676753)");
                 /*
-            ** This condition is IMHO an error, but older Ogg files often contain
-            ** pages with a different capture than OggS. I am not sure how to
-            ** manage these pages, but the decoder seems to work properly, if
-            ** the incorrect capture is simply ignored.
+                 ** This condition is IMHO an error, but older Ogg files often
+                 ** contain pages with a different capture than OggS. I am not
+                 ** sure how to manage these pages, but the decoder seems to
+                 ** work properly, if the incorrect capture is simply ignored.
                  */
                 String cs = Integer.toHexString(capture);
                 while (cs.length() < 8) {
                     cs = "0" + cs;
                 }
-                cs = cs.substring(6, 8) + cs.substring(4, 6) + cs.substring(2, 4) + cs.substring(0, 2);
-                char c1 = (char) (Integer.valueOf(cs.substring(0, 2), 16).intValue());
-                char c2 = (char) (Integer.valueOf(cs.substring(2, 4), 16).intValue());
-                char c3 = (char) (Integer.valueOf(cs.substring(4, 6), 16).intValue());
-                char c4 = (char) (Integer.valueOf(cs.substring(6, 8), 16).intValue());
-                System.out.println("Ogg packet header is 0x" + cs + " (" + c1 + c2 + c3 + c4 + "), should be 0x4f676753 (OggS)");
+                cs = cs.substring(6, 8) + cs.substring(4, 6)
+                        + cs.substring(2, 4) + cs.substring(0, 2);
+                char c1 = (char) (Integer.valueOf(
+                        cs.substring(0, 2), 16).intValue());
+                char c2 = (char) (Integer.valueOf(
+                        cs.substring(2, 4), 16).intValue());
+                char c3 = (char) (Integer.valueOf(
+                        cs.substring(4, 6), 16).intValue());
+                char c4 = (char) (Integer.valueOf(
+                        cs.substring(6, 8), 16).intValue());
+                System.out.println("Ogg packet header is 0x" + cs + " ("
+                        + c1 + c2 + c3 + c4 + "), should be 0x4f676753 (OggS)");
             }
 
             int version = bdSource.getInt(8);
@@ -165,7 +172,8 @@ public class OggJmfPage extends OggPage {
             int pageCheckSum = bdSource.getInt(32);
             int pageSegments = bdSource.getInt(8);
 
-            //System.out.println("OggPage: "+streamSerialNumber+" / "+absoluteGranulePosition+" / "+pageSequenceNumber);
+            //System.out.println("OggPage: "+streamSerialNumber+
+            //" / "+absoluteGranulePosition+" / "+pageSequenceNumber);
             int[] segmentOffsets = new int[pageSegments];
             int[] segmentLengths = new int[pageSegments];
             int totalLength = 0;
@@ -192,7 +200,6 @@ public class OggJmfPage extends OggPage {
             byte[] data = null;
 
             if (!skipData) {
-
                 data = new byte[totalLength];
                 if (source instanceof RandomAccessFile) {
                     ((DataInput) source).readFully(data);
@@ -203,13 +210,17 @@ public class OggJmfPage extends OggPage {
                 }
             }
 
-            return new OggJmfPage(version, bf1, bos, eos, absoluteGranulePosition, streamSerialNumber, pageSequenceNumber, pageCheckSum, segmentOffsets, segmentLengths, totalLength, header, segmentTable, data);
+            return new OggJmfPage(version, bf1, bos, eos,
+                    absoluteGranulePosition, streamSerialNumber,
+                    pageSequenceNumber, pageCheckSum, segmentOffsets,
+                    segmentLengths, totalLength, header, segmentTable, data);
         } catch (EOFException e) {
             throw new EndOfOggStreamException();
         }
     }
 
-    private static void readFully(PullSourceStream source, byte[] buffer) throws IOException {
+    private static void readFully(PullSourceStream source, byte[] buffer)
+            throws IOException {
         int total = 0;
         while (total < buffer.length) {
             int read = source.read(buffer, total, buffer.length - total);
@@ -220,7 +231,8 @@ public class OggJmfPage extends OggPage {
         }
     }
 
-    private static void readFully(InputStream source, byte[] buffer) throws IOException {
+    private static void readFully(InputStream source, byte[] buffer)
+            throws IOException {
         int total = 0;
         while (total < buffer.length) {
             int read = source.read(buffer, total, buffer.length - total);

@@ -17,9 +17,7 @@
  * $Log: TheoraDecoder.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
@@ -42,8 +40,10 @@ public class TheoraDecoder implements Codec {
     };
 
     private static final Format[] supportedOutputFormats = {
-        new RGBFormat(null, -1, VideoFormat.intArray, -1.0f, 32, 0xff0000, 0xff00, 0xff)
-    //new YUVFormat(null, -1, VideoFormat.byteArray, -1.0f, YUVFormat.YUV_422, -1, -1, -1, -1, -1)
+        new RGBFormat(null, -1, VideoFormat.intArray, -1.0f,
+                32, 0xff0000, 0xff00, 0xff)
+        //new YUVFormat(null, -1, VideoFormat.byteArray, -1.0f,
+        //YUVFormat.YUV_422, -1, -1, -1, -1, -1)
     };
 
     final private TheoraStream theoraStream = new TheoraStream();
@@ -65,7 +65,9 @@ public class TheoraDecoder implements Codec {
         } else {
             VideoFormat vf = (VideoFormat) input;
             Format[] res = new Format[1];
-            res[0] = new RGBFormat(vf.getSize(), vf.getMaxDataLength(), Format.intArray, vf.getFrameRate(), 32, 0xff0000, 0xff00, 0xff);
+            res[0] = new RGBFormat(vf.getSize(), vf.getMaxDataLength(),
+                    Format.intArray, vf.getFrameRate(), 32,
+                    0xff0000, 0xff00, 0xff);
             return res;
         }
     }
@@ -75,7 +77,6 @@ public class TheoraDecoder implements Codec {
 
     @Override
     public int process(Buffer in, Buffer out) {
-
         if (1 == 1) {
             return PlugIn.OUTPUT_BUFFER_NOT_FILLED;
         }
@@ -120,7 +121,8 @@ public class TheoraDecoder implements Codec {
                     theoraStream.getPbi().getUvStride(),
                     theoraStream.getPbi().getYOffset(),
                     header.getHeight() * theoraStream.getPbi().getYStride(),
-                    header.getHeight() * theoraStream.getPbi().getYStride() * 5 / 4);
+                    header.getHeight() * theoraStream.getPbi().getYStride()
+                            * 5 / 4);
             //   theoraStream.getPbi().getUOffset(),
             //   theoraStream.getPbi().getVOffset());
 

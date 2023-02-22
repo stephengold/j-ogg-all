@@ -17,9 +17,7 @@
  * $Log: FlacTrack.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
@@ -38,10 +36,12 @@ public class FlacTrack extends OggTrack {
     final private StreamInfo streamInfo;
     final private AudioFormat format;
 
-    public FlacTrack(LogicalOggStream source, byte[] siHeaderData) throws IOException {
+    public FlacTrack(LogicalOggStream source, byte[] siHeaderData)
+            throws IOException {
         super(source);
         oggStream = source;
-        BitInputStream bd = new ByteArrayBitInputStream(siHeaderData, ByteArrayBitInputStream.BIG_ENDIAN);
+        BitInputStream bd = new ByteArrayBitInputStream(siHeaderData,
+                ByteArrayBitInputStream.BIG_ENDIAN);
         streamInfo = (StreamInfo) MetadataBlock.createInstance(bd);
 
         format = new AudioFormat(

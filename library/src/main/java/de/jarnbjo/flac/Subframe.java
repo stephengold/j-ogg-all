@@ -17,23 +17,20 @@
  * $Log: Subframe.java,v $
  * Revision 1.1  2003/03/03 21:53:17  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.flac;
 
 import java.io.IOException;
 import java.util.Arrays;
-
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
 
 public abstract class Subframe {
-
-    public static Subframe createInstance(BitInputStream source, Frame frame, StreamInfo streamInfo, boolean sideChannel) throws IOException {
-
+    public static Subframe createInstance(BitInputStream source, Frame frame,
+            StreamInfo streamInfo, boolean sideChannel) throws IOException {
         if (source.getBit()) {
-            throw new FlacFormatException("Sync error when trying to read subframe");
+            throw new FlacFormatException(
+                    "Sync error when trying to read subframe");
         }
 
         int type = source.getInt(6);
@@ -56,11 +53,13 @@ public abstract class Subframe {
         } else if ((type & 0x38) == 0x08 && (type & 0x07) <= 4) {
             // SUBFRAME_FIXED
             int order = type & 0x07;
-            return new Fixed(source, frame, streamInfo, wastedBits, order, sideChannel);
+            return new Fixed(
+                    source, frame, streamInfo, wastedBits, order, sideChannel);
         } else if ((type & 0x20) == 0x20) {
             // SUBFRAME_LPC
             int order = (type & 0x1f) + 1;
-            return new Lpc(source, frame, streamInfo, wastedBits, order, sideChannel);
+            return new Lpc(
+                    source, frame, streamInfo, wastedBits, order, sideChannel);
         }
 
         throw new FlacFormatException("Unknown or unsupported subframe type");
@@ -69,10 +68,10 @@ public abstract class Subframe {
     public abstract int[] getPcm();
 
     public static class Constant extends Subframe {
-
         int[] pcm;
 
-        public Constant(BitInputStream source, Frame frame, StreamInfo streamInfo) throws IOException {
+        public Constant(BitInputStream source, Frame frame,
+                StreamInfo streamInfo) throws IOException {
             int c = source.getSignedInt(frame.getBitsPerSample());
             pcm = new int[frame.getBlockSize()];
             Arrays.fill(pcm, c);
@@ -82,14 +81,14 @@ public abstract class Subframe {
         public int[] getPcm() {
             return pcm;
         }
-
     }
 
     public static class Verbatim extends Subframe {
-
         int[] pcm;
 
-        public Verbatim(BitInputStream source, Frame frame, StreamInfo streamInfo) throws IOException {
+        public Verbatim(
+                BitInputStream source, Frame frame, StreamInfo streamInfo)
+                throws IOException {
             int bps = frame.getBitsPerSample();
             int blockSize = frame.getBlockSize();
 
@@ -107,13 +106,13 @@ public abstract class Subframe {
     }
 
     public static class Fixed extends Subframe {
-
         int[] pcm;
-
         int[] warmup;
         int[] residue;
 
-        public Fixed(BitInputStream source, Frame frame, StreamInfo streamInfo, int wastedBits, int order, boolean sideChannel) throws IOException {
+        public Fixed(BitInputStream source, Frame frame, StreamInfo streamInfo,
+                int wastedBits, int order, boolean sideChannel)
+                throws IOException {
 
             int bitsPerSample = frame.getBitsPerSample();
             if (sideChannel) {
@@ -128,7 +127,9 @@ public abstract class Subframe {
             int codingMethod = source.getInt(2);
 
             if (codingMethod != 0) {
-                throw new FlacFormatException("SUBFRAME_FIXED: residual coding method " + codingMethod + " not supported");
+                throw new FlacFormatException(
+                        "SUBFRAME_FIXED: residual coding method "
+                        + codingMethod + " not supported");
             }
 
             int partitionOrder = source.getInt(4);
@@ -141,7 +142,8 @@ public abstract class Subframe {
                             : frame.getBlockSize() - order;
 
             if (Properties.analyze()) {
-                System.out.print("\tsubframe=?\twasted_bits=" + wastedBits + "\t");
+                System.out.print(
+                        "\tsubframe=?\twasted_bits=" + wastedBits + "\t");
                 System.out.print("type=FIXED\t");
                 System.out.print("order=" + order + "\t");
                 System.out.println("partition_order=" + partitionOrder);
@@ -161,7 +163,8 @@ public abstract class Subframe {
                     sample += u;
                 } else {
                     riceParameter = source.getInt(5);
-                    for (int u = (partitionOrder == 0 || partition > 0) ? 0 : order; u < partitionSamples; u++, sample++) {
+                    for (int u = (partitionOrder == 0 || partition > 0)
+                            ? 0 : order; u < partitionSamples; u++, sample++) {
                         residue[sample] = source.getSignedInt(riceParameter);
                     }
                 }
@@ -194,16 +197,22 @@ public abstract class Subframe {
                     break;
                 case 3:
                     for (i = 0; i < len; i++) {
-                        pcm[i + 3] = residue[i] + (((pcm[i + 2] - pcm[i + 1]) << 1) + (pcm[i + 2] - pcm[i + 1])) + pcm[i];
+                        pcm[i + 3] = residue[i]
+                                + (((pcm[i + 2] - pcm[i + 1]) << 1)
+                                + (pcm[i + 2] - pcm[i + 1])) + pcm[i];
                     }
                     break;
                 case 4:
                     for (i = 0; i < len; i++) {
-                        pcm[i + 4] = residue[i] + ((pcm[i + 3] + pcm[i + 1]) << 2) - ((pcm[i + 2] << 2) + (pcm[i + 2] << 1)) - pcm[i];
+                        pcm[i + 4] = residue[i]
+                                + ((pcm[i + 3] + pcm[i + 1]) << 2)
+                                - ((pcm[i + 2] << 2)
+                                + (pcm[i + 2] << 1)) - pcm[i];
                     }
                     break;
                 default:
-                    throw new FlacFormatException("Illegal SUBFRAME_FIXED order");
+                    throw new FlacFormatException(
+                            "Illegal SUBFRAME_FIXED order");
             }
 
             if (wastedBits > 0) {
@@ -217,19 +226,17 @@ public abstract class Subframe {
         public int[] getPcm() {
             return pcm;
         }
-
     }
 
     public static class Lpc extends Subframe {
-
         int[] pcm;
-
         int[] warmup;
         int[] residue;
-
         int[] coeffs;
 
-        public Lpc(BitInputStream source, Frame frame, StreamInfo streamInfo, int wastedBits, int order, boolean sideChannel) throws IOException {
+        public Lpc(BitInputStream source, Frame frame, StreamInfo streamInfo,
+                int wastedBits, int order, boolean sideChannel)
+                throws IOException {
 
             int bitsPerSample = frame.getBitsPerSample();
             if (sideChannel) {
@@ -243,7 +250,8 @@ public abstract class Subframe {
 
             int coeffPrecision = source.getInt(4) + 1;
             if (coeffPrecision == 16) {
-                throw new FlacFormatException("Illegal linear predictor coefficients' precision in SUBFRAME_LPC");
+                throw new FlacFormatException("Illegal linear predictor "
+                        + "coefficients' precision in SUBFRAME_LPC");
             }
 
             int quantizationLevel = source.getSignedInt(5);
@@ -256,7 +264,10 @@ public abstract class Subframe {
             int codingMethod = source.getInt(2);
 
             if (codingMethod != 0) {
-                throw new FlacFormatException("SUBFRAME_FIXED: residual coding method " + codingMethod + " not supported", (ByteArrayBitInputStream) source);
+                throw new FlacFormatException(
+                        "SUBFRAME_FIXED: residual coding method "
+                        + codingMethod + " not supported",
+                        (ByteArrayBitInputStream) source);
             }
 
             int partitionOrder = source.getInt(4);
@@ -282,18 +293,21 @@ public abstract class Subframe {
                     sample += u;
                 } else {
                     riceParameter = source.getInt(5);
-                    for (int u = (partitionOrder == 0 || partition > 0) ? 0 : order; u < partitionSamples; u++, sample++) {
+                    for (int u = (partitionOrder == 0 || partition > 0)
+                            ? 0 : order; u < partitionSamples; u++, sample++) {
                         residue[sample] = source.getSignedInt(riceParameter);
                     }
                 }
             }
 
             if (Properties.analyze()) {
-                System.out.print("\tsubframe=?\twasted_bits=" + wastedBits + "\t");
+                System.out.print(
+                        "\tsubframe=?\twasted_bits=" + wastedBits + "\t");
                 System.out.print("type=LPC\t");
                 System.out.print("order=" + order + "\t");
                 System.out.print("partition_order=" + partitionOrder + "\t");
-                System.out.print("qlp_coeff_precision=" + coeffPrecision + "\t");
+                System.out.print(
+                        "qlp_coeff_precision=" + coeffPrecision + "\t");
                 System.out.println("quantization_level=" + quantizationLevel);
             }
 
@@ -311,9 +325,11 @@ public abstract class Subframe {
                     sum += coeffs[j] * ((long) pcm[--history]);
                 }
                 if (quantizationLevel >= 0) {
-                    pcm[i + order] = residue[i] + (int) (sum >> quantizationLevel);
+                    pcm[i + order]
+                            = residue[i] + (int) (sum >> quantizationLevel);
                 } else {
-                    pcm[i + order] = residue[i] + (int) (sum << -quantizationLevel);
+                    pcm[i + order]
+                            = residue[i] + (int) (sum << -quantizationLevel);
                 }
             }
 

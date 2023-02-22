@@ -25,7 +25,8 @@ public class FlacFormatException extends IOException {
             for (int i = 0; i < source.getSource().length;) {
                 int lineEnd = i + 8;
                 for (; i < lineEnd && i < source.getSource().length; i++) {
-                    String val = Integer.toBinaryString(((int) source.getSource()[i]) & 0xff);
+                    String val = Integer.toBinaryString(
+                            ((int) source.getSource()[i]) & 0xff);
                     while (val.length() < 8) {
                         val = "0" + val;
                     }

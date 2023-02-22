@@ -1,12 +1,12 @@
 package de.jarnbjo.theora;
 
 import java.io.IOException;
-
 import de.jarnbjo.util.io.BitInputStream;
 
 public class Header {
     final private int[] version = new int[3];
-    final private int width, height, fpsNumerator, fpsDenominator, aspectNumerator, aspectDenominator;
+    final private int width, height, fpsNumerator, fpsDenominator,
+            aspectNumerator, aspectDenominator;
     final private int keyframeFrequencyForce, targetBitrate, quality;
 
     final private String versionString;
@@ -15,7 +15,6 @@ public class Header {
             = {0x80, 0x74, 0x68, 0x65, 0x6f, 0x72, 0x61};
 
     public Header(BitInputStream source) throws IOException {
-
         for (int i = 0; i < HEADER.length; i++) {
             if (source.getInt(8) != HEADER[i]) {
                 throw new TheoraFormatException("Theora header mismatch.");
@@ -31,7 +30,8 @@ public class Header {
         System.out.println("Version: " + versionString);
 
         if (version[0] != 3 && version[1] > 1) {
-            throw new TheoraFormatException("Unsupported file format version: " + versionString);
+            throw new TheoraFormatException(
+                    "Unsupported file format version: " + versionString);
         }
 
         width = source.getInt(16) << 4;

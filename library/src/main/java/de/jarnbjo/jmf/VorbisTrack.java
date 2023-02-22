@@ -15,6 +15,7 @@ import de.jarnbjo.util.io.ByteArrayBitInputStream;
  * <p>Beschreibung: Java Ogg implementation</p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Organisation: </p>
+ *
  * @author Tor-Einar Jarnbjo
  * @version 1.0
  */
@@ -23,7 +24,8 @@ public class VorbisTrack extends OggTrack {
     final private IdentificationHeader identificationHeader;
     final private AudioFormat format;
 
-    public VorbisTrack(LogicalOggStream source, byte[] idHeaderData) throws IOException {
+    public VorbisTrack(LogicalOggStream source, byte[] idHeaderData)
+            throws IOException {
         super(source);
         oggStream = source;
         BitInputStream bd = new ByteArrayBitInputStream(idHeaderData);
@@ -51,7 +53,8 @@ public class VorbisTrack extends OggTrack {
         long nos = oggStream.getMaximumGranulePosition();
         return nos == -1
                 ? Duration.DURATION_UNKNOWN
-                : new Time(nos * 1000000000L / ((long) identificationHeader.getSampleRate()));
+                : new Time(nos * 1000000000L
+                        / ((long) identificationHeader.getSampleRate()));
     }
 
     protected int getSampleRate() {

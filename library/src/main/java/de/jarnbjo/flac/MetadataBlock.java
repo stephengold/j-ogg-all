@@ -17,9 +17,7 @@
  * $Log: MetadataBlock.java,v $
  * Revision 1.1  2003/03/03 21:53:17  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.flac;
 
 import java.io.IOException;
@@ -34,8 +32,8 @@ public abstract class MetadataBlock {
 
     private boolean lastBlock;
 
-    public static MetadataBlock createInstance(BitInputStream source) throws IOException {
-
+    public static MetadataBlock createInstance(BitInputStream source)
+            throws IOException {
         boolean lb = source.getBit();
 
         int blockType = source.getInt(7);

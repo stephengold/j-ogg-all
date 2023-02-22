@@ -20,15 +20,12 @@
  *
  * Revision 1.1  2003/03/03 21:53:17  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.flac;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.util.io.BitInputStream;
 import de.jarnbjo.util.io.ByteArrayBitInputStream;
@@ -68,7 +65,9 @@ public class FlacStream {
         }
 
         do {
-            BitInputStream source = new ByteArrayBitInputStream(oggStream.getNextOggPacket(), ByteArrayBitInputStream.BIG_ENDIAN);
+            BitInputStream source = new ByteArrayBitInputStream(
+                    oggStream.getNextOggPacket(),
+                    ByteArrayBitInputStream.BIG_ENDIAN);
 
             mdBlock = MetadataBlock.createInstance(source);
             metadataBlocks.add(mdBlock);
@@ -90,11 +89,13 @@ public class FlacStream {
     }
 
     public Frame getNextFrame() throws IOException {
-        return new Frame(new ByteArrayBitInputStream(oggStream.getNextOggPacket(), ByteArrayBitInputStream.BIG_ENDIAN), streamInfo);
+        return new Frame(
+                new ByteArrayBitInputStream(oggStream.getNextOggPacket(),
+                        ByteArrayBitInputStream.BIG_ENDIAN), streamInfo);
     }
 
-    public int readPcm(byte[] buffer, int offset, int length) throws IOException {
-
+    public int readPcm(byte[] buffer, int offset, int length)
+            throws IOException {
         //System.out.println("readPcm()");
         final int channels = streamInfo.getChannels();
 
@@ -125,10 +126,12 @@ public class FlacStream {
 
     public byte[] processPacket(byte[] packet) throws IOException {
         if (packet.length == 0) {
-            throw new FlacFormatException("Cannot decode a flac frame with length = 0");
+            throw new FlacFormatException(
+                    "Cannot decode a flac frame with length = 0");
         }
         if (mode == MODE_HEADER) {
-            BitInputStream source = new ByteArrayBitInputStream(packet, ByteArrayBitInputStream.BIG_ENDIAN);
+            BitInputStream source = new ByteArrayBitInputStream(
+                    packet, ByteArrayBitInputStream.BIG_ENDIAN);
 
             MetadataBlock mdBlock = MetadataBlock.createInstance(source);
             metadataBlocks.add(mdBlock);
@@ -146,11 +149,12 @@ public class FlacStream {
             // audio packet
             //System.out.println("AUDIO_PACKET");
             if (streamInfo == null) {
-
-                throw new FlacFormatException("Cannot decode audio frame before STREAM_INFO header packet has been decoded.");
+                throw new FlacFormatException("Cannot decode audio frame "
+                        + "before STREAM_INFO header packet has been decoded.");
             }
 
-            Frame frame = new Frame(new ByteArrayBitInputStream(packet, ByteArrayBitInputStream.BIG_ENDIAN), streamInfo);
+            Frame frame = new Frame(new ByteArrayBitInputStream(
+                    packet, ByteArrayBitInputStream.BIG_ENDIAN), streamInfo);
 
             int[][] pcm = frame.getPcm();
 

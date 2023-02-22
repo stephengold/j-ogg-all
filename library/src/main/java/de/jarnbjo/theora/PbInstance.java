@@ -17,9 +17,7 @@
  * $Log: PbInstance.java,v $
  * Revision 1.1  2003/03/03 22:09:02  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.theora;
 
 import java.io.IOException;
@@ -43,14 +41,13 @@ public class PbInstance {
     int postProcessingLevel;
     /* Perform post processing */
 
- /* Frame Info */
+    /* Frame Info */
     CodingMode codingMode;
     byte frameType;
     byte keyFrameType;
     int qualitySetting;
     int frameQIndex;
-    /* Quality specified as a
-                                           table index */
+    /* Quality specified as a table index */
     int thisFrameQualityValue;
     /* Quality value for this frame  */
     int lastFrameQualityValue;
@@ -66,7 +63,6 @@ public class PbInstance {
      * *******************************************************************
      */
     /* Frame Size & Index Information */
-
     int yPlaneSize;
     int uvPlaneSize;
     int yStride;
@@ -91,21 +87,16 @@ public class PbInstance {
     int uvSuperBlocks;
     /* Number of SuperBlocks in a U or V frame */
     int superBlocks;
-    /* Total number of SuperBlocks in a
-                          Y,U,V frame */
+    /* Total number of SuperBlocks in a Y,U,V frame */
 
     int ysbRows;
-    /* Number of rows of SuperBlocks in a
-                                   Y frame */
+    /* Number of rows of SuperBlocks in a Y frame */
     int ysbCols;
-    /* Number of cols of SuperBlocks in a
-                                   Y frame */
+    /* Number of cols of SuperBlocks in a Y frame */
     int uvsbRows;
-    /* Number of rows of SuperBlocks in a
-                                   U or V frame */
+    /* Number of rows of SuperBlocks in a U or V frame */
     int uvsbCols;
-    /* Number of cols of SuperBlocks in a
-                                   U or V frame */
+    /* Number of cols of SuperBlocks in a U or V frame */
 
     int yMacroBlocks;
     /* Number of Macro-Blocks in Y component */
@@ -128,21 +119,16 @@ public class PbInstance {
      */
     /* Fragment Information */
     int[] pixelIndexTable;
-    /* start address of first
-					      pixel of fragment in
-					      source */
+    /* start address of first pixel of fragment in source */
     int[] reconPixelIndexTable;
-    /* start address of first
-					      pixel in recon buffer */
+    /* start address of first pixel in recon buffer */
 
     byte[] displayFragments;
     /* Fragment update map */
-    byte[] skippedDisplayFragments;/* whether fragment YUV
-					      Conversion and update is to be
-					      skipped */
+    byte[] skippedDisplayFragments;
+    /* whether fragment YUV Conversion and update is to be skipped */
     int[] codedBlockList;
-    /* A list of fragment indices for
-					      coded blocks. */
+    /* A list of fragment indices for coded blocks. */
     MotionVector[] fragMVect;
     /* fragment motion vectors */
 
@@ -153,33 +139,25 @@ public class PbInstance {
 
     int[] fragmentVariances;
     int[] fragQIndex;
-    /* Fragment Quality used in
-                                              PostProcess */
+    /* Fragment Quality used in PostProcess */
     short[][] ppCoefBuffer = new short[64][];
-    /* PostProcess Buffer for
-                                              coefficients data */
+    /* PostProcess Buffer for coefficients data */
 
     byte[] fragCoeffs;
-    /* # of coefficients decoded so far for
-					       fragment */
+    /* # of coefficients decoded so far for fragment */
     byte[] fragCoefEOB;
-    /* Position of last non 0 coef
-						within QFragData */
+    /* Position of last non 0 coef within QFragData */
     short[][] qFragData = new short[64][];
-    /* Fragment Coefficients
-                                               Array Pointers */
+    /* Fragment Coefficients Array Pointers */
     CodingMode[] fragCodingMethod;
-    /* coding method for the
-                                               fragment */
+    /* coding method for the fragment */
 
     //**********************************************************************/
     /* pointers to addresses used for allocation and deallocation the
       others are rounded up to the nearest 32 bytes */
-
     CoeffNode[] _nodes;
     int[] transIndex;
-    /* ptr to table of
-						   transposed indexes */
+    /* ptr to table of transposed indexes */
 
     /**
      * *******************************************************************
@@ -187,12 +165,10 @@ public class PbInstance {
     int bumpLast;
 
     /* Macro Block and SuperBlock Information */
-    int[][][] blockMap;//=new int[4][4][];
-    /* super block + sub macro
-						   block + sub frag ->
-						   FragIndex */
+    int[][][] blockMap; //=new int[4][4][];
+    /* super block + sub macro block + sub frag -> FragIndex */
 
- /* Coded flag arrays and counters for them */
+    /* Coded flag arrays and counters for them */
     byte[] sbCodedFlags;
     byte[] sbFullyFlags;
     byte[] mbCodedFlags;
@@ -206,8 +182,7 @@ public class PbInstance {
     Coordinate[] fragCoordinates;
     MotionVector mVector;
     int reconPtr2Offset;
-    /* Offset for second reconstruction
-					   in half pixel MC */
+    /* Offset for second reconstruction in half pixel MC */
     short[] quantizedList;
     short[] reconDataBuffer;
 
@@ -312,7 +287,6 @@ public class PbInstance {
 
         postProcessingLevel = 0;
 
-
         /* Set the frame size etc. */
         yPlaneSize = info.getWidth() * info.getHeight();
         uvPlaneSize = yPlaneSize / 4;
@@ -331,18 +305,22 @@ public class PbInstance {
         yDataOffset = 0;
         uDataOffset = yPlaneSize;
         vDataOffset = yPlaneSize + uvPlaneSize;
-        reconYDataOffset = (yStride * Constants.UMV_BORDER) + Constants.UMV_BORDER;
+        reconYDataOffset
+                = (yStride * Constants.UMV_BORDER) + Constants.UMV_BORDER;
         reconUDataOffset = reconYPlaneSize + uvStride
                 * (Constants.UMV_BORDER / 2) + (Constants.UMV_BORDER / 2);
         reconVDataOffset = reconYPlaneSize + reconUVPlaneSize
-                + (uvStride * (Constants.UMV_BORDER / 2)) + (Constants.UMV_BORDER / 2);
+                + (uvStride * (Constants.UMV_BORDER / 2))
+                + (Constants.UMV_BORDER / 2);
 
         /* Image dimensions in Super-Blocks */
         ysbRows = (info.getHeight() / 32) + (info.getHeight() % 32 > 0 ? 1 : 0);
         ysbCols = (info.getWidth() / 32) + (info.getWidth() % 32 > 0 ? 1 : 0);
 
-        uvsbRows = ((info.getHeight() / 2) / 32) + ((info.getHeight() / 2) % 32 > 0 ? 1 : 0);
-        uvsbCols = ((info.getWidth() / 2) / 32) + ((info.getWidth() / 2) % 32 > 0 ? 1 : 0);
+        uvsbRows = ((info.getHeight() / 2) / 32)
+                + ((info.getHeight() / 2) % 32 > 0 ? 1 : 0);
+        uvsbCols = ((info.getWidth() / 2) / 32)
+                + ((info.getWidth() / 2) % 32 > 0 ? 1 : 0);
 
         /* Super-Blocks per component */
         ySuperBlocks = ysbRows * ysbCols;
@@ -359,14 +337,14 @@ public class PbInstance {
         initializeFragCoordinates();
 
         /* Configure mapping between quad-tree and fragments */
-        createBlockMapping();//ySuperBlocks, uvSuperBlocks, hFragments, vFragments);
+        createBlockMapping();
+        //ySuperBlocks, uvSuperBlocks, hFragments, vFragments);
 
         /* Re-initialise the pixel index table. */
         calcPixelIndexTable();
     }
 
     void initFragmentInfo() {
-
         /* Perform Fragment Allocations */
         displayFragments = new byte[unitFragments];
 
@@ -405,8 +383,8 @@ public class PbInstance {
     }
 
     void initializeFragCoordinates() {
-
-        int i, j, horizFrags = hFragments, vertFrags = vFragments, startFrag = 0;
+        int i, j, horizFrags = hFragments, vertFrags = vFragments,
+                startFrag = 0;
 
         /* Y */
         for (i = 0; i < vertFrags; i++) {
@@ -445,9 +423,9 @@ public class PbInstance {
     }
 
     void createBlockMapping() { //int blockMap  (*BlockMap)[4][4],
-//			  ogg_uint32_t YSuperBlocks,
-//			  ogg_uint32_t UVSuperBlocks,
-//			  ogg_uint32_t HFrags, ogg_uint32_t VFrags ) {
+//   ogg_uint32_t YSuperBlocks,
+//   ogg_uint32_t UVSuperBlocks,
+//   ogg_uint32_t HFrags, ogg_uint32_t VFrags ) {
 
         int i, j;
 
@@ -461,12 +439,14 @@ public class PbInstance {
         }
 
         createMapping(0, 0, hFragments, vFragments);
-        createMapping(ySuperBlocks, hFragments * vFragments, hFragments / 2, vFragments / 2);
-        createMapping(ySuperBlocks + uvSuperBlocks, (hFragments * vFragments * 5) / 4, hFragments / 2, vFragments / 2);
+        createMapping(ySuperBlocks, hFragments * vFragments, hFragments / 2,
+                vFragments / 2);
+        createMapping(ySuperBlocks + uvSuperBlocks,
+                (hFragments * vFragments * 5) / 4, hFragments / 2,
+                vFragments / 2);
     }
 
     void createMapping(int firstSb, int firstFrag, int hFrags, int vFrags) {
-
         int i = 0, j = 0, xpos, ypos, sbRow, sbCol, sbRows, sbCols, mb, b;
 
         int sb = firstSb, fragIndex = firstFrag;
@@ -522,10 +502,11 @@ public class PbInstance {
         int[] pixelIndexTablePtr;
 
         /* Calculate the pixel index table for normal image buffers */
-        pixelIndexTablePtr = pixelIndexTable;//  pbi->pixel_index_table;
+        pixelIndexTablePtr = pixelIndexTable; //  pbi->pixel_index_table;
         for (i = 0; i < yPlaneFragments; i++) {
             pixelIndexTablePtr[i]
-                    = ((i / hFragments) * Constants.VFRAGPIXELS * info.getWidth())
+                    = ((i / hFragments) * Constants.VFRAGPIXELS
+                    * info.getWidth())
                     + (i % hFragments) * Constants.HFRAGPIXELS;
         }
 
@@ -533,25 +514,33 @@ public class PbInstance {
         int offset = yPlaneFragments;
         for (i = 0; i < ((hFragments >> 1) * vFragments); i++) {
             pixelIndexTablePtr[i + offset]
-                    = ((i / (hFragments / 2)) * (Constants.VFRAGPIXELS * info.getWidth() / 2))
-                    + ((i % (hFragments / 2)) * Constants.HFRAGPIXELS) + yPlaneSize;
+                    = ((i / (hFragments / 2)) * (Constants.VFRAGPIXELS
+                    * info.getWidth() / 2))
+                    + ((i % (hFragments / 2)) * Constants.HFRAGPIXELS)
+                    + yPlaneSize;
         }
-
-        /* Now calculate the pixel index table for image reconstruction buffers */
+        /*
+         * Now calculate the pixel index table
+         * for image reconstruction buffers
+         */
         pixelIndexTablePtr = reconPixelIndexTable;
         for (i = 0; i < yPlaneFragments; i++) {
             pixelIndexTablePtr[i]
                     = ((i / hFragments) * Constants.VFRAGPIXELS * yStride)
-                    + ((i % hFragments) * Constants.HFRAGPIXELS) + reconYDataOffset;
+                    + ((i % hFragments) * Constants.HFRAGPIXELS)
+                    + reconYDataOffset;
         }
 
         /* U blocks */
-        //PixelIndexTablePtr = &pbi->recon_pixel_index_table[pbi->YPlaneFragments];
+        //PixelIndexTablePtr
+        //= &pbi->recon_pixel_index_table[pbi->YPlaneFragments];
         //offset=yPlaneFragments;
         for (i = 0; i < uvPlaneFragments; i++) {
             pixelIndexTablePtr[i + offset]
-                    = ((i / (hFragments / 2)) * (Constants.VFRAGPIXELS * (uvStride)))
-                    + ((i % (hFragments / 2)) * Constants.HFRAGPIXELS) + reconUDataOffset;
+                    = ((i / (hFragments / 2))
+                    * (Constants.VFRAGPIXELS * (uvStride)))
+                    + ((i % (hFragments / 2)) * Constants.HFRAGPIXELS)
+                    + reconUDataOffset;
         }
 
         /* V blocks */
@@ -561,14 +550,17 @@ public class PbInstance {
         offset = yPlaneFragments + uvPlaneFragments;
         for (i = 0; i < uvPlaneFragments; i++) {
             pixelIndexTablePtr[i + offset]
-                    = ((i / (hFragments / 2)) * (Constants.VFRAGPIXELS * (uvStride)))
-                    + ((i % (hFragments / 2)) * Constants.HFRAGPIXELS) + reconVDataOffset;
+                    = ((i / (hFragments / 2))
+                    * (Constants.VFRAGPIXELS * (uvStride)))
+                    + ((i % (hFragments / 2))
+                    * Constants.HFRAGPIXELS) + reconVDataOffset;
         }
     }
 
     void initQTables() {
-        //memcpy ( pbi->QThreshTable, QThreshTableV1, sizeof( pbi->QThreshTable ) );
-        System.arraycopy(Constants.qThreshTableV1, 0, qThreshTable, 0, qThreshTable.length);
+        //memcpy(pbi->QThreshTable, QThreshTableV1, sizeof(pbi->QThreshTable));
+        System.arraycopy(Constants.qThreshTableV1, 0, qThreshTable, 0,
+                qThreshTable.length);
     }
 
     void initHuffmanSet() {
@@ -591,10 +583,8 @@ public class PbInstance {
         }
     }
 
-    void buildHuffmanTree(
-            HuffEntry[] huffRoot, int[] huffCodeArray,
+    void buildHuffmanTree(HuffEntry[] huffRoot, int[] huffCodeArray,
             byte[] huffCodeLengthArray, int hIndex, int[] freqList) {
-
         HuffEntry entryPtr, searchPtr;
 
         /* First create a sorted linked list representing the frequencies of
@@ -603,17 +593,21 @@ public class PbInstance {
 
         /* Now build the tree from the list. */
 
- /* While there are at least two items left in the list. */
+        /* While there are at least two items left in the list. */
         while (huffRoot[hIndex].next != null) {
-            /* Create the new node as the parent of the first two in the list. */
+            /*
+             * Create the new node as the parent of the first two in the list.
+             */
             entryPtr = new HuffEntry();
             entryPtr.value = -1;
-            entryPtr.frequency = huffRoot[hIndex].frequency + huffRoot[hIndex].next.frequency;
+            entryPtr.frequency = huffRoot[hIndex].frequency
+                    + huffRoot[hIndex].next.frequency;
             entryPtr.zeroChild = huffRoot[hIndex];
             entryPtr.oneChild = huffRoot[hIndex].next;
-
-            /* If there are still more items in the list then insert the new
-          node into the list. */
+            /*
+             * If there are still more items in the list then insert the new
+             * node into the list.
+             */
             if (entryPtr.oneChild.next != null) {
                 /* Set up the provisional 'new root' */
                 huffRoot[hIndex] = entryPtr.oneChild.next;
@@ -628,7 +622,8 @@ public class PbInstance {
                     huffRoot[hIndex] = entryPtr;
                 } else {
                     searchPtr = huffRoot[hIndex];
-                    while ((searchPtr.next != null) && (searchPtr.frequency < entryPtr.frequency)) {
+                    while ((searchPtr.next != null)
+                            && (searchPtr.frequency < entryPtr.frequency)) {
                         searchPtr = searchPtr.next;
                     }
 
@@ -649,21 +644,22 @@ public class PbInstance {
                 entryPtr.previous = null;
                 huffRoot[hIndex] = entryPtr;
             }
-
-            /* Delete the Next/Previous properties of the children (PROB NOT NEC). */
+            /*
+             * Delete the Next/Previous properties of the children
+             * (PROB NOT NEC).
+             */
             entryPtr.zeroChild.next = null;
             entryPtr.zeroChild.previous = null;
             entryPtr.oneChild.next = null;
             entryPtr.oneChild.previous = null;
-
         }
 
         /* Now build a code array from the tree. */
-        createCodeArray(huffRoot[hIndex], huffCodeArray, huffCodeLengthArray, 0, (byte) 0);
+        createCodeArray(huffRoot[hIndex], huffCodeArray, huffCodeLengthArray, 0,
+                (byte) 0);
     }
 
     void createHuffmanList(HuffEntry[] huffRoot, int hIndex, int[] freqList) {
-
         int i;
         HuffEntry entryPtr, searchPtr;
 
@@ -702,7 +698,8 @@ public class PbInstance {
                 huffRoot[hIndex] = entryPtr;
             } else {
                 searchPtr = huffRoot[hIndex];
-                while ((searchPtr.next != null) && (searchPtr.frequency < entryPtr.frequency)) {
+                while ((searchPtr.next != null)
+                        && (searchPtr.frequency < entryPtr.frequency)) {
                     searchPtr = searchPtr.next;
                 }
 
@@ -730,8 +727,12 @@ public class PbInstance {
             huffCodeLengthArray[huffRoot.value] = codeLength;
         } else {
             /* Recursive calls to scan down the tree. */
-            createCodeArray(huffRoot.zeroChild, huffCodeArray, huffCodeLengthArray, ((codeValue << 1) + 0), (byte) (codeLength + 1));
-            createCodeArray(huffRoot.oneChild, huffCodeArray, huffCodeLengthArray, ((codeValue << 1) + 1), (byte) (codeLength + 1));
+            createCodeArray(huffRoot.zeroChild, huffCodeArray,
+                    huffCodeLengthArray, ((codeValue << 1) + 0),
+                    (byte) (codeLength + 1));
+            createCodeArray(huffRoot.oneChild, huffCodeArray,
+                    huffCodeLengthArray, ((codeValue << 1) + 1),
+                    (byte) (codeLength + 1));
         }
     }
 
@@ -870,7 +871,6 @@ public class PbInstance {
     }
 
     int frArrayDeCodeBlockRun(boolean bitValue) {
-
         int retVal = 0;
 
         /* Add in the new bit value. */
@@ -998,58 +998,74 @@ public class PbInstance {
         }
 
         /* Intra Y */
-        dequantYCoeffs[0] = (short) ((dcScaleFactorTable[qIndex] * dequantYCoeffs[0]) / 100);
+        dequantYCoeffs[0] = (short)
+                ((dcScaleFactorTable[qIndex] * dequantYCoeffs[0]) / 100);
         if (dequantYCoeffs[0] < Constants.MIN_DEQUANT_VAL * 2) {
             dequantYCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 2;
         }
-        dequantYCoeffs[0] = (short) (dequantYCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
+        dequantYCoeffs[0] = (short)
+                (dequantYCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
         /* Intra UV */
-        dequantUvCoeffs[0] = (short) ((uvDcScaleFactorTable[qIndex] * dequantUvCoeffs[0]) / 100);
+        dequantUvCoeffs[0] = (short)
+                ((uvDcScaleFactorTable[qIndex] * dequantUvCoeffs[0]) / 100);
         if (dequantUvCoeffs[0] < Constants.MIN_DEQUANT_VAL * 2) {
             dequantUvCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 2;
         }
-        dequantUvCoeffs[0] = (short) (dequantUvCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
+        dequantUvCoeffs[0] = (short)
+                (dequantUvCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
         /* Inter Y */
-        dequantInterCoeffs[0] = (short) ((dcScaleFactorTable[qIndex] * dequantInterCoeffs[0]) / 100);
+        dequantInterCoeffs[0] = (short)
+                ((dcScaleFactorTable[qIndex] * dequantInterCoeffs[0]) / 100);
         if (dequantInterCoeffs[0] < Constants.MIN_DEQUANT_VAL * 4) {
             dequantInterCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 4;
         }
-        dequantInterCoeffs[0] = (short) (dequantInterCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
+        dequantInterCoeffs[0] = (short)
+                (dequantInterCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
         /* Inter UV */
-        dequantInterUvCoeffs[0] = (short) ((uvDcScaleFactorTable[qIndex] * dequantInterUvCoeffs[0]) / 100);
+        dequantInterUvCoeffs[0] = (short) ((uvDcScaleFactorTable[qIndex]
+                * dequantInterUvCoeffs[0]) / 100);
         if (dequantInterUvCoeffs[0] < Constants.MIN_DEQUANT_VAL * 4) {
             dequantInterUvCoeffs[0] = (short) Constants.MIN_DEQUANT_VAL * 4;
         }
-        dequantInterUvCoeffs[0] = (short) (dequantInterUvCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
+        dequantInterUvCoeffs[0] = (short)
+                (dequantInterUvCoeffs[0] << Constants.IDCT_SCALE_FACTOR);
 
         for (i = 1; i < 64; i++) {
             /* now scale coefficients by required compression factor */
-            dequantYCoeffs[i] = (short) ((scaleFactor * dequantYCoeffs[i]) / 100);
+            dequantYCoeffs[i] = (short)
+                    ((scaleFactor * dequantYCoeffs[i]) / 100);
             if (dequantYCoeffs[i] < Constants.MIN_DEQUANT_VAL) {
                 dequantYCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL;
             }
-            dequantYCoeffs[i] = (short) (dequantYCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
+            dequantYCoeffs[i] = (short)
+                    (dequantYCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
 
-            dequantUvCoeffs[i] = (short) ((scaleFactor * dequantUvCoeffs[i]) / 100);
+            dequantUvCoeffs[i] = (short)
+                    ((scaleFactor * dequantUvCoeffs[i]) / 100);
             if (dequantUvCoeffs[i] < Constants.MIN_DEQUANT_VAL) {
                 dequantUvCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL;
             }
-            dequantUvCoeffs[i] = (short) (dequantUvCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
+            dequantUvCoeffs[i] = (short)
+                    (dequantUvCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
 
-            dequantInterCoeffs[i] = (short) ((scaleFactor * dequantInterCoeffs[i]) / 100);
+            dequantInterCoeffs[i] = (short)
+                    ((scaleFactor * dequantInterCoeffs[i]) / 100);
             if (dequantInterCoeffs[i] < (Constants.MIN_DEQUANT_VAL * 2)) {
                 dequantInterCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL * 2;
             }
-            dequantInterCoeffs[i] = (short) (dequantInterCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
+            dequantInterCoeffs[i] = (short)
+                    (dequantInterCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
 
-            dequantInterUvCoeffs[i] = (short) ((scaleFactor * dequantInterUvCoeffs[i]) / 100);
+            dequantInterUvCoeffs[i] = (short)
+                    ((scaleFactor * dequantInterUvCoeffs[i]) / 100);
             if (dequantInterUvCoeffs[i] < (Constants.MIN_DEQUANT_VAL * 2)) {
                 dequantInterUvCoeffs[i] = (short) Constants.MIN_DEQUANT_VAL * 2;
             }
-            dequantInterUvCoeffs[i] = (short) (dequantInterUvCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
+            dequantInterUvCoeffs[i] = (short)
+                    (dequantInterUvCoeffs[i] << Constants.IDCT_SCALE_FACTOR);
         }
 
         dequantCoeffs = dequantYCoeffs;
@@ -1069,16 +1085,16 @@ public class PbInstance {
         /* Coding scheme:
         Token                      Codeword           Bits
         Entry   0 (most frequent)  0                   1
-        Entry   1       	        10 	            2
-        Entry   2       	        110 		    3
-        Entry   3       	        1110 		    4
-        Entry   4       	        11110 		    5
-        Entry   5       	        111110 	            6
-        Entry   6       	        1111110 	    7
-        Entry   7       	        1111111 	    7
+        Entry   1                  10                  2
+        Entry   2                  110                 3
+        Entry   3                  1110                4
+        Entry   4                  11110               5
+        Entry   5                  111110              6
+        Entry   6                  1111110             7
+        Entry   7                  1111111             7
          */
 
- /* Initialise the decoding. */
+        /* Initialise the decoding. */
         bitPattern = 0;
         bitsSoFar = 0;
         bitPattern = source.getInt(1);

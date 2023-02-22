@@ -2,7 +2,6 @@ package de.jarnbjo.theora;
 
 import java.io.IOException;
 import java.util.Arrays;
-
 import de.jarnbjo.ogg.LogicalOggStream;
 import de.jarnbjo.vorbis.Util;
 import de.jarnbjo.util.io.BitInputStream;
@@ -23,12 +22,15 @@ public class TheoraStream {
     public TheoraStream(LogicalOggStream oggStream) throws IOException {
         this.oggStream = oggStream;
 
-        header = new Header(new ByteArrayBitInputStream(oggStream.getNextOggPacket(), ByteArrayBitInputStream.BIG_ENDIAN));
+        header = new Header(
+                new ByteArrayBitInputStream(oggStream.getNextOggPacket(),
+                        ByteArrayBitInputStream.BIG_ENDIAN));
 
         pbInstance = new PbInstance(header);
         pbInstance.initFrameDetails();
 
-        pbInstance.keyframeGranuleShift = Util.ilog(header.getKeyframeFrequencyForce() - 1);
+        pbInstance.keyframeGranuleShift
+                = Util.ilog(header.getKeyframeFrequencyForce() - 1);
 
         pbInstance.lastFrameQualityValue = 0;
         pbInstance.decoderErrorCode = 0;
@@ -52,7 +54,9 @@ public class TheoraStream {
 
     public byte[] decodePacket(byte[] packet) throws IOException {
         if (header == null) {
-            header = new Header(new ByteArrayBitInputStream(packet, ByteArrayBitInputStream.BIG_ENDIAN));
+            header = new Header(
+                    new ByteArrayBitInputStream(packet,
+                            ByteArrayBitInputStream.BIG_ENDIAN));
 
             System.out.println("-- header --");
             System.out.println(header.getWidth() + " " + header.getHeight());
@@ -60,7 +64,8 @@ public class TheoraStream {
             pbInstance = new PbInstance(header);
             pbInstance.initFrameDetails();
 
-            pbInstance.keyframeGranuleShift = Util.ilog(header.getKeyframeFrequencyForce() - 1);
+            pbInstance.keyframeGranuleShift
+                    = Util.ilog(header.getKeyframeFrequencyForce() - 1);
 
             pbInstance.lastFrameQualityValue = 0;
             pbInstance.decoderErrorCode = 0;
@@ -77,7 +82,8 @@ public class TheoraStream {
         }
 
         BitInputStream source = new ByteArrayBitInputStream(packet);
-        //BitInputStream source=new ByteArrayBitInputStream(oggPage.getData(), ByteArrayBitInputStream.BIG_ENDIAN);
+        //BitInputStream source=new ByteArrayBitInputStream(oggPage.getData(),
+        //ByteArrayBitInputStream.BIG_ENDIAN);
         pbInstance.decoderErrorCode = 0;
 
         //oggpackB_readinit(&pbi->opb,op->packet,op->bytes);
@@ -102,7 +108,8 @@ public class TheoraStream {
                 granulePos = 0;
             } else {
                 if (pbInstance.frameType == Constants.BASE_FRAME) {
-                    long frames = granulePos & ((1 << pbInstance.keyframeGranuleShift) - 1);
+                    long frames = granulePos
+                            & ((1 << pbInstance.keyframeGranuleShift) - 1);
                     granulePos >>= pbInstance.keyframeGranuleShift;
                     granulePos += frames + 1;
                     granulePos <<= pbInstance.keyframeGranuleShift;
@@ -117,7 +124,6 @@ public class TheoraStream {
     }
 
     void loadAndDecode(BitInputStream source) throws IOException {
-
         /* Reset the DC predictors. */
         pbInstance.invLastIntraDC = 0;
         pbInstance.invLastInterDC = 0;
@@ -125,7 +131,8 @@ public class TheoraStream {
         /* Load the next frame. */
         loadFrame(source);
 
-        if ((pbInstance.thisFrameQualityValue != pbInstance.lastFrameQualityValue)) {
+        if ((pbInstance.thisFrameQualityValue
+                != pbInstance.lastFrameQualityValue)) {
             /* Initialise DCT tables. */
             pbInstance.updateQ(pbInstance.thisFrameQualityValue);
             pbInstance.lastFrameQualityValue = pbInstance.thisFrameQualityValue;
@@ -160,12 +167,18 @@ public class TheoraStream {
         int sb, mb, b, dataToDecode;
         int dfIndex, mbIndex = 0;
 
-        /* Reset various data structures common to key frames and inter frames. */
+        /*
+         * Reset various data structures
+         * common to key frames and inter frames.
+         */
         pbInstance.codedBlockIndex = 0;
         Arrays.fill(pbInstance.displayFragments, (byte) 0);
 
         /* For "Key frames" mark all blocks as coded and return. */
- /* Else initialise the ArrayPtr array to 0 (all blocks uncoded by default) */
+        /*
+         * Else initialise the ArrayPtr array to 0
+         * (all blocks uncoded by default)
+         */
         if (pbInstance.frameType == Constants.BASE_FRAME) {
             Arrays.fill(pbInstance.sbFullyFlags, (byte) 1);
             Arrays.fill(pbInstance.sbCodedFlags, (byte) 1);
@@ -196,12 +209,14 @@ public class TheoraStream {
                 pbInstance.getNextSbInit(source);
                 for (sb = 0; sb < pbInstance.superBlocks; sb++) {
                     /* Skip blocks already marked as partially coded */
-                    while ((sb < pbInstance.superBlocks) && pbInstance.sbCodedFlags[sb] != 0) {
+                    while ((sb < pbInstance.superBlocks)
+                            && pbInstance.sbCodedFlags[sb] != 0) {
                         sb++;
                     }
 
                     if (sb < pbInstance.superBlocks) {
-                        pbInstance.sbFullyFlags[sb] = pbInstance.getNextSbBit(source);
+                        pbInstance.sbFullyFlags[sb]
+                                = pbInstance.getNextSbBit(source);
 
                         if (pbInstance.sbFullyFlags[sb] != 0) {
                             /* If SB is fully coded. */
@@ -211,12 +226,14 @@ public class TheoraStream {
                     }
                 }
             }
-
-            /* Scan through the list of coded super blocks.  If at least one
-            is marked as partially coded then we have a block list to
-            decode. */
+            /*
+             * Scan through the list of coded super blocks.  If at least one
+             * is marked as partially coded then we have a block list to
+             * decode.
+             */
             for (sb = 0; sb < pbInstance.superBlocks; sb++) {
-                if ((pbInstance.sbCodedFlags[sb] != 0) && (pbInstance.sbFullyFlags[sb] == 0)) {
+                if ((pbInstance.sbCodedFlags[sb] != 0)
+                        && (pbInstance.sbFullyFlags[sb] == 0)) {
                     /* Initialise the block list decoder. */
                     pbInstance.getNextBInit(source);
                     break;
@@ -229,22 +246,29 @@ public class TheoraStream {
             for (mb = 0; mb < 4; mb++) {
                 /* If MB is in the frame */
                 if (quadMapToMBTopLeft(pbInstance.blockMap, sb, mb) >= 0) {
-                    /* Only read block level data if SB was fully or partially coded */
+                    /*
+                     * Only read block level data
+                     * if SB was fully or partially coded
+                     */
                     if (pbInstance.sbCodedFlags[sb] != 0) {
                         for (b = 0; b < 4; b++) {
                             /* If block is valid (in frame)... */
-                            dfIndex = quadMapToIndex1(pbInstance.blockMap, sb, mb, b);
+                            dfIndex = quadMapToIndex1(
+                                    pbInstance.blockMap, sb, mb, b);
                             if (dfIndex >= 0) {
                                 if (pbInstance.sbFullyFlags[sb] != 0) {
                                     pbInstance.displayFragments[dfIndex] = 1;
                                 } else {
-                                    pbInstance.displayFragments[dfIndex] = pbInstance.getNextBBit(source);
+                                    pbInstance.displayFragments[dfIndex]
+                                            = pbInstance.getNextBBit(source);
                                 }
 
                                 /* Create linear list of coded block indices */
                                 if (pbInstance.displayFragments[dfIndex] != 0) {
                                     pbInstance.mbCodedFlags[mbIndex] = 1;
-                                    pbInstance.codedBlockList[pbInstance.codedBlockIndex] = dfIndex;
+                                    pbInstance.codedBlockList
+                                            [pbInstance.codedBlockIndex]
+                                            = dfIndex;
                                     pbInstance.codedBlockIndex++;
                                 }
                             }
@@ -283,19 +307,20 @@ public class TheoraStream {
         decodeModes(source, pbInstance.ysbRows, pbInstance.ysbCols);
 
         /* Unpack and decode the motion vectors. */
- /* @todo  */
+        /* @todo  */
         //decodeMVectors (pbInstance.ysbRows, pbInstance.ysbCols);
 
         /* Unpack and decode the actual video data. */
- /* @todo  */
+        /* @todo  */
         //unPackVideo();
 
         /* Reconstruct and display the frame */
- /* @todo  */
+        /* @todo  */
         //reconRefFrames();
     }
 
-    void decodeModes(BitInputStream source, int sbRows, int sbCols) throws IOException {
+    void decodeModes(BitInputStream source, int sbRows, int sbCols)
+            throws IOException {
         int fragIndex, mb, sbRow, sbCol, sb = 0;
         CodingMode codingMethod;
 
@@ -311,7 +336,7 @@ public class TheoraStream {
             int modeEntry;
             /* Mode bits read */
 
- /* Read the coding method */
+            /* Read the coding method */
             codingScheme = source.getInt(Constants.MODE_METHOD_BITS);
 
             /* If the coding method is method 0 then we have to read in a
@@ -319,7 +344,9 @@ public class TheoraStream {
             if (codingScheme == 0) {
                 /* Read the coding scheme. */
                 for (i = 0; i < Constants.MAX_MODES; i++) {
-                    Constants.modeAlphabet[0][source.getInt(Constants.MODE_BITS)] = CodingMode.MODES[i];
+                    Constants.modeAlphabet[0]
+                            [source.getInt(Constants.MODE_BITS)]
+                            = CodingMode.MODES[i];
                 }
             }
 
@@ -327,37 +354,69 @@ public class TheoraStream {
             for (sbRow = 0; sbRow < sbRows; sbRow++) {
                 for (sbCol = 0; sbCol < sbCols; sbCol++) {
                     for (mb = 0; mb < 4; mb++) {
-                        /* There may be MB's lying out of frame which must be
-                     ignored. For these MB's top left block will have a negative
-                     Fragment Index. */
-                        if (quadMapToMBTopLeft(pbInstance.blockMap, sb, mb) >= 0) {
+                        /*
+                         * There may be MB's lying out of frame which must be
+                         * ignored. For these MB's top left block will have a
+                         * negative Fragment Index.
+                         */
+                        if (quadMapToMBTopLeft(pbInstance.blockMap, sb, mb)
+                                >= 0) {
                             /* Is the Macro-Block coded: */
                             if (pbInstance.mbCodedFlags[mbListIndex++] != 0) {
-                                /* Unpack the block level modes and motion vectors */
-                                fragIndex = quadMapToMBTopLeft(pbInstance.blockMap, sb, mb);
+                                /*
+                                 * Unpack the block level modes
+                                 * and motion vectors
+                                 */
+                                fragIndex = quadMapToMBTopLeft(
+                                        pbInstance.blockMap, sb, mb);
 
                                 /* Unpack the mode. */
-                                if (codingScheme == Constants.MODE_METHODS - 1) {
-                                    /* This is the fall back coding scheme. */
- /* Simply MODE_BITS bits per mode entry. */
-                                    codingMethod = CodingMode.MODES[source.getInt(Constants.MODE_BITS)];
+                                if (codingScheme
+                                        == Constants.MODE_METHODS - 1) {
+                                    /* This is the fallback coding scheme. */
+                                    /* Simply MODE_BITS bits per mode entry. */
+                                    codingMethod = CodingMode.MODES
+                                            [source.getInt(
+                                                    Constants.MODE_BITS)];
                                 } else {
-                                    modeEntry = pbInstance.frArrayUnpackMode(source).getValue();
-                                    codingMethod = Constants.modeAlphabet[codingScheme][modeEntry];
+                                    modeEntry = pbInstance
+                                            .frArrayUnpackMode(source)
+                                            .getValue();
+                                    codingMethod = Constants.modeAlphabet
+                                            [codingScheme][modeEntry];
                                 }
-
-                                /* Note the coding mode for each block in macro block. */
-                                pbInstance.fragCodingMethod[fragIndex] = codingMethod;
-                                pbInstance.fragCodingMethod[fragIndex + 1] = codingMethod;
-                                pbInstance.fragCodingMethod[fragIndex + pbInstance.hFragments] = codingMethod;
-                                pbInstance.fragCodingMethod[fragIndex + pbInstance.hFragments + 1] = codingMethod;
+                                /*
+                                 * Note the coding mode for each block
+                                 * in macro block.
+                                 */
+                                pbInstance.fragCodingMethod[fragIndex]
+                                        = codingMethod;
+                                pbInstance.fragCodingMethod[fragIndex + 1]
+                                        = codingMethod;
+                                pbInstance.fragCodingMethod
+                                        [fragIndex + pbInstance.hFragments]
+                                        = codingMethod;
+                                pbInstance.fragCodingMethod
+                                        [fragIndex + pbInstance.hFragments + 1]
+                                        = codingMethod;
 
                                 /* Matching fragments in the U and V planes */
-                                uvRow = (fragIndex / (pbInstance.hFragments * 2));
-                                uvColumn = (fragIndex % pbInstance.hFragments) / 2;
-                                uvFragOffset = (uvRow * (pbInstance.hFragments / 2)) + uvColumn;
-                                pbInstance.fragCodingMethod[pbInstance.yPlaneFragments + uvFragOffset] = codingMethod;
-                                pbInstance.fragCodingMethod[pbInstance.yPlaneFragments + pbInstance.uvPlaneFragments + uvFragOffset] = codingMethod;
+                                uvRow = (fragIndex
+                                        / (pbInstance.hFragments * 2));
+                                uvColumn = (fragIndex % pbInstance.hFragments)
+                                        / 2;
+                                uvFragOffset
+                                        = (uvRow * (pbInstance.hFragments / 2))
+                                        + uvColumn;
+                                pbInstance.fragCodingMethod[
+                                        pbInstance.yPlaneFragments
+                                        + uvFragOffset]
+                                        = codingMethod;
+                                pbInstance.fragCodingMethod[
+                                        pbInstance.yPlaneFragments
+                                        + pbInstance.uvPlaneFragments
+                                        + uvFragOffset]
+                                        = codingMethod;
                             }
                         }
                     }
@@ -369,8 +428,10 @@ public class TheoraStream {
         }
     }
 
-    private static int quadMapToIndex1(int[][][] blockMap, int sb, int mb, int b) {
-        return blockMap[sb][Constants.mbOrderMap[mb]][Constants.blockOrderMap1[mb][b]];
+    private static int quadMapToIndex1(
+            int[][][] blockMap, int sb, int mb, int b) {
+        return blockMap[sb][Constants.mbOrderMap[mb]]
+                [Constants.blockOrderMap1[mb][b]];
     }
 
     private static int quadMapToMBTopLeft(int[][][] blockMap, int sb, int mb) {

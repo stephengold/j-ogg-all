@@ -17,9 +17,7 @@
  * $Log: OggTrack.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
@@ -46,7 +44,8 @@ public class OggTrack implements Track {
         this.source = source;
     }
 
-    public static OggTrack createInstance(LogicalOggStream source) throws IOException {
+    public static OggTrack createInstance(LogicalOggStream source)
+            throws IOException {
         if (source.getFormat() == LogicalOggStream.FORMAT_VORBIS) {
             byte[] data = source.getNextOggPacket();
             source.reset();

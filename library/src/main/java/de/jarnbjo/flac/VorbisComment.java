@@ -26,7 +26,6 @@ public class VorbisComment extends MetadataBlock {
     final private HashMap comments = new HashMap();
 
     public VorbisComment(BitInputStream source) throws IOException {
-
         int length = source.getInt(24);
 
         source.setEndian(BitInputStream.LITTLE_ENDIAN);
@@ -47,7 +46,6 @@ public class VorbisComment extends MetadataBlock {
     }
 
     private void addComment(String key, String value) {
-
         System.out.println(key + " = " + value);
 
         ArrayList al = (ArrayList) comments.get(key);
@@ -69,7 +67,8 @@ public class VorbisComment extends MetadataBlock {
 
     public String[] getComments(String key) {
         ArrayList al = (ArrayList) comments.get(key);
-        return al == null ? new String[0] : (String[]) al.toArray(new String[al.size()]);
+        return al == null ? new String[0]
+                : (String[]) al.toArray(new String[al.size()]);
     }
 
     public String getTitle() {
@@ -193,7 +192,6 @@ public class VorbisComment extends MetadataBlock {
     }
 
     private static String getString(BitInputStream source) throws IOException {
-
         int length = source.getInt(32);
 
         System.out.println("length: " + length);

@@ -17,21 +17,19 @@
  * $Log: StreamInfo.java,v $
  * Revision 1.1  2003/03/03 21:53:17  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.flac;
 
 import java.io.IOException;
 import de.jarnbjo.util.io.BitInputStream;
 
 public class StreamInfo extends MetadataBlock {
-    final private int minimumBlockSize, maximumBlockSize, minimumFrameSize, maximumFrameSize;
+    final private int minimumBlockSize, maximumBlockSize,
+            minimumFrameSize, maximumFrameSize;
     final private int sampleRate, channels, bitsPerSample;
     final private long totalSamples;
 
     protected StreamInfo(BitInputStream source) throws IOException {
-
         int length = source.getInt(24);
 
         minimumBlockSize = source.getInt(16);

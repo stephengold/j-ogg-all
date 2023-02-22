@@ -17,9 +17,7 @@
  * $Log: VorbisDecoder.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
@@ -53,7 +51,8 @@ public class VorbisDecoder implements Codec {
         Format.NOT_SPECIFIED,
         Format.NOT_SPECIFIED,
         Format.NOT_SPECIFIED,
-        Format.byteArray),};
+        Format.byteArray),
+    };
 
     private static final Format[] supportedOutputFormats = {
         new AudioFormat(
@@ -113,7 +112,9 @@ public class VorbisDecoder implements Codec {
                     System.arraycopy(res, 0, buffer, 0, res.length);
                 }
                 out.setOffset(0);
-                long time = vorbisStream.getCurrentGranulePosition() * 1000000000L / vorbisStream.getIdentificationHeader().getSampleRate();
+                long time = vorbisStream.getCurrentGranulePosition()
+                        * 1000000000L / vorbisStream.getIdentificationHeader()
+                                .getSampleRate();
                 //System.out.println("s: "+time);
                 out.setTimeStamp(time);
                 out.setLength(res.length);

@@ -20,9 +20,7 @@
  *
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.jmf;
 
 import java.io.FileNotFoundException;
@@ -45,7 +43,6 @@ import de.jarnbjo.ogg.PhysicalOggStream;
  * (Java Media Framework) media streams.
  */
 public class OggJmfStream implements PhysicalOggStream {
-
     private boolean closed = false;
     final private PullSourceStream source;
     final private long[] pageOffsets;
@@ -63,7 +60,8 @@ public class OggJmfStream implements PhysicalOggStream {
      * @throws FileNotFoundException
      * @throws IOException if some other IO error occurs when reading the stream
      */
-    public OggJmfStream(PullSourceStream source) throws OggFormatException, FileNotFoundException, IOException {
+    public OggJmfStream(PullSourceStream source)
+            throws OggFormatException, FileNotFoundException, IOException {
         this.source = source;
 
         if (!(source instanceof Seekable)) {
@@ -79,11 +77,14 @@ public class OggJmfStream implements PhysicalOggStream {
 
                 // skip data if pageNumber>0
                 OggPage op = getNextPage(true);
-                ((Seekable) source).seek(((Seekable) source).tell() + op.getTotalLength());
+                ((Seekable) source).seek(
+                        ((Seekable) source).tell() + op.getTotalLength());
 
-                LogicalOggStreamImpl los = (LogicalOggStreamImpl) getLogicalStream(op.getStreamSerialNumber());
+                LogicalOggStreamImpl los = (LogicalOggStreamImpl)
+                        getLogicalStream(op.getStreamSerialNumber());
                 if (los == null) {
-                    los = new LogicalOggStreamImpl(this, op.getStreamSerialNumber());
+                    los = new LogicalOggStreamImpl(
+                            this, op.getStreamSerialNumber());
                     logicalStreams.put(op.getStreamSerialNumber(), los);
                     ((Seekable) source).seek(startPos);
                     op = getNextPage();

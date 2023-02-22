@@ -17,9 +17,7 @@
  * $Log: PpInstance.java,v $
  * Revision 1.1  2003/03/03 22:09:02  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.theora;
 
 public class PpInstance {
@@ -153,21 +151,24 @@ public class PpInstance {
         tmpCodedMap = new byte[scanHFragments];
         rowChangedPixels = new int[3 * scanConfig.videoFrameHeight];
 
-        pixelScores = new byte[scanConfig.videoFrameWidth * Constants.PSCORE_CB_ROWS];
-        pixelChangedMap = new byte[scanConfig.videoFrameWidth * Constants.PMAP_CB_ROWS];
-        chLocals = new byte[scanConfig.videoFrameWidth * Constants.CHLOCALS_CB_ROWS];
-        yuvDifferences = new short[scanConfig.videoFrameWidth * Constants.YDIFF_CB_ROWS];
+        pixelScores = new byte[
+                scanConfig.videoFrameWidth * Constants.PSCORE_CB_ROWS];
+        pixelChangedMap = new byte[
+                scanConfig.videoFrameWidth * Constants.PMAP_CB_ROWS];
+        chLocals = new byte[
+                scanConfig.videoFrameWidth * Constants.CHLOCALS_CB_ROWS];
+        yuvDifferences = new short[
+                scanConfig.videoFrameWidth * Constants.YDIFF_CB_ROWS];
     }
 
     void initInstance() {
-
         /* Initializations */
         prevFrameLimit = 3;
         /* Must not exceed MAX_PREV_FRAMES (Note
                   that this number includes the current
                   frame so "1 = no effect") */
 
- /* Scan control variables. */
+        /* Scan control variables. */
         hFragPixels = 8;
         vFragPixels = 8;
 

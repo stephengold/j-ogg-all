@@ -17,19 +17,15 @@
  * $Log: FlacDecoder.java,v $
  * Revision 1.1  2003/03/03 22:06:12  jarnbjo
  * no message
- *
  */
- 
 package de.jarnbjo.jmf;
 
 import java.io.IOException;
-
 import javax.media.Buffer;
 import javax.media.Codec;
 import javax.media.Format;
 import javax.media.PlugIn;
 import javax.media.format.AudioFormat;
-
 import de.jarnbjo.flac.FlacStream;
 
 public class FlacDecoder implements Codec {

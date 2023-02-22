@@ -17,9 +17,7 @@
  * $Log: PostProcess.java,v $
  * Revision 1.1  2003/03/03 22:09:02  jarnbjo
  * no message
- *
  */
-
 package de.jarnbjo.theora;
 
 import java.util.Arrays;
@@ -47,20 +45,24 @@ public class PostProcess {
         2, 1, 1, 1, 1, 1, 1, 1
     };
 
-    private static int deringModifierV1;//=DcQuantScaleV1;
+    private static int deringModifierV1; //=DcQuantScaleV1;
 
     static void postProcess(PbInstance pbi) {
-
         switch (pbi.postProcessingLevel) {
             case 8:
-                /* on a slow machine, use a simpler and faster deblocking filter */
+                /*
+                 * on a slow machine,
+                 * use a simpler and faster deblocking filter
+                 */
                 deblockFrame(pbi, pbi.lastFrameRecon, pbi.postProcessBuffer);
                 break;
+
             case 6:
                 deblockFrame(pbi, pbi.lastFrameRecon, pbi.postProcessBuffer);
                 updateUmvBorder(pbi, pbi.postProcessBuffer);
                 deringFrame(pbi, pbi.postProcessBuffer, pbi.postProcessBuffer);
                 break;
+
             case 5:
                 deblockFrame(pbi, pbi.lastFrameRecon, pbi.postProcessBuffer);
                 updateUmvBorder(pbi, pbi.postProcessBuffer);
@@ -86,30 +88,29 @@ public class PostProcess {
         }
     }
 
-    static void deblockFrame(PbInstance pbi, byte[] sourceBuffer, byte[] destinationBuffer) {
-
+    static void deblockFrame(
+            PbInstance pbi, byte[] sourceBuffer, byte[] destinationBuffer) {
         Arrays.fill(pbi.fragmentVariances, 0);
 
         updateFragQIndex(pbi);
         setupLoopFilter(pbi);
 
         /* Y */
- /* @todo  */
+        /* @todo  */
         //deblockPlane(pbi, sourceBuffer, destinationBuffer, 0);
 
         /* U */
- /* @todo  */
+        /* @todo  */
         //deblockPlane(pbi, sourceBuffer, destinationBuffer, 1);
 
         /* V */
- /* @todo  */
+        /* @todo  */
         //deblockPlane(pbi, sourceBuffer, destinationBuffer, 2);
     }
 
     static void deringBlockStrong(
             byte[] srcPtr, int srcOffset, byte[] dstPtr, int dstOffset,
             int pitch, int fragQIndex, int[] quantScale) {
-
         short[] udMod = new short[72];
         short[] lrMod = new short[72];
         int j, k, l;
@@ -121,7 +122,8 @@ public class PostProcess {
 
         byte[] curRow = srcPtr;
         byte[] dstRow = dstPtr;
-        //const unsigned char *curRow = SrcPtr - 1; /* avoid negative array indexes */
+        //const unsigned char *curRow = SrcPtr - 1;
+        // /* avoid negative array indexes */
         //unsigned char *dstRow = DstPtr;
         //const unsigned char *lastRow = SrcPtr-Pitch;
         //const unsigned char *nextRow = SrcPtr+Pitch;
@@ -185,12 +187,13 @@ public class PostProcess {
             }
             src += pitch;
         }
-        /* In the case that this function called with same buffer for
-         source and destination, To keep the c and the mmx version to have
-         consistent results, intermediate buffer is used to store the
-         eight pixel value before writing them to destination
-         (i.e. Overwriting source for the special case) */
-
+        /*
+         * In the case that this function called with same buffer for
+         * source and destination, To keep the c and the mmx version to have
+         * consistent results, intermediate buffer is used to store the
+         * eight pixel value before writing them to destination
+         * (i.e. Overwriting source for the special case)
+         */
         for (k = 0; k < 8; k++) {
             for (l = 0; l < 8; l++) {
                 atot = 128;
@@ -228,9 +231,9 @@ public class PostProcess {
     static void deringBlockWeak(
             byte[] srcPtr, int srcOffset, byte[] dstPtr, int dstOffset,
             int pitch, int fragQIndex, int[] quantScale) {
-
         /* @todo implement */
-        deringBlockStrong(srcPtr, srcOffset, dstPtr, dstOffset, pitch, fragQIndex, quantScale);
+        deringBlockStrong(srcPtr, srcOffset, dstPtr, dstOffset, pitch,
+                fragQIndex, quantScale);
     }
 
     static void deringFrame(PbInstance pbi, byte[] src, byte[] dst) {
@@ -250,7 +253,7 @@ public class PostProcess {
         thresh3 = 5 * thresh2 / 4;
         thresh4 = 5 * thresh2 / 2;
 
-        quantScale = dcQuantScaleV1;//[deringModifierV1];
+        quantScale = dcQuantScaleV1; //[deringModifierV1];
 
         blocksAcross = pbi.hFragments;
         blocksDown = pbi.hFragments;
@@ -267,22 +270,38 @@ public class PostProcess {
                 int variance = pbi.fragmentVariances[block];
 
                 if (pbi.postProcessingLevel > 5 && variance > thresh3) {
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
 
                     if ((col > 0 && pbi.fragmentVariances[block - 1] > thresh4)
-                            || (col + 1 < blocksAcross && pbi.fragmentVariances[block + 1] > thresh4)
-                            || (row + 1 < blocksDown && pbi.fragmentVariances[block + blocksAcross] > thresh4)
-                            || (row > 0 && pbi.fragmentVariances[block - blocksAcross] > thresh4)) {
-
-                        deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
-                        deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                            || (col + 1 < blocksAcross
+                            && pbi.fragmentVariances[block + 1] > thresh4)
+                            || (row + 1 < blocksDown
+                            && pbi.fragmentVariances[block + blocksAcross]
+                            > thresh4)
+                            || (row > 0
+                            && pbi.fragmentVariances[block - blocksAcross]
+                            > thresh4)) {
+                        deringBlockStrong(src, srcOffset + 8 * col, dst,
+                                dstOffset + 8 * col, lineLength, quality,
+                                quantScale);
+                        deringBlockStrong(src, srcOffset + 8 * col, dst,
+                                dstOffset + 8 * col, lineLength, quality,
+                                quantScale);
                     }
+
                 } else if (variance > thresh2) {
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else if (variance > thresh1) {
-                    deringBlockWeak(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockWeak(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else {
-                    copyBlock(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength);
+                    copyBlock(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength);
                 }
 
                 ++block;
@@ -305,15 +324,26 @@ public class PostProcess {
                 int variance = pbi.fragmentVariances[block];
 
                 if (pbi.postProcessingLevel > 5 && variance > thresh4) {
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else if (variance > thresh2) {
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else if (variance > thresh1) {
-                    deringBlockWeak(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockWeak(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else {
-                    copyBlock(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength);
+                    copyBlock(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength);
                 }
 
                 ++block;
@@ -333,15 +363,26 @@ public class PostProcess {
                 int variance = pbi.fragmentVariances[block];
 
                 if (pbi.postProcessingLevel > 5 && variance > thresh4) {
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else if (variance > thresh2) {
-                    deringBlockStrong(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockStrong(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else if (variance > thresh1) {
-                    deringBlockWeak(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength, quality, quantScale);
+                    deringBlockWeak(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength, quality,
+                            quantScale);
                 } else {
-                    copyBlock(src, srcOffset + 8 * col, dst, dstOffset + 8 * col, lineLength);
+                    copyBlock(src, srcOffset + 8 * col, dst,
+                            dstOffset + 8 * col, lineLength);
                 }
 
                 ++block;
@@ -353,7 +394,6 @@ public class PostProcess {
     }
 
     static void updateFragQIndex(PbInstance pbi) {
-
         int thisFrameQIndex = pbi.frameQIndex, i;
 
         /* It is not a key frame, so only reset those are coded */
@@ -375,8 +415,8 @@ public class PostProcess {
         //return ((byte)((((x)<0)-1) & ((x) | -((x)>255))));
     }
 
-    static void copyBlock(byte[] src, int srcOff, byte[] dest, int destOff, int stride) {
-
+    static void copyBlock(
+            byte[] src, int srcOff, byte[] dest, int destOff, int stride) {
         int j;
 
         for (j = 0; j < 8; j++) {
@@ -405,9 +445,10 @@ public class PostProcess {
         updateUmvHBorders(pbi, destReconPtr, planeFragOffset);
     }
 
-    static void updateUmvHBorders(PbInstance pbi, byte[] destReconPtr, int planeFragOffset) {
-
-        int i, pixelIndex, planeStride, blockVStep, planeFragments, lineFragments, planeBorderWidth;
+    static void updateUmvHBorders(
+            PbInstance pbi, byte[] destReconPtr, int planeFragOffset) {
+        int i, pixelIndex, planeStride, blockVStep, planeFragments,
+                lineFragments, planeBorderWidth;
 
         int sOff1, sOff2, dOff1, dOff2;
 
@@ -436,7 +477,8 @@ public class PostProcess {
         //SrcPtr1 = &DestReconPtr[ PixelIndex - PlaneBorderWidth ];
         //DestPtr1 = SrcPtr1 - (PlaneBorderWidth * PlaneStride);
 
-        pixelIndex = pbi.reconPixelIndexTable[planeFragOffset + planeFragments - lineFragments] + blockVStep;
+        pixelIndex = pbi.reconPixelIndexTable[planeFragOffset
+                + planeFragments - lineFragments] + blockVStep;
         sOff2 = pixelIndex - planeBorderWidth;
         dOff2 = sOff2 + planeStride;
         //SrcPtr2 = &DestReconPtr[ PixelIndex - PlaneBorderWidth];
@@ -445,16 +487,19 @@ public class PostProcess {
         /* Now copy the top and bottom source lines into each line of the
          respective borders */
         for (i = 0; i < planeBorderWidth; i++) {
-            System.arraycopy(destReconPtr, sOff1, destReconPtr, dOff1, planeStride);
-            System.arraycopy(destReconPtr, sOff2, destReconPtr, dOff2, planeStride);
+            System.arraycopy(
+                    destReconPtr, sOff1, destReconPtr, dOff1, planeStride);
+            System.arraycopy(
+                    destReconPtr, sOff2, destReconPtr, dOff2, planeStride);
             dOff1 += planeStride;
             dOff2 += planeStride;
         }
     }
 
-    static void updateUmvVBorders(PbInstance pbi, byte[] destReconPtr, int planeFragOffset) {
-
-        int i, pixelIndex, planeStride, lineFragments, planeBorderWidth, planeHeight;
+    static void updateUmvVBorders(
+            PbInstance pbi, byte[] destReconPtr, int planeFragOffset) {
+        int i, pixelIndex, planeStride, lineFragments,
+                planeBorderWidth, planeHeight;
         int sOff1, sOff2, dOff1, dOff2;
 
         /* Work out various plane specific values */
@@ -478,15 +523,19 @@ public class PostProcess {
         sOff1 = pixelIndex;
         dOff1 = pixelIndex - planeBorderWidth;
 
-        pixelIndex = pbi.reconPixelIndexTable[planeFragOffset + lineFragments - 1] + Constants.HFRAGPIXELS - 1;
+        pixelIndex
+                = pbi.reconPixelIndexTable[planeFragOffset + lineFragments - 1]
+                + Constants.HFRAGPIXELS - 1;
         sOff2 = pixelIndex;
         dOff2 = pixelIndex + 1;
 
         /* Now copy the top and bottom source lines into each line of the
          respective borders */
         for (i = 0; i < planeHeight; i++) {
-            System.arraycopy(destReconPtr, sOff1, destReconPtr, dOff1, planeBorderWidth);
-            System.arraycopy(destReconPtr, sOff2, destReconPtr, dOff2, planeBorderWidth);
+            System.arraycopy(
+                    destReconPtr, sOff1, destReconPtr, dOff1, planeBorderWidth);
+            System.arraycopy(
+                    destReconPtr, sOff2, destReconPtr, dOff2, planeBorderWidth);
             sOff1 += planeStride;
             sOff2 += planeStride;
             dOff1 += planeStride;
