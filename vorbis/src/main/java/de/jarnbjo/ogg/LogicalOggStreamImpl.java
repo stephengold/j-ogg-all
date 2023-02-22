@@ -99,6 +99,7 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
                             try {
                                 Thread.sleep(1000);
                             } catch (InterruptedException ex) {
+                                // do nothing
                             }
                         }
                     }

@@ -68,6 +68,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
+                // do nothing
             }
             //System.out.print("caching "+pageCache.size()
             //+"/"+PAGECACHE_SIZE+" pages\r");
@@ -97,6 +98,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
+                // do nothing
             }
         }
         synchronized (drainLock) {
@@ -163,6 +165,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
                         try {
                             Thread.sleep(200);
                         } catch (InterruptedException ex) {
+                            // do nothing
                         }
                     }
                 }

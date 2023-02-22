@@ -64,7 +64,7 @@
             <property name="option" value="TEXT"/>
             <property name="tokens"
                       value="LITERAL_TRY, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_SWITCH,
-                    ARRAY_INIT, INSTANCE_INIT, LITERAL_CASE,
+                    ARRAY_INIT, INSTANCE_INIT, LITERAL_CASE, LITERAL_CATCH,
                     LITERAL_DEFAULT, LITERAL_DO, LITERAL_FOR,
                     LITERAL_SYNCHRONIZED, LITERAL_WHILE, STATIC_INIT"/>
         </module>

@@ -95,6 +95,7 @@ public class CachedUrlStream implements PhysicalOggStream {
             try {
                 Thread.sleep(200);
             } catch (InterruptedException ex) {
+                // do nothing
             }
         }
         System.out.println();
