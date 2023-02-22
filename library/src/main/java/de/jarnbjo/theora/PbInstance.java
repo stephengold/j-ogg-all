@@ -155,7 +155,7 @@ public class PbInstance {
     //**********************************************************************/
     /* pointers to addresses used for allocation and deallocation the
       others are rounded up to the nearest 32 bytes */
-    CoeffNode[] _nodes;
+    CoeffNode[] nodes;
     int[] transIndex;
     /* ptr to table of transposed indexes */
 
@@ -363,7 +363,7 @@ public class PbInstance {
         fragQIndex = new int[unitFragments];
         ppCoefBuffer = new short[unitFragments][];
         fragmentVariances = new int[unitFragments];
-        _nodes = new CoeffNode[unitFragments];
+        nodes = new CoeffNode[unitFragments];
 
         /* Super Block Initialization */
         sbCodedFlags = new byte[superBlocks];

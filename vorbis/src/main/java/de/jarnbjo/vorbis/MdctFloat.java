@@ -86,8 +86,8 @@ class MdctFloat {
         scale = 4.f / n;
     }
 
-    private float[] _x = new float[1024];
-    private float[] _w = new float[1024];
+    private float[] tmpX = new float[1024];
+    private float[] tmpW = new float[1024];
 
     protected void setEqualizer(float[] equalizer) {
         this.equalizer = equalizer;
@@ -101,14 +101,14 @@ class MdctFloat {
             final float[] frq, final float[] window, final int[] pcm) {
         //, float[] out){
         float[] in = frq; //, out=buf;
-        if (_x.length < n / 2) {
-            _x = new float[n / 2];
+        if (tmpX.length < n / 2) {
+            tmpX = new float[n / 2];
         }
-        if (_w.length < n / 2) {
-            _w = new float[n / 2];
+        if (tmpW.length < n / 2) {
+            tmpW = new float[n / 2];
         }
-        final float[] x = _x;
-        final float[] w = _w;
+        final float[] x = tmpX;
+        final float[] w = tmpW;
         int n2 = n >> 1;
         int n4 = n >> 2;
         int n8 = n >> 3;

@@ -124,7 +124,7 @@ public class PpInstance {
     double uvSgcCorrection;
 
     double yuvPlaneCorrectionFactor;
-    double[] absDiff_ScoreMultiplierTable = new double[256];
+    double[] absDiffScoreMultiplierTable = new double[256];
     byte[] noiseScoreBoostTable = new byte[256];
     byte maxLineSearchLen;
 

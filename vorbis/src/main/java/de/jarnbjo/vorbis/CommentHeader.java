@@ -272,12 +272,12 @@ public class CommentHeader {
         System.err.print("pictype: " + pictype + ", "
                 + Integer.toHexString(pictype) + System.lineSeparator());
 
-        int mimetype_len = bis.getInt(32);
-        System.err.print("mimetype_len: " + mimetype_len + ", "
-                + Integer.toHexString(mimetype_len) + System.lineSeparator());
+        int mimeTypeLength = bis.getInt(32);
+        System.err.print("mimetype_len: " + mimeTypeLength + ", "
+                + Integer.toHexString(mimeTypeLength) + System.lineSeparator());
 
         String mimetype
-                = byteBufferToString(bytes, bis.position() + 1, mimetype_len);
+                = byteBufferToString(bytes, bis.position() + 1, mimeTypeLength);
         System.err.print("mimetype: " + mimetype + System.lineSeparator());
 
         bis.skip(mimetype.length() + 2);
@@ -308,15 +308,15 @@ public class CommentHeader {
         System.err.print("bpp: " + bpp + ", "
                 + Integer.toHexString(bpp) + System.lineSeparator());
 
-        int color_count = bis.getInt(32);
-        System.err.print("color_count: " + color_count + ", "
-                + Integer.toHexString(color_count) + System.lineSeparator());
+        int colorCount = bis.getInt(32);
+        System.err.print("color_count: " + colorCount + ", "
+                + Integer.toHexString(colorCount) + System.lineSeparator());
 
-        int byte_count = bis.getInt(32);
-        System.err.print("byte_count: " + byte_count + ", "
-                + Integer.toHexString(byte_count) + System.lineSeparator());
+        int byteCount = bis.getInt(32);
+        System.err.print("byte_count: " + byteCount + ", "
+                + Integer.toHexString(byteCount) + System.lineSeparator());
 
-        byte[] data = new byte[byte_count];
+        byte[] data = new byte[byteCount];
         System.arraycopy(bytes, bis.position() + 1, data, 0, data.length);
 
         return data;
