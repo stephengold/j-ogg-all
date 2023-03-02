@@ -233,7 +233,7 @@ and added Gradle build scripts.
 In September 2022, Robert Pengelly contributed code
 to retrieve album art from Vorbis media.
 
-In February 2022, the "library" and "vorbis" subprojects split off.
+In February 2023, the "library" and "vorbis" subprojects split off.
 
 [Jump to table of contents](#toc)
 
