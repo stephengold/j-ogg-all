@@ -192,8 +192,8 @@ You can restore the project to a pristine state:
 
 Releases can be downloaded from [GitHub](https://github.com/stephengold/j-ogg-all/releases)
 or from the Maven Central Repository:
-+ [j-ogg-all](https://search.maven.org/artifact/com.github.stephengold/j-ogg-all)
-+ [j-ogg-vorbis](https://search.maven.org/artifact/com.github.stephengold/j-ogg-vorbis)
++ [j-ogg-all](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-all/1.0.3)
++ [j-ogg-vorbis](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-vorbis/1.0.3)
 
 [Jump to table of contents](#toc)
 
