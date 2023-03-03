@@ -12,8 +12,8 @@ It contains 2 sub-projects:
 2. vorbis: builds a reduced library ("j-ogg-vorbis") for decoding
    Vorbis audio only (no support for FLAC, Theora, or JMF).
 
-Complete source code (in [Java])
-is provided under [an informal license][license].
+Complete source code (in [Java]) is provided under
+[an informal license][license].
 
 
 <a name="toc"></a>
@@ -175,7 +175,8 @@ Add to the project’s "pom.xml" file:
   + using Windows Command Prompt: `.\gradlew build`
 
 After a successful build,
-Maven artifacts will be found in "library/build/libs" and "vorbis/build/libs".
+Maven artifacts will be found
+in "library/build/libs" and "vorbis/build/libs".
 
 You can install the artifacts to your local Maven repository:
 + using Bash or PowerShell or Zsh: `./gradlew install`
