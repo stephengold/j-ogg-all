@@ -4,6 +4,12 @@
 
 rootProject.name = 'j-ogg-all'
 
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
+
 /*
  * Enumerate subdirectories in the project's root directory that contain a
  * "build.gradle" file. Any subdirectory with a "build.gradle" file is

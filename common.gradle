@@ -35,11 +35,6 @@ javadoc {
     }
 }
 
-repositories {
-    //mavenLocal() // to find local SNAPSHOTs of libraries
-    mavenCentral()
-}
-
 // publishing tasks:
 
 tasks.register('install') {
