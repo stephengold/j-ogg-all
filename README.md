@@ -207,7 +207,8 @@ or from the Maven Central Repository:
 
 Package names begin with `de.jarnbjo.`
 
-The source code and pre-built libraries are compatible with JDK 7.
+The source code is compatible with JDK 7.
+The pre-built libraries are compatible with JDK 8.
 
 [Jump to table of contents](#toc)
 
