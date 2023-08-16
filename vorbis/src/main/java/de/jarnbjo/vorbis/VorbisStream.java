@@ -51,7 +51,6 @@ public class VorbisStream {
     private static final int SETUP_HEADER = 5;
 
     final private Object streamLock = new Object();
-    private int pageCounter = 0;
 
     private int currentBitRate = 0;
 
@@ -157,11 +156,11 @@ public class VorbisStream {
     }
 
     private AudioPacket getNextAudioPacket() throws IOException {
-        pageCounter++;
-        byte[] data = oggStream.getNextOggPacket();
         AudioPacket res = null;
+        byte[] data = null;
         while (res == null) {
             try {
+                data = oggStream.getNextOggPacket();
                 res = new AudioPacket(this, new ByteArrayBitInputStream(data));
             } catch (ArrayIndexOutOfBoundsException e) {
                 // ignore and continue with next packet
