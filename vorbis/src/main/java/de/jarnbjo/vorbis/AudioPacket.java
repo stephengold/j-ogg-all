@@ -40,7 +40,7 @@ class AudioPacket {
     final private Floor[] channelFloors;
     final private boolean[] noResidues;
 
-    private final static float[][] windows = new float[8][];
+    private final float[][] windows = new float[8][];
 
     protected AudioPacket(
             final VorbisStream vorbis, final BitInputStream source)
