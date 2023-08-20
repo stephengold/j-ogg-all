@@ -78,7 +78,7 @@ Add to the project’s "build.gradle" file:
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:j-ogg-all:1.0.3'
+        implementation 'com.github.stephengold:j-ogg-all:1.0.4'
     }
 
 For some older versions of Gradle,
@@ -98,7 +98,7 @@ Add to the project’s "pom.xml" file:
     <dependency>
       <groupId>com.github.stephengold</groupId>
       <artifactId>j-ogg-all</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </dependency>
 
 [Jump to table of contents](#toc)
@@ -120,7 +120,7 @@ Add to the project’s "build.gradle" file:
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:j-ogg-vorbis:1.0.3'
+        implementation 'com.github.stephengold:j-ogg-vorbis:1.0.4'
     }
 
 For some older versions of Gradle,
@@ -140,7 +140,7 @@ Add to the project’s "pom.xml" file:
     <dependency>
       <groupId>com.github.stephengold</groupId>
       <artifactId>j-ogg-vorbis</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </dependency>
 
 [Jump to table of contents](#toc)
@@ -163,7 +163,7 @@ Add to the project’s "pom.xml" file:
   + using [Git]:
     + `git clone https://github.com/stephengold/j-ogg-all.git`
     + `cd j-ogg-all`
-    + `git checkout -b latest 1.0.3`
+    + `git checkout -b latest 1.0.4`
   + using a web browser:
     + browse to [the latest release][latest]
     + follow the "Source code (zip)" link
@@ -195,8 +195,8 @@ You can restore the project to a pristine state:
 
 Releases can be downloaded from [GitHub](https://github.com/stephengold/j-ogg-all/releases)
 or from the Maven Central Repository:
-+ [j-ogg-all](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-all/1.0.3)
-+ [j-ogg-vorbis](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-vorbis/1.0.3)
++ [j-ogg-all](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-all/1.0.4)
++ [j-ogg-vorbis](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-vorbis/1.0.4)
 
 [Jump to table of contents](#toc)
 
