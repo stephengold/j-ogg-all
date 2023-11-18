@@ -12,7 +12,7 @@ tasks.register('checkstyle') {
     dependsOn ':library:checkstyleMain', ':vorbis:checkstyleMain'
 }
 
-// publishing tasks:
+// Register publishing tasks:
 
 tasks.register('install') {
     dependsOn ':library:install', 'vorbis:install'

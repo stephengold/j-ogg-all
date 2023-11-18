@@ -37,7 +37,7 @@ javadoc {
     }
 }
 
-// publishing tasks:
+// Register publishing tasks:
 
 tasks.register('install') {
     dependsOn 'publishMavenPublicationToMavenLocal'
@@ -48,7 +48,7 @@ tasks.register('release') {
     description 'Stages Maven artifacts to Sonatype OSSRH.'
 }
 
-// custom tasks for creating source/javadoc JARs:
+// Register custom tasks for creating source/javadoc JARs:
 
 tasks.register('javadocJar', Jar) {
     archiveClassifier = 'javadoc'
