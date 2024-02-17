@@ -40,7 +40,7 @@ Complete source code (in [Java]) is provided under
 + decode [FLAC] audio
 + extract album art from Vorbis comments
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="todo"></a>
@@ -55,7 +55,7 @@ Complete source code (in [Java]) is provided under
   + [Opus interactive audio][opus]
   + [Speex audio][speex]
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 <a name="addall"></a>
 
@@ -101,7 +101,7 @@ Add to the project’s "pom.xml" file:
       <version>1.0.4</version>
     </dependency>
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="addvorbis"></a>
@@ -143,7 +143,7 @@ Add to the project’s "pom.xml" file:
       <version>1.0.4</version>
     </dependency>
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="build"></a>
@@ -187,7 +187,7 @@ You can restore the project to a pristine state:
 + using Bash or Fish or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="downloads"></a>
@@ -199,7 +199,7 @@ or from the Maven Central Repository:
 + [j-ogg-all](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-all/1.0.4)
 + [j-ogg-vorbis](https://central.sonatype.com/artifact/com.github.stephengold/j-ogg-vorbis/1.0.4)
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="conventions"></a>
@@ -211,7 +211,7 @@ Package names begin with `de.jarnbjo.`
 The source code is compatible with JDK 7.
 The pre-built libraries are compatible with JDK 8.
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="links"></a>
@@ -222,7 +222,7 @@ The pre-built libraries are compatible with JDK 8.
 + [reference implementation of the Vorbis codec](https://gitlab.xiph.org/xiph/vorbis)
 + [Vorbis samples](https://getsamplefiles.com/sample-audio-files/ogg)
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="history"></a>
@@ -240,7 +240,7 @@ to retrieve album art from Vorbis media.
 
 In February 2023, the "library" and "vorbis" subprojects split off.
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
