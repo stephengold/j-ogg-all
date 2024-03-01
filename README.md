@@ -68,7 +68,7 @@ a simple matter of adding these libraries to the classpath.
 
 For projects built using [Maven] or [Gradle], it is sufficient to add a
 dependency on j-ogg-all.
-Build tools should automatically resolve the dependency on JMF.
+The build tool should automatically resolve the dependency on JMF.
 
 ### Gradle-built projects
 
