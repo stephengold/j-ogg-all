@@ -1,4 +1,8 @@
-// Gradle build script for the "library" sub-project of j-ogg-all
+// Gradle script to build the "library" sub-project of j-ogg-all
+
+// Note: "common.gradle" in the root project contains additional initialization
+//   for this project. This initialization is applied in the "build.gradle"
+//   of the root project.
 
 ext {
     artifact = 'j-ogg-all'
@@ -105,7 +109,7 @@ publishMavenPublicationToMavenLocal.doLast {
 }
 publishMavenPublicationToOSSRHRepository.dependsOn('assemble')
 
-// signing tasks:
+// Register signing tasks:
 
 // Signing relies on the existence of 3 properties
 // (signing.keyId, signing.password, and signing.secretKeyRingFile)
