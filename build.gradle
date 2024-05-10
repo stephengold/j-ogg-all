@@ -4,6 +4,12 @@ plugins {
     id 'base' // to add a "clean" task to the root project
 }
 
+ext {
+    group = 'com.github.stephengold'
+    version = '1.0.5-SNAPSHOT'
+    websiteUrl = 'https://github.com/stephengold/j-ogg-all'
+}
+
 subprojects {
     apply from: rootProject.file('common.gradle')
 }

@@ -5,12 +5,6 @@ apply plugin: 'java-library'  // to build a JVM library
 apply plugin: 'maven-publish' // to publish artifacts to Maven repositories
 apply plugin: 'signing'       // to sign artifacts for publication
 
-ext {
-    group = 'com.github.stephengold'
-    version = '1.0.5-SNAPSHOT'
-    websiteUrl = 'https://github.com/stephengold/j-ogg-all'
-}
-
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_8

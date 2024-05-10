@@ -58,7 +58,7 @@ publishing {
             artifact sourcesJar
             artifactId artifact
             from components.java
-            groupId project.ext.group
+            groupId rootProject.ext.group
             pom {
                 description = 'Library for reading Ogg files and decoding the Vorbis audio format.'
                 developers {
@@ -71,18 +71,18 @@ publishing {
                     license {
                         distribution = 'repo'
                         name = 'Free and commercial use, modification and redistribution with attribution.'
-                        url = project.ext.websiteUrl + '/blob/master/LICENSE'
+                        url = rootProject.ext.websiteUrl + '/blob/master/LICENSE'
                     }
                 }
-                name = project.ext.group + ':' + artifact
+                name = rootProject.ext.group + ':' + artifact
                 scm {
                     connection = 'scm:git:git://github.com/stephengold/j-ogg-all.git'
                     developerConnection = 'scm:git:ssh://github.com:stephengold/j-ogg-all.git'
-                    url = project.ext.websiteUrl + '/tree/master'
+                    url = rootProject.ext.websiteUrl + '/tree/master'
                 }
-                url = project.ext.websiteUrl
+                url = rootProject.ext.websiteUrl
             }
-            version project.ext.version
+            version rootProject.ext.version
         }
     }
     // Staging to OSSRH relies on the existence of 2 properties
