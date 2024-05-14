@@ -1,7 +1,7 @@
 // Gradle settings and tasks common to all j-ogg-all subprojects
 
 apply plugin: 'checkstyle'    // to analyze Java sourcecode for style violations
-apply plugin: 'java-library'  // to build a JVM library
+apply plugin: 'java-library'  // to build JVM libraries
 apply plugin: 'maven-publish' // to publish artifacts to Maven repositories
 apply plugin: 'signing'       // to sign artifacts for publication
 

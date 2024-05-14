@@ -1,4 +1,4 @@
-// Gradle script to build the "library" sub-project of j-ogg-all
+// Gradle script to build the "library" subproject of j-ogg-all
 
 // Note: "common.gradle" in the root project contains additional initialization
 //   for this project. This initialization is applied in the "build.gradle"
