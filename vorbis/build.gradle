@@ -9,10 +9,6 @@ ext {
     baseName = "${artifact}-${rootProject.ext.version}" // for artifacts
 }
 
-dependencies {
-    implementation 'javax.media:jmf:2.1.1e'
-}
-
 jar {
     archiveBaseName = project.ext.baseName
     doLast {
