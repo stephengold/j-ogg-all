@@ -6,7 +6,7 @@ plugins {
 
 ext {
     group = 'com.github.stephengold'
-    version = '1.0.5-SNAPSHOT'
+    version = '1.0.5'
     websiteUrl = 'https://github.com/stephengold/j-ogg-all'
 }
 
