@@ -6,7 +6,7 @@
 
 ext {
     artifact = 'j-ogg-all'
-    baseName = "${artifact}-${version}" // for artifacts
+    baseName = "${artifact}-${rootProject.ext.version}" // for artifacts
 }
 
 // Incorporate all the classes and resources of the j-ogg-vorbis library:

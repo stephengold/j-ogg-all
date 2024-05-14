@@ -6,7 +6,7 @@
 
 ext {
     artifact = 'j-ogg-vorbis'
-    baseName = "${artifact}-${version}" // for artifacts
+    baseName = "${artifact}-${rootProject.ext.version}" // for artifacts
 }
 
 jar {
