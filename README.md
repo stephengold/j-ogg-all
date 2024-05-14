@@ -3,7 +3,7 @@
 [The J-ogg-all Project][joggall] provides 2 [JVM] libraries
 for reading [Ogg] bitstreams and decoding media they contain.
 
-It contains 2 sub-projects:
+It contains 2 subprojects:
 
 1. library: builds the full "j-ogg-all" runtime library, including decoders for
    [Vorbis], [Free Lossless Audio Codec (FLAC)][flac], and [Theora] media.
