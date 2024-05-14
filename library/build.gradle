@@ -9,7 +9,11 @@ ext {
     baseName = "${artifact}-${version}" // for artifacts
 }
 
-sourceSets.main.java.srcDir '../vorbis/src/main/java'
+// Incorporate all the classes and resources of the j-ogg-vorbis library:
+sourceSets.main {
+    java.srcDir '../vorbis/src/main/java'
+    resources.srcDir '../vorbis/src/main/resources'
+}
 
 dependencies {
     implementation 'javax.media:jmf:2.1.1e'
