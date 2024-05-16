@@ -21,6 +21,12 @@
 package de.jarnbjo.flac;
 
 class Properties {
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private Properties() {
+    }
+
     protected static boolean analyze() {
         return Boolean.parseBoolean(System.getProperty("analyze", "false"));
     }

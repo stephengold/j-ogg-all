@@ -24,6 +24,12 @@
 package de.jarnbjo.vorbis;
 
 final public class Util {
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private Util() {
+    }
+
     public static int ilog(int x) {
         int res = 0;
         while (x > 0) {

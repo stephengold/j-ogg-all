@@ -47,6 +47,12 @@ public class PostProcess {
 
     private static int deringModifierV1; //=DcQuantScaleV1;
 
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private PostProcess() {
+    }
+
     static void postProcess(PbInstance pbi) {
         switch (pbi.postProcessingLevel) {
             case 8:

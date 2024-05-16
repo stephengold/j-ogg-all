@@ -1111,4 +1111,10 @@ public class Constants {
     };
 
     public static final int[] modeUsesMC = {0, 0, 1, 1, 1, 0, 1, 1};
+
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private Constants() {
+    }
 }
