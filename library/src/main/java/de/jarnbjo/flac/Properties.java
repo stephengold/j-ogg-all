@@ -20,7 +20,7 @@
  */
 package de.jarnbjo.flac;
 
-class Properties {
+final class Properties {
     /**
      * A private constructor to inhibit instantiation of this class.
      */

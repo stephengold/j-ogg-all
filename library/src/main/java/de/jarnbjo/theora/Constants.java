@@ -1,6 +1,6 @@
 package de.jarnbjo.theora;
 
-public class Constants {
+public final class Constants {
     public static final int CURRENT_ENCODE_VERSION = 1;
     public static final int HUGE_ERROR = 1 << 28;
     /*  Out of range test value */

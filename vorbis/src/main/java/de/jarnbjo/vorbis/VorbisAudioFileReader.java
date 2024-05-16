@@ -166,7 +166,7 @@ public class VorbisAudioFileReader extends AudioFileReader {
         }
     }
 
-    public static class VorbisFormatType extends AudioFileFormat.Type {
+    public static final class VorbisFormatType extends AudioFileFormat.Type {
         private static final VorbisFormatType instance = new VorbisFormatType();
 
         private VorbisFormatType() {

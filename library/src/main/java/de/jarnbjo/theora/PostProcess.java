@@ -22,7 +22,7 @@ package de.jarnbjo.theora;
 
 import java.util.Arrays;
 
-public class PostProcess {
+public final class PostProcess {
     private static final int[] sharpenModifier = {
         -12, -11, -10, -10, -9, -9, -9, -9,
         -6, -6, -6, -6, -6, -6, -6, -6,

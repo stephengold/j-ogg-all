@@ -50,7 +50,7 @@ import javax.media.protocol.PullSourceStream;
  * logical bitstream (BOS, EOS) and if the page data starts with a continued
  * packet or a fresh data packet.</p>
  */
-public class OggJmfPage extends OggPage {
+public final class OggJmfPage extends OggPage {
     final private int version;
     final private boolean continued, bos, eos;
     final private long absoluteGranulePosition;

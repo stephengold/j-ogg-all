@@ -20,7 +20,7 @@
  */
 package de.jarnbjo.theora;
 
-public class CodingMode {
+public final class CodingMode {
     public static final CodingMode CODE_INTER_NO_MV
             = new CodingMode(0x0);
     /* INTER prediction, (0,0) motion vector implied.  */
