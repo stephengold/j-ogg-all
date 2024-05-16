@@ -1,6 +1,4 @@
-/*
- * settings.gradle: global settings shared by all j-ogg-all subprojects
- */
+// settings.gradle: global settings shared by all j-ogg-all subprojects
 
 rootProject.name = 'j-ogg-all'
 
