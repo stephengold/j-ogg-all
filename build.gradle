@@ -25,6 +25,6 @@ tasks.register('install') {
     description 'Installs Maven artifacts to the local repository.'
 }
 tasks.register('release') {
-    dependsOn 'library:release', 'vorbis:install'
+    dependsOn 'library:release', 'vorbis:release'
     description 'Stages Maven artifacts to Sonatype OSSRH.'
 }
