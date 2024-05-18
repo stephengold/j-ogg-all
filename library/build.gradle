@@ -16,7 +16,7 @@ sourceSets.main {
 }
 
 dependencies {
-    implementation 'javax.media:jmf:2.1.1e'
+    implementation(libs.jmf)
 }
 
 jar {

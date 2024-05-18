@@ -1,0 +1,13 @@
+## TOML version catalog for the j-ogg-all project
+
+[versions]
+
+checkstyle = "9.3"
+
+[libraries]
+
+jmf = "javax.media:jmf:2.1.1e"
+
+[bundles]
+
+[plugins]
