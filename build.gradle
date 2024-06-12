@@ -10,10 +10,6 @@ ext {
     websiteUrl = 'https://github.com/stephengold/j-ogg-all'
 }
 
-subprojects {
-    apply from: rootProject.file('common.gradle')
-}
-
 tasks.register('checkstyle') {
     dependsOn ':library:checkstyleMain', ':vorbis:checkstyleMain'
 }

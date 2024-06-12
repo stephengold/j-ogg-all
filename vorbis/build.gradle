@@ -1,12 +1,71 @@
 // Gradle script to build the "vorbis" subproject of j-ogg-all
 
-// Note: "common.gradle" in the root project contains additional initialization
-//   for this project. This initialization is applied in the "build.gradle"
-//   of the root project.
+plugins {
+    id 'checkstyle'    // to analyze Java sourcecode for style violations
+    id 'java-library'  // to build JVM libraries
+    id 'maven-publish' // to publish artifacts to Maven repositories
+    id 'signing'       // to sign artifacts for publication
+}
 
 ext {
     artifact = 'j-ogg-vorbis'
     baseName = "${artifact}-${rootProject.ext.version}" // for artifacts
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+checkstyle {
+    toolVersion libs.versions.checkstyle.get()
+}
+
+tasks.withType(JavaCompile).configureEach { // Java compile-time options:
+    options.compilerArgs << '-Xdiags:verbose'
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
+        // Suppress warnings that source value 7 is obsolete.
+        options.compilerArgs << '-Xlint:-options'
+    }
+    //options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true // to provide detailed deprecation warnings
+    options.encoding = 'UTF-8'
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10)) {
+        options.release = 8
+    }
+}
+
+javadoc {
+    // Disable doclint for JDK8+.
+    if (JavaVersion.current().isJava8Compatible()) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+    }
+}
+
+// Register publishing tasks:
+
+tasks.register('install') {
+    dependsOn 'publishMavenPublicationToMavenLocal'
+    description 'Installs Maven artifacts to the local repository.'
+}
+tasks.register('release') {
+    dependsOn 'publishMavenPublicationToOSSRHRepository'
+    description 'Stages Maven artifacts to Sonatype OSSRH.'
+}
+
+// Register custom tasks for creating source/javadoc JARs:
+
+tasks.register('javadocJar', Jar) {
+    archiveClassifier = 'javadoc'
+    dependsOn 'javadoc'
+    description 'Creates a JAR of javadoc.'
+    from javadoc.destinationDir
+}
+
+tasks.register('sourcesJar', Jar) {
+    archiveClassifier = 'sources'
+    description 'Creates a JAR of Java sourcecode.'
+    from sourceSets.main.allJava // default is ".allSource", which includes resources
 }
 
 jar {
