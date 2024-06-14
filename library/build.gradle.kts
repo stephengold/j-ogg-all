@@ -48,7 +48,14 @@ tasks.withType<JavaCompile>().all { // Java compile-time options:
     }
 }
 
-// TODO Disable doclint for JDK8+
+tasks.withType<Javadoc>().all {
+    // Disable doclint for JDK8+.
+    if (javaVersion.isJava8Compatible()) {
+        (options as CoreJavadocOptions).apply {
+            addStringOption("Xdoclint:none", "-quiet")
+        }
+    }
+}
 
 // Register publishing tasks:
 
