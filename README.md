@@ -72,13 +72,13 @@ The build tool should automatically resolve the dependency on JMF.
 
 ### Gradle-built projects
 
-Add to the project’s "build.gradle" file:
+Add to the project’s "build.gradle" or "build.gradle.kts" file:
 
     repositories {
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:j-ogg-all:1.0.5'
+        implementation("com.github.stephengold:j-ogg-all:1.0.5")
     }
 
 For some older versions of Gradle,
@@ -120,7 +120,7 @@ Add to the project’s "build.gradle" file:
         mavenCentral()
     }
     dependencies {
-        implementation 'com.github.stephengold:j-ogg-vorbis:1.0.5'
+        implementation("com.github.stephengold:j-ogg-vorbis:1.0.5")
     }
 
 For some older versions of Gradle,
