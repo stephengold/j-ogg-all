@@ -89,7 +89,7 @@ class Floor1 extends Floor implements Cloneable {
 
         int floorValues = 0;
 
-        List alXList = new ArrayList();
+        List<Integer> alXList = new ArrayList<>();
 
         alXList.add(0);
         alXList.add(1 << rangeBits);

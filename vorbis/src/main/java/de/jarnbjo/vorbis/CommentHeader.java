@@ -57,7 +57,7 @@ public class CommentHeader {
             = "METADATA_BLOCK_PICTURE";
 
     final private String vendor;
-    final private HashMap comments = new HashMap();
+    final private HashMap<String, ArrayList<String>> comments = new HashMap<>();
     private boolean framingBit;
 
     private static final long HEADER = 0x736962726f76L; // 'vorbis'
@@ -101,9 +101,9 @@ public class CommentHeader {
     }
 
     private void addComment(String key, String value) {
-        ArrayList al = (ArrayList) comments.get(key);
+        ArrayList<String> al = comments.get(key);
         if (al == null) {
-            al = new ArrayList();
+            al = new ArrayList<>();
             comments.put(key, al);
         }
         al.add(value);
@@ -114,14 +114,13 @@ public class CommentHeader {
     }
 
     public String getComment(String key) {
-        ArrayList al = (ArrayList) comments.get(key);
-        return al == null ? null : (String) al.get(0);
+        ArrayList<String> al = comments.get(key);
+        return al == null ? null : al.get(0);
     }
 
     public String[] getComments(String key) {
-        ArrayList al = (ArrayList) comments.get(key);
-        return al == null ? new String[0]
-                : (String[]) al.toArray(new String[al.size()]);
+        ArrayList<String> al = comments.get(key);
+        return al == null ? new String[0] : al.toArray(new String[0]);
     }
 
     public String getTitle() {

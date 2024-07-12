@@ -33,7 +33,7 @@ import java.util.List;
 public class FlacStream {
     private LogicalOggStream oggStream;
 
-    final private List metadataBlocks = new ArrayList();
+    final private List<MetadataBlock> metadataBlocks = new ArrayList<>();
 
     private StreamInfo streamInfo;
     private VorbisComment vorbisComment;

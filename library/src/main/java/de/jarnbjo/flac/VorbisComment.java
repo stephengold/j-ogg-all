@@ -23,7 +23,7 @@ public class VorbisComment extends MetadataBlock {
     public static final String ISRC = "ISRC";
 
     final private String vendor;
-    final private HashMap comments = new HashMap();
+    final private HashMap<String, ArrayList<String>> comments = new HashMap<>();
 
     public VorbisComment(BitInputStream source) throws IOException {
         int length = source.getInt(24);
@@ -48,9 +48,9 @@ public class VorbisComment extends MetadataBlock {
     private void addComment(String key, String value) {
         System.out.println(key + " = " + value);
 
-        ArrayList al = (ArrayList) comments.get(key);
+        ArrayList<String> al = comments.get(key);
         if (al == null) {
-            al = new ArrayList();
+            al = new ArrayList<>();
             comments.put(key, al);
         }
         al.add(value);
@@ -61,14 +61,13 @@ public class VorbisComment extends MetadataBlock {
     }
 
     public String getComment(String key) {
-        ArrayList al = (ArrayList) comments.get(key);
-        return al == null ? null : (String) al.get(0);
+        ArrayList<String> al = comments.get(key);
+        return al == null ? null : al.get(0);
     }
 
     public String[] getComments(String key) {
-        ArrayList al = (ArrayList) comments.get(key);
-        return al == null ? new String[0]
-                : (String[]) al.toArray(new String[al.size()]);
+        ArrayList<String> al = comments.get(key);
+        return al == null ? new String[0] : al.toArray(new String[0]);
     }
 
     public String getTitle() {

@@ -47,7 +47,8 @@ public class OggJmfStream implements PhysicalOggStream {
     final private PullSourceStream source;
     final private long[] pageOffsets;
 
-    final private HashMap logicalStreams = new HashMap();
+    final private HashMap<Integer, LogicalOggStreamImpl> logicalStreams
+            = new HashMap<>();
 
     /**
      * Creates access to the specified {@code PullSourceStream} through the
@@ -68,7 +69,7 @@ public class OggJmfStream implements PhysicalOggStream {
             throw new OggFormatException("The source stream must be seekable.");
         }
 
-        List po = new ArrayList();
+        List<Long> po = new ArrayList<>();
         int pageNumber = 0;
         try {
             while (true) {

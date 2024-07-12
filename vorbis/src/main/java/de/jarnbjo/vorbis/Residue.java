@@ -34,7 +34,7 @@ abstract class Residue {
     protected int classBook; // groupbook
     protected int[] cascade; // secondstages
     protected int[][] books;
-    protected HashMap looks = new HashMap();
+    protected HashMap<Mode, Look> looks = new HashMap<>();
 
     protected Residue() {
     }

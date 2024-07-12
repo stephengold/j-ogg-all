@@ -34,8 +34,8 @@ public class LogicalOggStreamImpl implements LogicalOggStream {
     final private PhysicalOggStream source;
     final private int serialNumber;
 
-    final private ArrayList pageNumberMapping = new ArrayList();
-    final private ArrayList granulePositions = new ArrayList();
+    final private ArrayList<Integer> pageNumberMapping = new ArrayList<>();
+    final private ArrayList<Long> granulePositions = new ArrayList<>();
 
     private int pageIndex = 0;
     private OggPage currentPage;
