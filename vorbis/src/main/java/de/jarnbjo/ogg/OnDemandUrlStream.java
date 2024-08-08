@@ -46,7 +46,8 @@ public class OnDemandUrlStream implements PhysicalOggStream {
     private int contentLength = 0;
     private int position = 0;
 
-    final private HashMap logicalStreams = new HashMap();
+    final private HashMap<Integer, LogicalOggStream> logicalStreams
+            = new HashMap<>();
     private OggPage firstPage;
 
     private static final int PAGECACHE_SIZE = 20;

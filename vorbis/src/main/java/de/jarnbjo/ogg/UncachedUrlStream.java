@@ -40,9 +40,10 @@ public class UncachedUrlStream implements PhysicalOggStream {
     final private URLConnection source;
     final private InputStream sourceStream;
     final private Object drainLock = new Object();
-    final private LinkedList pageCache = new LinkedList();
+    final private LinkedList<OggPage> pageCache = new LinkedList<>();
 
-    final private HashMap logicalStreams = new HashMap();
+    final private HashMap<Integer, LogicalOggStream> logicalStreams
+            = new HashMap<>();
 
     final private LoaderThread loaderThread;
 
@@ -119,7 +120,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
     public class LoaderThread implements Runnable {
 
         final private InputStream source;
-        final private Deque pageCache;
+        final private Deque<OggPage> pageCache;
         private RandomAccessFile drain;
         private byte[] memoryCache;
 
@@ -127,7 +128,7 @@ public class UncachedUrlStream implements PhysicalOggStream {
 
         private int pageNumber;
 
-        public LoaderThread(InputStream source, LinkedList pageCache) {
+        public LoaderThread(InputStream source, LinkedList<OggPage> pageCache) {
             this.source = source;
             this.pageCache = pageCache;
         }

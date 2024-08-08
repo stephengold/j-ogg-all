@@ -34,7 +34,8 @@ public class BasicStream implements PhysicalOggStream {
     final private InputStream sourceStream;
     private int position = 0;
 
-    final private HashMap logicalStreams = new HashMap();
+    final private HashMap<Integer, LogicalOggStream> logicalStreams
+            = new HashMap<>();
     private OggPage firstPage;
 
     public BasicStream(InputStream sourceStream) throws IOException {

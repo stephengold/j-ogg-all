@@ -42,11 +42,12 @@ public class CachedUrlStream implements PhysicalOggStream {
     final private Object drainLock = new Object();
     final private RandomAccessFile drain;
     private byte[] memoryCache;
-    final private ArrayList pageOffsets = new ArrayList();
-    final private ArrayList pageLengths = new ArrayList();
+    final private ArrayList<Long> pageOffsets = new ArrayList<>();
+    final private ArrayList<Long> pageLengths = new ArrayList<>();
     private long cacheLength;
 
-    final private HashMap logicalStreams = new HashMap();
+    final private HashMap<Integer, LogicalOggStream> logicalStreams
+            = new HashMap<>();
 
     final private LoaderThread loaderThread;
 
@@ -208,7 +209,7 @@ public class CachedUrlStream implements PhysicalOggStream {
 
                         pageOffsets.add(pos);
                         pageLengths.add(
-                                arr1.length + arr2.length + arr3.length);
+                                (long) arr1.length + arr2.length + arr3.length);
                     }
 
                     if (!op.isBos()) {
