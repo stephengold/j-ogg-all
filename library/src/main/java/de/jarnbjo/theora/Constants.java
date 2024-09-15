@@ -129,7 +129,7 @@ public final class Constants {
     public static final int PMAP_CB_ROWS = (INTERNAL_BLOCK_HEIGHT * 3);
     public static final int PSCORE_CB_ROWS = (INTERNAL_BLOCK_HEIGHT * 4);
 
-// Status values in block coding map
+    // Status values in block coding map
     public static final int CANDIDATE_BLOCK_LOW = -2;
     public static final int CANDIDATE_BLOCK = -1;
     public static final int BLOCK_NOT_CODED = 0;
