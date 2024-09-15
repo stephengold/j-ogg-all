@@ -5,7 +5,7 @@ plugins {
 }
 
 ext {
-    set("version", "1.0.6-SNAPSHOT")
+    set("version", "1.0.6")
 }
 
 tasks.register("checkstyle") {
