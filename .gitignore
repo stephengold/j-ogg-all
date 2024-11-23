@@ -2,6 +2,7 @@
 /.gradle/
 
 # Ignore Gradle's build output directories:
+/build/
 /library/build/
 /vorbis/build/
 
