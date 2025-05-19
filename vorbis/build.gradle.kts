@@ -1,10 +1,10 @@
 // Gradle script to build the "vorbis" subproject of j-ogg-all
 
 plugins {
-    `checkstyle`    // to analyze Java sourcecode for style violations
+    checkstyle      // to analyze Java sourcecode for style violations
     `java-library`  // to build JVM libraries
     `maven-publish` // to publish artifacts to Maven repositories
-    `signing`       // to sign artifacts for publication
+    signing         // to sign artifacts for publication
 }
 
 val group = "com.github.stephengold"
