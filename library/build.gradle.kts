@@ -1,4 +1,4 @@
-// Gradle script to build the "library" subproject of j-ogg-all
+// Gradle script to build and publish the "library" subproject of j-ogg-all
 
 plugins {
     checkstyle      // to analyze Java sourcecode for style violations
@@ -176,7 +176,8 @@ tasks.named("publishMavenPublicationToCentralRepository") { dependsOn("assemble"
 
 // Signing relies on the existence of 3 properties
 // (signing.keyId, signing.password, and signing.secretKeyRingFile)
-// which should be stored in ~/.gradle/gradle.properties
+// which should be set in the ~/.gradle/gradle.properties file
+// or by -P options on the command line.
 
 signing {
     sign(publishing.publications["maven"])

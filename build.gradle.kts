@@ -1,4 +1,4 @@
-// Gradle script to build the j-ogg-all project
+// Gradle script to build and publish the j-ogg-all project
 
 plugins {
     base // to add a "clean" task to the root project
