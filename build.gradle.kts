@@ -20,5 +20,5 @@ tasks.register("install") {
 }
 tasks.register("release") {
     dependsOn("library:release", "vorbis:release")
-    description = "Stages Maven artifacts to Sonatype OSSRH."
+    description = "Stages the Maven artifacts to the Central Publisher Portal."
 }

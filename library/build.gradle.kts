@@ -64,8 +64,8 @@ tasks.register("install") {
     description = "Installs the Maven artifacts to the local repository."
 }
 tasks.register("release") {
-    dependsOn("publishMavenPublicationToOSSRHRepository")
-    description = "Stages the Maven artifacts to Sonatype OSSRH."
+    dependsOn("publishMavenPublicationToCentralRepository")
+    description = "Stages the Maven artifacts to the Central Publisher Portal."
 }
 
 tasks.jar {
@@ -150,17 +150,18 @@ publishing {
             version = libraryVersion
         }
     }
-    // Staging to OSSRH relies on the existence of 2 properties
-    // (ossrhUsername and ossrhPassword)
-    // which should be stored in ~/.gradle/gradle.properties
+    // Staging to the Central Publisher Portal relies on the existence of 2 properties
+    // (centralUsername and centralPassword)
+    // which should be set in the ~/.gradle/gradle.properties file
+    // or by -P options on the command line.
     repositories {
         maven {
             credentials {
-                username = if (hasProperty("ossrhUsername")) property("ossrhUsername") as String else "Unknown user"
-                password = if (hasProperty("ossrhPassword")) property("ossrhPassword") as String else "Unknown password"
+                username = if (hasProperty("centralUsername")) property("centralUsername") as String else "Unknown user"
+                password = if (hasProperty("centralPassword")) property("centralPassword") as String else "Unknown password"
             }
-            name = "OSSRH"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
+            name = "Central"
+            url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
         }
     }
 }
@@ -169,7 +170,7 @@ tasks.named("publishMavenPublicationToMavenLocal") {
     dependsOn("assemble")
     doLast { println("installed locally as " + baseName) }
 }
-tasks.named("publishMavenPublicationToOSSRHRepository") { dependsOn("assemble") }
+tasks.named("publishMavenPublicationToCentralRepository") { dependsOn("assemble") }
 
 // Register signing tasks:
 
