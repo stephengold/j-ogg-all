@@ -16,7 +16,7 @@ tasks.register("checkstyle") {
 
 tasks.register("install") {
     dependsOn(":library:install", "vorbis:install")
-    description = "Installs Maven artifacts to the local repository."
+    description = "Installs the Maven artifacts to the local repository."
 }
 tasks.register("release") {
     dependsOn("library:release", "vorbis:release")
