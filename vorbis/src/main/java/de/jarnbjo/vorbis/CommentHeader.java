@@ -321,7 +321,7 @@ public class CommentHeader {
         return data;
     }
 
-    private static class Base64 {
+    final private static class Base64 {
         private final static char[] ALPHABET = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "abcdefghijklmnopqrstuvwxyz0123456789+/").toCharArray();
         private static int[] toInt = new int[128];
