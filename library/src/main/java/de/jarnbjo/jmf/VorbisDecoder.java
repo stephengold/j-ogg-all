@@ -33,38 +33,38 @@ public class VorbisDecoder implements Codec {
 
     private static final Format[] supportedInputFormats = {
         new AudioFormat(
-        "audio/x-vorbis",
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.byteArray),
+            "audio/x-vorbis",
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.byteArray),
         new AudioFormat(
-        "audio/vorbis",
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.byteArray),
+            "audio/vorbis",
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.byteArray),
     };
 
     private static final Format[] supportedOutputFormats = {
         new AudioFormat(
-        AudioFormat.LINEAR,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.byteArray)
+            AudioFormat.LINEAR,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.byteArray)
     };
 
     final private VorbisStream vorbisStream = new VorbisStream();

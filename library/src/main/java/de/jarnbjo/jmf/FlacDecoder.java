@@ -33,38 +33,38 @@ public class FlacDecoder implements Codec {
 
     private static final Format[] supportedInputFormats = {
         new AudioFormat(
-        "audio/x-flac",
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.byteArray),
+            "audio/x-flac",
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.byteArray),
         new AudioFormat(
-        "audio/flac",
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.byteArray)
+            "audio/flac",
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.byteArray)
     };
 
     private static final Format[] supportedOutputFormats = {
         new AudioFormat(
-        AudioFormat.LINEAR,
+            AudioFormat.LINEAR,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
         Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.NOT_SPECIFIED,
-        Format.byteArray)
+            Format.NOT_SPECIFIED,
+            Format.NOT_SPECIFIED,
+            Format.byteArray)
     };
 
     final private FlacStream flacStream = new FlacStream();
