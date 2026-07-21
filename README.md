@@ -247,7 +247,7 @@ In February 2023, the "library" and "vorbis" subprojects split off.
 [Jump to the table of contents](#toc)
 
 
-[adoptium]: https://adoptium.net/releases.html "Adoptium Project"
+[adoptium]: https://adoptium.net/temurin/releases/ "Adoptium Project"
 [daala]: https://xiph.org/daala/ "Daala codec"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [flac]: https://xiph.org/flac/ "Free Lossless Audio Codec"
