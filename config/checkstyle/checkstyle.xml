@@ -21,7 +21,8 @@
     <!-- See https://checkstyle.org/checks/regexp -->
     <module name="RegexpSingleline">
         <property name="format" value="\s$"/>
-        <property name="message" value="Line has trailing whitespace."/>
+        <property name="id" value="noTrailingWhitespace"/>
+        <property name="message" value="Trailing whitespace is not allowed"/>
     </module>
 
     <!-- Checks for size violations:             -->
@@ -41,8 +42,13 @@
         <!-- Checks for annotations:                      -->
         <!-- See https://checkstyle.org/checks/annotation -->
         <module name="AnnotationLocation">
-            <property name="id" value="AnnotationLocationMostCases"/>
-            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
+            <property name="id" value="AnnotationLocationMethodsAndCtors"/>
+            <property name="tokens" value="METHOD_DEF, CTOR_DEF, COMPACT_CTOR_DEF"/>
+        </module>
+        <module name="AnnotationLocation">
+            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+            <property name="id" value="AnnotationLocationTypeAndPackageAndMembers"/>
+            <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, RECORD_DEF, ANNOTATION_DEF, PACKAGE_DEF, ENUM_CONSTANT_DEF, ANNOTATION_FIELD_DEF"/>
         </module>
         <module name="AnnotationLocation">
             <property name="allowSamelineMultipleAnnotations" value="true"/>
@@ -128,9 +134,7 @@
         </module>
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
         <module name="RedundantImport"/>
-        <module name="UnusedImports">
-            <property name="processJavadoc" value="false"/>
-        </module>
+        <module name="UnusedImports"/>
 
         <!-- Checks for Javadoc comments:              -->
         <!-- See https://checkstyle.org/checks/javadoc -->
