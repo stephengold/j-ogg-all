@@ -51,6 +51,8 @@
         </module>
         <module name="AnnotationUseStyle"/>
         <module name="MissingDeprecated"/>
+        <module name="MissingOverrideOnRecordAccessor"/>
+        <module name="SuppressWarningsHolder"/>
 
         <!-- Checks for blocks:                       -->
         <!-- See https://checkstyle.org/checks/blocks -->
@@ -113,6 +115,7 @@
         <module name="ModifiedControlVariable"/>
         <module name="NoFinalizer"/>
         <module name="OneStatementPerLine"/>
+        <module name="TextBlockGoogleStyleFormatting"/>
 
         <!-- Checks for imports:                       -->
         <!-- See https://checkstyle.org/checks/imports -->
@@ -137,6 +140,8 @@
             <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
         </module>
         <module name="InvalidJavadocPosition"/>
+        <module name="JavadocContentLocation"/>
+        <module name="JavadocLeadingAsteriskAlign"/>
         <module name="JavadocMethod">
             <property name="allowedAnnotations" value=""/>
         </module>
