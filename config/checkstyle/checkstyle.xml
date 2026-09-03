@@ -17,8 +17,8 @@
     <!-- See https://checkstyle.org/checks/misc -->
     <module name="NewlineAtEndOfFile"/>
 
-    <!-- Check for trailing whitespace:                                 -->
-    <!-- See https://checkstyle.org/checks/regexp/regexpsingleline.html -->
+    <!-- Regexp checks:                           -->
+    <!-- See https://checkstyle.org/checks/regexp -->
     <module name="RegexpSingleline">
         <property name="format" value="\s$"/>
         <property name="message" value="Line has trailing whitespace."/>
